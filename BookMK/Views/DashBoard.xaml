@@ -1,0 +1,137 @@
+﻿<UserControl x:Class="BookMK.Views.UserControl1"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:BookMK.Views"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+             d:DesignHeight="700" d:DesignWidth="1200"
+             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+             Background="{x:Null}" Height="700" Width="1400">
+
+    <UserControl.Resources>
+        <FontFamily x:Key="Righteous">/BookMK;component/Fonts/Righteous-Regular.ttf#Righteous</FontFamily>
+        <FontFamily x:Key="RobotoMono">/BookMK;component/Fonts/RobotoMono-VariableFont_wght.ttf#RobotoMono</FontFamily>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="219" />
+            <ColumnDefinition Width="981"/>
+           
+        </Grid.ColumnDefinitions>
+        <Border Grid.ColumnSpan="2" CornerRadius="15" Background="#36393e"/>
+
+        <!--first element-->
+        <Border  CornerRadius="15" >
+            <Border.Background >
+                <LinearGradientBrush StartPoint="1,0" EndPoint="0,1">
+                    <GradientStop Color="#311E70" Offset="0"/>
+                    <GradientStop Color="#306A9A" Offset="0.5"/>
+                    <GradientStop Color="#2FB8C3" Offset="1"/>
+                    
+                </LinearGradientBrush>
+                
+            </Border.Background>
+            
+            <StackPanel >
+                <Grid Height="80" Margin="3 0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="80"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    
+                    <Ellipse Height="70" Width="70">
+                        <Ellipse.Fill>
+                                <ImageBrush ImageSource="/IMAGE/phong.jpg" />
+                            </Ellipse.Fill>
+                    </Ellipse>
+
+                    <Border 
+                            Grid.Column="1" 
+                            CornerRadius="20">
+                        
+                        
+                        <TextBlock 
+                                Text="BookMK" 
+                                FontFamily="{StaticResource Righteous}"
+                                TextWrapping="Wrap" 
+                                Margin="0 20"
+                                Foreground="White"
+                                FontSize="24" 
+                                MaxHeight="80" 
+                                />
+                    </Border>
+
+                </Grid>
+                
+                
+                
+                <!--<StackPanel Margin="0 20">
+                    <RadioButton x:Name="radiobutton1"  
+                                     FontFamily="{StaticResource boldFont}"
+                                     Background="{StaticResource menu_button_color}"  Tag="Home"
+                                     Height="45" Content="Home"
+                                     Style="{StaticResource RadioButton1 }" Checked="RadioButton_Checked">
+                    </RadioButton>
+                    <RadioButton 
+                                     Tag="Cutlery"
+                            FontFamily="{StaticResource boldFont}"
+                                     Background="{StaticResource menu_button_color}" 
+                                     Height="45" Content="Product"
+                                     Style="{StaticResource RadioButton1 }" Checked="RadioButton_Checked">
+                    </RadioButton>
+                    <RadioButton 
+                                     Tag="ShoppingCart"
+                            FontFamily="{StaticResource boldFont}"
+                                     Background="{StaticResource menu_button_color}" 
+                                     Height="45" Content="Bills"
+                                     Style="{StaticResource RadioButton1 }" Checked="RadioButton_Checked">
+                    </RadioButton>
+                    <RadioButton 
+                                     Tag="Male"
+                            FontFamily="{StaticResource boldFont}"
+                                     Background="{StaticResource menu_button_color}" 
+                            HorizontalContentAlignment="Center"
+                                     Height="45" Content="Customer"
+                                     Style="{StaticResource RadioButton1 }" Checked="RadioButton_Checked">
+                    </RadioButton>
+                    <RadioButton 
+                                     Tag="AddressCard"
+                            FontFamily="{StaticResource boldFont}"
+                                     Background="{StaticResource menu_button_color}" 
+                            HorizontalContentAlignment="Center"
+                                     Height="45" Content="Managing"
+                                     Style="{StaticResource RadioButton1 }" Checked="RadioButton_Checked">
+                    </RadioButton>
+                    <RadioButton 
+                                     Tag="Coffee"
+                            FontFamily="{StaticResource boldFont}"
+                                     Background="{StaticResource menu_button_color}" 
+                            HorizontalContentAlignment="Center"
+                                     Height="45" Content="Ingredient"
+                                     Style="{StaticResource RadioButton1 }" Checked="RadioButton_Checked">
+                    </RadioButton>
+                    <RadioButton 
+                                     Tag="Gear"
+                            FontFamily="{StaticResource boldFont}"
+                                     Background="{StaticResource menu_button_color}" 
+                            HorizontalContentAlignment="Center"
+                                     Height="45" Content="Settings"
+                                     Style="{StaticResource RadioButton1 }" Checked="RadioButton_Checked">
+                    </RadioButton>
+
+
+                    --><!--<RadioButton Style="{StaticResource RadioButton}">
+                            
+                        </RadioButton>--><!--
+
+                </StackPanel>-->
+
+            </StackPanel>
+
+        </Border>
+
+
+    </Grid>
+</UserControl>

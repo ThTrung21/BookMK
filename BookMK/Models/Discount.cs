@@ -8,7 +8,7 @@ namespace BookMK.Models
 {
     public class Discount
     {
-        private string _id { get; set; }
+        private string ID { get; set; }
         public float DiscountAmount { get; set; }
         public DateTime StartTime { get; set; } = DateTime.Now;
         public DateTime EndTime { get; set; }
