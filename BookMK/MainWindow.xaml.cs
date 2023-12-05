@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MongoDB.Driver;
+using MongoDB.Bson;
 
 namespace BookMK
 {
@@ -23,6 +25,20 @@ namespace BookMK
         public MainWindow()
         {
             InitializeComponent();
+        }
+        private void btnLuu_Click(object sender, RoutedEventArgs e)
+        {
+            MongoClient client = new MongoClient("mongodb://localhost:27017");
+            IMongoDatabase database = client.GetDatabase("BookMK");
+            IMongoCollection<BsonDocument> collection = database.GetCollection<BsonDocument>("Author");
+            BsonDocument document = new BsonDocument
+            {
+                { "Ma",1},
+                { "Ten","Ernest Hermingway"},
+                { "Note","Greatest author of his time"}
+            };
+            collection.InsertOne(document);
+            MessageBox.Show("Đã lưu thành công");
         }
     }
 }

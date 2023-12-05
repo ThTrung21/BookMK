@@ -229,6 +229,7 @@
     </EmbeddedResource>
     <Resource Include="Fonts\Righteous-Regular.ttf" />
     <Resource Include="Fonts\RobotoMono-VariableFont_wght.ttf" />
+    <Resource Include="Fonts\Inter-Regular.ttf" />
     <None Include="libmongocrypt.dylib" />
     <None Include="libmongocrypt.so" />
     <None Include="packages.config" />

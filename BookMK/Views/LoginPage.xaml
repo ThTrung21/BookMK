@@ -4,14 +4,86 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BookMK.Views"
-              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             TextElement.Foreground="White"
+             
              mc:Ignorable="d" 
              d:DesignHeight="700" d:DesignWidth="1200">
+    <UserControl.Resources>
+        <FontFamily x:Key="Righteous">/BookMK;component/Fonts/Righteous-Regular.ttf#Righteous</FontFamily>
+        <FontFamily x:Key="RobotoMono">/BookMK;component/Fonts/RobotoMono-VariableFont_wght.ttf#RobotoMono</FontFamily>
+        <FontFamily x:Key="Inter">/BookMK;component/Fonts/Inter-Regular.ttf#Inter</FontFamily>
+    </UserControl.Resources>
     <Grid>
         <Image Source="../Images/loginBG.jpg"></Image>
         <Image Source="../Images/Gradient.jpg" Stretch="Fill" Opacity="0.8" ></Image>
         <Image Source="../Images/TechyBG.png"></Image>
-        
-        
+        <Border
+            CornerRadius="15"
+            Background="#36393e"
+            Margin="386 120">
+            <Grid
+                Margin="23 0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="120px"/>
+                    <RowDefinition Height="60px"/>
+                    <RowDefinition Height="120px"/>
+                    <RowDefinition Height="60px"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid
+                    
+                    Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="150"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <materialDesign:PackIcon Kind="BookOpenPageVariant" 
+                                             Width="58px" Height="58px" 
+                                             VerticalAlignment="Center"
+                                             Margin="0,0,10,0" HorizontalAlignment="Right"/>
+                    <TextBlock 
+                    Grid.Column="1"
+                    FontSize="48px"
+                    FontWeight="Normal"
+                    Text="BookMK" FontFamily="{StaticResource Righteous}"  VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                </Grid>
+                <TextBlock
+                    Grid.Row="1"
+                    Text="Unlock the world of knowledge, one book at a time."
+                    TextWrapping="Wrap"
+                    TextAlignment="Center"
+                    
+                    FontFamily="{StaticResource RobotoMono}"  FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+                <Grid Grid.Row="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <TextBlock
+                        Grid.Row="0"
+                        Text="Password"
+                        FontFamily="{StaticResource Inter}"
+                        FontSize="20" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
+                    <StackPanel
+                        Grid.Row="1">
+                        
+                        <TextBox
+                            MaxWidth="400"
+                            VerticalAlignment="Top"
+                            materialDesign:HintAssist.Hint="Password"
+                            AcceptsReturn="True"
+                            IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignFilledTextBoxEnabledComboBox}"
+                            Style="{StaticResource MaterialDesignFilledTextBox}"
+                            TextWrapping="Wrap" />  
+                    </StackPanel>
+                </Grid>
+                
+            </Grid>
+        </Border>
+
+
     </Grid>
 </UserControl>

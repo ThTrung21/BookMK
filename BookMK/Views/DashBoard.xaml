@@ -42,9 +42,9 @@
                     </Grid.ColumnDefinitions>
                     
                     <Ellipse Height="70" Width="70">
-                        <Ellipse.Fill>
+                        <!--<Ellipse.Fill>
                                 <ImageBrush ImageSource="/IMAGE/phong.jpg" />
-                            </Ellipse.Fill>
+                            </Ellipse.Fill>-->
                     </Ellipse>
 
                     <Border 
