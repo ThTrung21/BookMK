@@ -7,14 +7,18 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:views="clr-namespace:BookMK.Views"
         xmlns:viewmodels="clr-namespace:BookMK.ViewModels"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        WindowStartupLocation="CenterScreen"
              mc:Ignorable="d" 
              d:DesignHeight="700" d:DesignWidth="1200"
              TextElement.Foreground="{DynamicResource MaterialDesignBody}"
              Background="{x:Null}" Height="700" Width="1400">
 
     <Window.Resources>
-        <FontFamily x:Key="Righteous">/BookMK;component/Fonts/Righteous-Regular.ttf#Righteous</FontFamily>
-        <FontFamily x:Key="RobotoMono">/BookMK;component/Fonts/RobotoMono-VariableFont_wght.ttf#RobotoMono</FontFamily>
+        <FontFamily x:Key="Righteous">/BookMK;component/Fonts/#Righteous</FontFamily>
+        <FontFamily x:Key="RobotoMono">/BookMK;component/Fonts/#RobotoMono</FontFamily>
+        <FontFamily x:Key="Inter">/BookMK;component/Fonts/#Inter</FontFamily>
     </Window.Resources>
     
     <Grid>
@@ -23,7 +27,9 @@
             <ColumnDefinition Width="981"/>
 
         </Grid.ColumnDefinitions>
-        <Border Grid.ColumnSpan="2" CornerRadius="15" Background="#36393e"/>
+        <Border Grid.ColumnSpan="2" CornerRadius="15" Background="#36393e">
+            <Button Content="Button" Margin="1052,22,28,646" Click="Button_Click"/>
+        </Border>
 
         <!--first element-->
         <Border  CornerRadius="15" >
@@ -37,10 +43,16 @@
 
             </Border.Background>
 
-            <StackPanel >
-                <Grid Height="80" Margin="3 0">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition Height="56px"/>
+                </Grid.RowDefinitions>
+            <StackPanel Grid.Row="0" >
+                <!--Logo grid-->
+                <Grid Height="80" Margin="0 0 0 40px">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="80"/>
+                        <ColumnDefinition Width="75"/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
 
@@ -49,7 +61,12 @@
                                 <ImageBrush ImageSource="/IMAGE/phong.jpg" />
                             </Ellipse.Fill>-->
                     </Ellipse>
-
+                    <materialDesign:PackIcon Kind="BookOpenPageVariant" 
+                                             Height="40px" Width="40px"
+                                             VerticalAlignment="Center"
+                                             Foreground="White"
+                                             Margin="0 0 8 0"
+                                             HorizontalAlignment="Right"/>
                     <Border 
                             Grid.Column="1" 
                             CornerRadius="20">
@@ -61,82 +78,130 @@
                                 TextWrapping="Wrap" 
                                 Margin="0 20"
                                 Foreground="White"
-                                FontSize="24" 
+                                FontSize="32" 
                                 MaxHeight="80" 
                                 />
                     </Border>
 
                 </Grid>
 
+                <!--Home btn-->
+                <RadioButton
+                    Name="HomeBtn"
+                    Style="{StaticResource RadioButtonDashboard}">
+                    <Grid  VerticalAlignment="Center" Width="219" >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="60"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <materialDesign:PackIcon Kind="Home" Height="32px" Width="32px"
+                                                 Grid.Column="0"
+                                                 Margin="0 0 8 0"
+                                                 HorizontalAlignment="Right"
+                                                 Foreground="White" />
+                        <TextBlock Grid.Column="1" Text="Home" VerticalAlignment="Center" FontFamily="{StaticResource RobotoMono}" Foreground="White" FontSize="20px" FontWeight="Bold"></TextBlock>
+                    </Grid>
+                </RadioButton>
 
+                <!--Book btn-->
+                <RadioButton
+                    Name="BookBtn"
+                    Style="{StaticResource RadioButtonDashboard}">
+                    <Grid  VerticalAlignment="Center" Width="219" >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="60"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <materialDesign:PackIcon Kind="BookOpenVariant"  Height="32px" Width="32px"
+                                                 Grid.Column="0"
+                                                 Margin="0 0 8 0"
+                                                 HorizontalAlignment="Right"
+                                                 Foreground="White" />
+                        <TextBlock Grid.Column="1" Text="Books" VerticalAlignment="Center" FontFamily="{StaticResource RobotoMono}" Foreground="White" FontSize="20px" FontWeight="Bold"></TextBlock>
+                    </Grid>
+                </RadioButton>
+                
+                <!--Author btn-->
+                <RadioButton
+                    Name="AuthorBtn"
+                    Style="{StaticResource RadioButtonDashboard}">
+                    <Grid  VerticalAlignment="Center" Width="219" >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="60"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <materialDesign:PackIcon Kind="AccountEdit"  Height="32px" Width="32px"
+                                                 Grid.Column="0"
+                                                 Margin="0 0 8 0"
+                                                 HorizontalAlignment="Right"
+                                                 Foreground="White" />
+                        <TextBlock Grid.Column="1" Text="Authors" VerticalAlignment="Center" FontFamily="{StaticResource RobotoMono}" Foreground="White" FontSize="20px" FontWeight="Bold"></TextBlock>
+                    </Grid>
+                </RadioButton>
 
-                <!--<StackPanel Margin="0 20">
-                    <RadioButton x:Name="radiobutton1"  
-                                     FontFamily="{StaticResource boldFont}"
-                                     Background="{StaticResource menu_button_color}"  Tag="Home"
-                                     Height="45" Content="Home"
-                                     Style="{StaticResource RadioButton1 }" Checked="RadioButton_Checked">
-                    </RadioButton>
-                    <RadioButton 
-                                     Tag="Cutlery"
-                            FontFamily="{StaticResource boldFont}"
-                                     Background="{StaticResource menu_button_color}" 
-                                     Height="45" Content="Product"
-                                     Style="{StaticResource RadioButton1 }" Checked="RadioButton_Checked">
-                    </RadioButton>
-                    <RadioButton 
-                                     Tag="ShoppingCart"
-                            FontFamily="{StaticResource boldFont}"
-                                     Background="{StaticResource menu_button_color}" 
-                                     Height="45" Content="Bills"
-                                     Style="{StaticResource RadioButton1 }" Checked="RadioButton_Checked">
-                    </RadioButton>
-                    <RadioButton 
-                                     Tag="Male"
-                            FontFamily="{StaticResource boldFont}"
-                                     Background="{StaticResource menu_button_color}" 
-                            HorizontalContentAlignment="Center"
-                                     Height="45" Content="Customer"
-                                     Style="{StaticResource RadioButton1 }" Checked="RadioButton_Checked">
-                    </RadioButton>
-                    <RadioButton 
-                                     Tag="AddressCard"
-                            FontFamily="{StaticResource boldFont}"
-                                     Background="{StaticResource menu_button_color}" 
-                            HorizontalContentAlignment="Center"
-                                     Height="45" Content="Managing"
-                                     Style="{StaticResource RadioButton1 }" Checked="RadioButton_Checked">
-                    </RadioButton>
-                    <RadioButton 
-                                     Tag="Coffee"
-                            FontFamily="{StaticResource boldFont}"
-                                     Background="{StaticResource menu_button_color}" 
-                            HorizontalContentAlignment="Center"
-                                     Height="45" Content="Ingredient"
-                                     Style="{StaticResource RadioButton1 }" Checked="RadioButton_Checked">
-                    </RadioButton>
-                    <RadioButton 
-                                     Tag="Gear"
-                            FontFamily="{StaticResource boldFont}"
-                                     Background="{StaticResource menu_button_color}" 
-                            HorizontalContentAlignment="Center"
-                                     Height="45" Content="Settings"
-                                     Style="{StaticResource RadioButton1 }" Checked="RadioButton_Checked">
-                    </RadioButton>
-
-
-                    -->
-                <!--<RadioButton Style="{StaticResource RadioButton}">
-                            
-                        </RadioButton>-->
-                <!--
-
-                </StackPanel>-->
+                <!--Order btn-->
+                <RadioButton
+                    Name="OrderBtn"
+                    Style="{StaticResource RadioButtonDashboard}">
+                    <Grid  VerticalAlignment="Center" Width="219" >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="60"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <materialDesign:PackIcon Kind="ListBox"  Height="32px" Width="32px"
+                                                 Grid.Column="0"
+                                                 Margin="0 0 8 0"
+                                                 HorizontalAlignment="Right"
+                                                 Foreground="White" />
+                            <TextBlock Grid.Column="1" Text="Orders" VerticalAlignment="Center" FontFamily="{StaticResource RobotoMono}" Foreground="White" FontSize="20px" FontWeight="Bold"></TextBlock>
+                    </Grid>
+                </RadioButton>
+                <!--Custoemr btn-->
+                <RadioButton
+                    Name="CustomerBtn"
+                    Style="{StaticResource RadioButtonDashboard}">
+                    <Grid  VerticalAlignment="Center" Width="219" >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="60"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <materialDesign:PackIcon Kind="AccountMultiple"  Height="32px" Width="32px"
+                                                 Grid.Column="0"
+                                                 Margin="0 0 8 0"
+                                                 HorizontalAlignment="Right"
+                                                 Foreground="White" />
+                            <TextBlock Grid.Column="1" Text="Customer" VerticalAlignment="Center" FontFamily="{StaticResource RobotoMono}" Foreground="White" FontSize="20px" FontWeight="Bold"></TextBlock>
+                    </Grid>
+                </RadioButton>
 
             </StackPanel>
 
+                <StackPanel Grid.Row="1" VerticalAlignment="Bottom" Margin="0,0,0,0">
+                    <Button
+                        Style="{StaticResource SettingButton1}">
+                        <Grid  VerticalAlignment="Center" Width="219" >
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="60"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <materialDesign:PackIcon Kind="Cog"  Height="32px" Width="32px"
+                                                 Grid.Column="0"
+                                                 Margin="0 0 8 0"
+                                                 HorizontalAlignment="Right"
+                                                 Foreground="White" />
+                            <TextBlock Grid.Column="1" Text="Setting" VerticalAlignment="Center" FontFamily="{StaticResource RobotoMono}" Foreground="White" FontSize="20px" FontWeight="Bold"></TextBlock>
+                        </Grid>
+                        
+                    </Button>
+                </StackPanel>
+            </Grid>
         </Border>
 
-
+        <!--<StackPanel Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,10,0">
+            <Button Content="Button 1"/>
+            <Button Content="Button 2"/>
+           
+        </StackPanel>-->
     </Grid>
+    
 </Window>

@@ -7,6 +7,7 @@ using System.Windows;
 using BookMK.Models;
 //using BookMK.Windows;
 using BookMK.ViewModels;
+using BookMK.Windows;
 using MongoDB.Driver;
 
 namespace BookMK.Commands
@@ -28,7 +29,13 @@ namespace BookMK.Commands
             //DataProvider<Account> db = new DataProvider<Account>(Account.Collection) ;
             //string password = loginViewModel.password;
             //extract password from account table from database and compare to user entered password
-            MessageBox.Show("Heelo world");
+            //MessageBox.Show("Heelo world");
+            Window f = Application.Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive);
+            f.Hide();
+            DashBoardWindow ff = new DashBoardWindow();
+            ff.ShowDialog();
+            f.Show();
+            
         }
     }
 }

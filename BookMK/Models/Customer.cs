@@ -20,7 +20,7 @@ namespace BookMK.Models
         public string Email { get; set; }
         public string Address { get; set; }
         public int CitizenID { get; set; }
-        public bool isVIP { get; set; }
+       
         public int PurchasePoint { get; set; }
        
 
