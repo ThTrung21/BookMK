@@ -5,18 +5,26 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:local="clr-namespace:BookMK"
+        xmlns:views="clr-namespace:BookMK.Views"
+        xmlns:vms="clr-namespace:BookMK.ViewModels"
+        
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800"
+        Title="MainWindow" Height="700" Width="1200"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         Background="{DynamicResource MaterialDesignPaper}">
+    <Window.DataContext>
+        <vms:MainViewModel/>
+    </Window.DataContext>
+    
     <Grid>
-        <!--<Button x:Name="btnLuu" Content="Lưu" Width="50" ></Button>-->
-        <Button
-            Click=" btnLuu_Click"
-  Width="120px"
-  Content="_DARK"
-  IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
-  Style="{StaticResource MaterialDesignRaisedDarkButton}"
-  ToolTip="Resource name: MaterialDesignRaisedLightDarkButton" />
+        <views:LoginPage/>
+        <!--<Grid.Resources>
+            <DataTemplate DataType="{x:Type vms:LoginViewModel}">
+               <views:LoginPage/>
+            </DataTemplate>
+        </Grid.Resources>
+       -->
+        
     </Grid>
+   
 </Window>

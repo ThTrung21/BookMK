@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BookMK.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,13 @@ namespace BookMK.Views
         public LoginPage()
         {
             InitializeComponent();
+            this.DataContext = new LoginViewModel();
+        }
+
+        private void TextBlock_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            // f = new SignUpWindow();
+            //f.ShowDialog();
         }
     }
 }
