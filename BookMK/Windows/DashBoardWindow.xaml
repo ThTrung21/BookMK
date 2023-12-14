@@ -13,7 +13,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="700" d:DesignWidth="1200"
              TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-             Background="{x:Null}" Height="700" Width="1400">
+             Background="{x:Null}" Height="700" Width="1200">
 
     <Window.Resources>
         <FontFamily x:Key="Righteous">/BookMK;component/Fonts/#Righteous</FontFamily>
@@ -106,6 +106,7 @@
                 <!--Book btn-->
                 <RadioButton
                     Name="BookBtn"
+                    Checked="RadioButton_Checked1"
                     Style="{StaticResource RadioButtonDashboard}">
                     <Grid  VerticalAlignment="Center" Width="219" >
                         <Grid.ColumnDefinitions>
@@ -124,6 +125,7 @@
                 <!--Author btn-->
                 <RadioButton
                     Name="AuthorBtn"
+                   
                     Style="{StaticResource RadioButtonDashboard}">
                     <Grid  VerticalAlignment="Center" Width="219" >
                         <Grid.ColumnDefinitions>
@@ -156,6 +158,7 @@
                             <TextBlock Grid.Column="1" Text="Orders" VerticalAlignment="Center" FontFamily="{StaticResource RobotoMono}" Foreground="White" FontSize="20px" FontWeight="Bold"></TextBlock>
                     </Grid>
                 </RadioButton>
+                
                 <!--Custoemr btn-->
                 <RadioButton
                     Name="CustomerBtn"
@@ -174,7 +177,24 @@
                     </Grid>
                 </RadioButton>
 
-            </StackPanel>
+                    <!--Custoemr btn-->
+                    <RadioButton
+                    Name="StaffBtn"
+                    Style="{StaticResource RadioButtonDashboard}">
+                        <Grid  VerticalAlignment="Center" Width="219" >
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="60"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <materialDesign:PackIcon Kind="BriefcaseAccount"  Height="32px" Width="32px"
+                                                 Grid.Column="0"
+                                                 Margin="0 0 8 0"
+                                                 HorizontalAlignment="Right"
+                                                 Foreground="White" />
+                            <TextBlock Grid.Column="1" Text="Staff" VerticalAlignment="Center" FontFamily="{StaticResource RobotoMono}" Foreground="White" FontSize="20px" FontWeight="Bold"></TextBlock>
+                        </Grid>
+                    </RadioButton>
+                </StackPanel>
 
                 <StackPanel Grid.Row="1" VerticalAlignment="Bottom" Margin="0,0,0,0">
                     <Button
@@ -196,7 +216,10 @@
                 </StackPanel>
             </Grid>
         </Border>
-
+        <Grid Grid.Column="1">
+            <Frame x:Name="MyFrame" NavigationUIVisibility="Hidden" Source="{Binding CurrentPage,UpdateSourceTrigger=PropertyChanged}"/>
+        </Grid>
+        
         <!--<StackPanel Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,10,0">
             <Button Content="Button 1"/>
             <Button Content="Button 2"/>

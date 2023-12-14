@@ -72,16 +72,17 @@
                         FontSize="20" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
 
 
-                   
 
+                    <Border
+                        Grid.Row="1"
+                        CornerRadius="15">
                     <TextBox
                          BorderThickness="2"  Foreground="White"
                         BorderBrush="#1E2124"
                         Background="#282B30"
                         FontSize="20"
-                        Grid.Row="1"
+                        
                       VerticalAlignment="Top"
-                      materialDesign:HintAssist.HelperText="Helper text"
                       
                       Style="{StaticResource MaterialDesignOutlinedTextBox}">
                         <TextBox.Text>
@@ -92,6 +93,7 @@
                             </Binding>
                         </TextBox.Text>
                     </TextBox>
+                    </Border>
                 </Grid>
 
                 <Grid

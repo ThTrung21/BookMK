@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BookMK.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,11 +23,17 @@ namespace BookMK.Windows
         public DashBoardWindow()
         {
             InitializeComponent();
+            this.DataContext = new DashBoardViewModel();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+
+        private void RadioButton_Checked1(object sender, RoutedEventArgs e)
+        {
+            (this.DataContext as DashBoardViewModel).SwitchBookPage();
         }
     }
 }

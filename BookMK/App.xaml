@@ -8,7 +8,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <!--Resource dictionaries-->
-                <!--<ResourceDictionary Source="Styles/FilledTextBox.xaml"/>-->
+                <ResourceDictionary Source="Styles/FilledTextBox.xaml"/>
                 <ResourceDictionary Source="Styles/ButtonDashBoard.xaml"/>
 
                 <!--Material design lib-->

@@ -24,10 +24,14 @@ namespace BookMK.ViewModels
         {
 
         }
-        // Methods
+        // Navigations Methods
         public void SwitchBillPage()
         {
            // CurrentPage = new Uri("/Views/Pages/CustomerPage.xaml", UriKind.Relative);
+        }
+        public void SwitchBookPage()
+        {
+            CurrentPage = new Uri("/Views/Pages/BookPage.xaml", UriKind.Relative);
         }
 
 
