@@ -77,7 +77,7 @@
                         Grid.Row="1"
                         CornerRadius="15">
                     <TextBox
-                         BorderThickness="2"  Foreground="White"
+                         BorderThickness="2"  Foreground="#99AAB5"
                         BorderBrush="#1E2124"
                         Background="#282B30"
                         FontSize="20"

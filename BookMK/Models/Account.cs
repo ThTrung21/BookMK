@@ -16,18 +16,16 @@ namespace BookMK.Models
         [BsonId]
         [BsonRepresentation(MongoDB.Bson.BsonType.Int64)]
        
-        private string _password = "";
-        public string Password
-        {
-            get { return _password; }
-            set { _password = value; OnPropertyChanged(nameof(Password)); }
-        }
+        
+        public string Password{get;set;}
+
         private string _email = "";
         public string Email
         {
             get { return _email; }
             set { _email = value; OnPropertyChanged(nameof(Email)); }
         }
+
         public Account() { }
         public static string Collection = "account";
     }
