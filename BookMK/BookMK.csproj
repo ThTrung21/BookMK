@@ -221,6 +221,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\ResetPasswordForm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Windows\DashBoardWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -238,6 +242,9 @@
     </Compile>
     <Compile Include="Views\Pages\BookPage.xaml.cs">
       <DependentUpon>BookPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ResetPasswordForm.xaml.cs">
+      <DependentUpon>ResetPasswordForm.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\DashBoardWindow.xaml.cs">
       <DependentUpon>DashBoardWindow.xaml</DependentUpon>
