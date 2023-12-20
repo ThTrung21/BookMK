@@ -34,7 +34,7 @@ namespace BookMK.Commands
             f.Hide();
             DashBoardWindow ff = new DashBoardWindow();
             ff.ShowDialog();
-            f.Show();
+            f.Close();
             
         }
     }

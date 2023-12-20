@@ -10,6 +10,18 @@ namespace BookMK.ViewModels
 {
     public class LoginViewModel: ViewModelBase
     {
+        private string _username;
+        public string username
+        {
+            get { return _username; }
+            set 
+            { 
+
+                _username = value;
+                OnPropertyChanged(nameof(username));
+            }
+        }
+
         private string _password;
         public string password
         {

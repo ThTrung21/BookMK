@@ -6,17 +6,14 @@
       xmlns:local="clr-namespace:BookMK.Views.Pages"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       
+      xmlns:listviews="clr-namespace:BookMK.Views.ListViews"
       mc:Ignorable="d" 
-      d:DesignHeight="700" d:DesignWidth="981"
+      d:DesignHeight="700" d:DesignWidth="930"
       Title="Book">
-    <Page.Resources>
-        <FontFamily x:Key="Righteous">/BookMK;component/Fonts/#Righteous</FontFamily>
-        <FontFamily x:Key="RobotoMono">/BookMK;component/Fonts/#RobotoMono</FontFamily>
-        <FontFamily x:Key="Inter">/BookMK;component/Fonts/#Inter</FontFamily>
-    </Page.Resources>
+  
     
     <Grid
-        Margin="16 0 0 8 "
+        Margin="16 0 10 8 "
         Background="#36393e">
         
         <Grid.RowDefinitions>
@@ -36,7 +33,7 @@
             <materialDesign:PackIcon Kind="BookOpenVariant"  Height="48px" Width="48px"
                                                  Grid.Column="0"
                                                  Margin="0 0 8 0"
-                                                 HorizontalAlignment="Right"
+                                                 HorizontalAlignment="Right" VerticalAlignment="Center"
                                                  Foreground="White" />
             <TextBlock Grid.Column="1" Text="Books" VerticalAlignment="Center" FontFamily="{StaticResource RobotoMono}" Foreground="White" FontSize="48px" FontWeight="Bold"></TextBlock>
         </Grid>
@@ -51,22 +48,29 @@
                 <ColumnDefinition Width="124"/>
             </Grid.ColumnDefinitions>
             <TextBox
-                Height="55px"
+                Name="SearchBox"
+                Height="44px"
                 Width="350px"
                 BorderThickness="2"  
                 BorderBrush="#1E2124"
                 Background="#282B30"
                 FontSize="18"
                 Grid.Column="0"
-                VerticalAlignment="Top"
+                VerticalAlignment="Center"
                 HorizontalAlignment="Left"
                 Foreground="#99AAB5"
                 Style="{StaticResource SearchTextbox}">
             </TextBox>
-
+            
+            
+            <Button Grid.Column="1"  Margin="8 0 0 0 " HorizontalAlignment="Left" Width="48" Height="44" Padding="0" Style="{StaticResource RoundedButtonStyle}" >
+                <materialDesign:PackIcon Kind="Magnify" Width="32" Height="32" HorizontalAlignment="Center" Foreground="White" />
+            </Button>
+            
             <Button
                 Grid.Column="2"
                 Height="40"
+                Margin="0 0 5 0"
                 Content="_DARK"
                 IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
                 Style="{StaticResource MaterialDesignRaisedDarkButton}"
@@ -75,11 +79,25 @@
             <Button
                 Grid.Column="3"
                 Height="40"
+                Margin="5 0 0 0"
                 Content="_DARK"
                 IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
                 Style="{StaticResource MaterialDesignRaisedDarkButton}"
                 ToolTip="Resource name: MaterialDesignRaisedLightDarkButton" />
 
         </Grid>
+        <Border
+            BorderBrush="Black"
+            BorderThickness="1px"
+            Background="#282B30"
+            CornerRadius="20"
+            Grid.Row="2">           
+            <Grid>
+                <listviews:BookListView SelectCommand="{Binding LeftMouseButtonDownCommand}"/>
+            </Grid>
+        </Border>
+
+
+
     </Grid>
 </Page>

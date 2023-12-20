@@ -10,12 +10,7 @@
              Height="700" Width="1200"
              mc:Ignorable="d" 
              d:DesignHeight="700" d:DesignWidth="1200">
-    <UserControl.Resources>
-        <FontFamily x:Key="Righteous">/BookMK;component/Fonts/Righteous-Regular.ttf#Righteous</FontFamily>
-        <FontFamily x:Key="RobotoMono">/BookMK;component/Fonts/RobotoMono-Regular.ttf#RobotoMono</FontFamily>
-        <FontFamily x:Key="Inter">/BookMK;component/Fonts/Inter-Regular.ttf#Inter</FontFamily>
-        
-    </UserControl.Resources>
+    
     
     <Grid>
         <Image Source="../Images/loginBG.jpg"></Image>
@@ -30,7 +25,8 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="120px"/>
                     <RowDefinition Height="60px"/>
-                    <RowDefinition Height="120px"/>
+                    <RowDefinition Height="80"/>
+                    <RowDefinition Height="80"/>
                     <RowDefinition Height="60px"/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
@@ -67,10 +63,10 @@
                     </Grid.RowDefinitions>
                     <TextBlock
                         Grid.Row="0"
-                        Text="Password"
+                        Text="Username or Email"
                         FontFamily="{StaticResource Inter}"
                         FontSize="20" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
-
+                        
 
 
                     <Border
@@ -81,28 +77,65 @@
                         BorderBrush="#1E2124"
                         Background="#282B30"
                         FontSize="20"
-                        
-                      VerticalAlignment="Top"
+                        Height="44"
+                      VerticalAlignment="Center"
                       
-                      Style="{StaticResource MaterialDesignOutlinedTextBox}">
+                      Style="{StaticResource FilledTextBox}">
                         <TextBox.Text>
-                            <Binding                               
-                                Path="password"
+                                <Binding                               
+                                Path="username"
                                 UpdateSourceTrigger="PropertyChanged">
-                                
-                            </Binding>
+                                </Binding>
                         </TextBox.Text>
                     </TextBox>
                     </Border>
                 </Grid>
 
+                <Grid Grid.Row="3">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+
+                    </Grid.RowDefinitions>
+                    <TextBlock
+                        Grid.Row="0"
+                        Text="Password"
+                        FontFamily="{StaticResource Inter}"
+                        FontSize="20" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
+
+
+
+                    <Border
+                        Grid.Row="1"
+                        CornerRadius="15">
+                        <TextBox
+                         BorderThickness="2"  Foreground="#99AAB5"
+                        BorderBrush="#1E2124"
+                        Background="#282B30"
+                        FontSize="20"
+                        Height="44"
+                      VerticalAlignment="Center"
+                      
+                      Style="{StaticResource FilledTextBox}">
+                            <TextBox.Text>
+                                <Binding                               
+                                Path="password"
+                                UpdateSourceTrigger="PropertyChanged">
+
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
+                    </Border>
+                </Grid>
+
                 <Grid
-                  Grid.Row="3">
+                  Grid.Row="4">
                     
                     <Button
                         Background="#5876df"
                         Command="{Binding LoginCommand,IsAsync=True}"
                         materialDesign:ButtonAssist.CornerRadius="10"
+                        Height="36"
                         IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
                         Style="{StaticResource MaterialDesignRaisedButton}"
                         ToolTip="MaterialDesignRaisedButton with Round Corners">
@@ -113,7 +146,7 @@
                     </Button>
                 </Grid>
                 <Grid
-                    Grid.Row="4"
+                    Grid.Row="5"
                     VerticalAlignment="Top"
                     Margin="10"
                     >
@@ -126,6 +159,7 @@
                         TextDecorations="Underline"
                         MouseLeftButtonDown="TextBlock_MouseLeftButtonDown" Height="22" VerticalAlignment="Top"/>
                 </Grid>
+                
             </Grid>
         </Border>
         

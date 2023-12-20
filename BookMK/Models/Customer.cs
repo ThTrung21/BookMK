@@ -9,7 +9,7 @@ using MongoDB.Driver;
 
 namespace BookMK.Models
 {
-    public class Customer
+    public class Customer: Account
     {
         [BsonId]
         [BsonRepresentation(MongoDB.Bson.BsonType.Int64)]

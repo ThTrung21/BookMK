@@ -8,6 +8,7 @@
         xmlns:views="clr-namespace:BookMK.Views"
         xmlns:viewmodels="clr-namespace:BookMK.ViewModels"
         WindowStyle="None"
+        ResizeMode="NoResize"
         AllowsTransparency="True"
         WindowStartupLocation="CenterScreen"
              mc:Ignorable="d" 
@@ -15,11 +16,7 @@
              TextElement.Foreground="{DynamicResource MaterialDesignBody}"
              Background="{x:Null}" Height="700" Width="1200">
 
-    <Window.Resources>
-        <FontFamily x:Key="Righteous">/BookMK;component/Fonts/#Righteous</FontFamily>
-        <FontFamily x:Key="RobotoMono">/BookMK;component/Fonts/#RobotoMono</FontFamily>
-        <FontFamily x:Key="Inter">/BookMK;component/Fonts/#Inter</FontFamily>
-    </Window.Resources>
+    
     
     <Grid>
         <Grid.ColumnDefinitions>
@@ -126,7 +123,7 @@
                 <RadioButton
                     Name="AuthorBtn"
                    
-                    Style="{StaticResource RadioButtonDashboard}">
+                    Style="{StaticResource RadioButtonDashboard}" Checked="AuthorBtn_Checked">
                     <Grid  VerticalAlignment="Center" Width="219" >
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="60"/>
@@ -158,8 +155,25 @@
                             <TextBlock Grid.Column="1" Text="Orders" VerticalAlignment="Center" FontFamily="{StaticResource RobotoMono}" Foreground="White" FontSize="20px" FontWeight="Bold"></TextBlock>
                     </Grid>
                 </RadioButton>
-                
-                <!--Custoemr btn-->
+                    <!--discount btn-->
+                    <RadioButton
+                    Name="DiscountBtn"
+                    Style="{StaticResource RadioButtonDashboard}">
+                        <Grid  VerticalAlignment="Center" Width="219" >
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="60"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <materialDesign:PackIcon Kind="CartPercent"  Height="32px" Width="32px"
+                                                 Grid.Column="0"
+                                                 Margin="0 0 8 0"
+                                                 HorizontalAlignment="Right"
+                                                 Foreground="White" />
+                            <TextBlock Grid.Column="1" Text="Discount" VerticalAlignment="Center" FontFamily="{StaticResource RobotoMono}" Foreground="White" FontSize="20px" FontWeight="Bold"></TextBlock>
+                        </Grid>
+                    </RadioButton>
+
+                    <!--Custoemr btn-->
                 <RadioButton
                     Name="CustomerBtn"
                     Style="{StaticResource RadioButtonDashboard}">
@@ -176,7 +190,25 @@
                             <TextBlock Grid.Column="1" Text="Customer" VerticalAlignment="Center" FontFamily="{StaticResource RobotoMono}" Foreground="White" FontSize="20px" FontWeight="Bold"></TextBlock>
                     </Grid>
                 </RadioButton>
-
+        
+                <!--Import-->
+                    <RadioButton
+                    Name="Importbtn"
+                    Style="{StaticResource RadioButtonDashboard}">
+                        <Grid  VerticalAlignment="Center" Width="219" >
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="60"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <materialDesign:PackIcon Kind="Import"  Height="32px" Width="32px"
+                                                 Grid.Column="0"
+                                                 Margin="0 0 8 0"
+                                                 HorizontalAlignment="Right"
+                                                 Foreground="White" />
+                            <TextBlock Grid.Column="1" Text="Import" VerticalAlignment="Center" FontFamily="{StaticResource RobotoMono}" Foreground="White" FontSize="20px" FontWeight="Bold"></TextBlock>
+                        </Grid>
+                    </RadioButton>
+                
                     <!--Custoemr btn-->
                     <RadioButton
                     Name="StaffBtn"
@@ -195,7 +227,8 @@
                         </Grid>
                     </RadioButton>
                 </StackPanel>
-
+                
+                   <!--Staff-->
                 <StackPanel Grid.Row="1" VerticalAlignment="Bottom" Margin="0,0,0,0">
                     <Button
                         Style="{StaticResource SettingButton1}">
@@ -217,7 +250,7 @@
             </Grid>
         </Border>
         <Grid Grid.Column="1">
-            <Frame x:Name="MyFrame" NavigationUIVisibility="Hidden" Source="{Binding CurrentPage,UpdateSourceTrigger=PropertyChanged}"/>
+            <Frame  x:Name="RightContent" NavigationUIVisibility="Hidden" Source="{Binding CurrentPage,UpdateSourceTrigger=PropertyChanged}"/>
         </Grid>
         
         <!--<StackPanel Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,10,0">

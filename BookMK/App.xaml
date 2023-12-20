@@ -6,11 +6,16 @@
              StartupUri="/Windows/MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
+            <FontFamily x:Key="Righteous">/BookMK;component/Fonts/Righteous-Regular.tff#Righteous</FontFamily>
+            <FontFamily x:Key="RobotoMono">/BookMK;component/Fonts/RobotoMono-Regular.ttf#Roboto Mono</FontFamily>
+            <FontFamily x:Key="Inter">/BookMK;component/Fonts/Inter-Regular.ttf#Inter</FontFamily>
+
+
             <ResourceDictionary.MergedDictionaries>
                 <!--Resource dictionaries-->
                 <ResourceDictionary Source="Styles/FilledTextBox.xaml"/>
                 <ResourceDictionary Source="Styles/ButtonDashBoard.xaml"/>
-
+                <ResourceDictionary Source="Styles/Button.xaml"/>
                 <!--Material design lib-->
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />

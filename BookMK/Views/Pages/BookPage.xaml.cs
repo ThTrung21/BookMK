@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BookMK.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,9 @@ namespace BookMK.Views.Pages
         public BookPage()
         {
             InitializeComponent();
+            this.DataContext =new BookViewModel();
         }
+
+        
     }
 }

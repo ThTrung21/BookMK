@@ -35,5 +35,9 @@ namespace BookMK.Windows
         {
             (this.DataContext as DashBoardViewModel).SwitchBookPage();
         }
+        private void  AuthorBtn_Checked(object sender, RoutedEventArgs e)
+        {
+            (this.DataContext as DashBoardViewModel).SwitchAuthorPage();
+        }
     }
 }
