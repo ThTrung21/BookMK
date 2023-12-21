@@ -1,5 +1,6 @@
 ﻿using BookMK.Commands;
 using BookMK.Models;
+using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -13,6 +14,8 @@ namespace BookMK.ViewModels
 {
     public class MainViewModel: ViewModelBase
     {
+       
+
         private ViewModelBase _currentViewModel;
         public ViewModelBase CurrentViewModel
         {
@@ -30,5 +33,6 @@ namespace BookMK.ViewModels
         {
             CurrentViewModel = new DashBoardViewModel(this);
         }
+        
     }
 }

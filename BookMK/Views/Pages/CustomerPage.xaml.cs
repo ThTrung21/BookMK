@@ -1,5 +1,4 @@
-﻿using BookMK.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,23 +10,19 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace BookMK.Views
+namespace BookMK.Views.Pages
 {
     /// <summary>
-    /// Interaction logic for ResetPasswordForm.xaml
+    /// Interaction logic for CustomerPage.xaml
     /// </summary>
-    public partial class ResetPasswordForm : Window
+    public partial class CustomerPage : Page
     {
-        public ResetPasswordForm()
+        public CustomerPage()
         {
             InitializeComponent();
-            this.DataContext = new ResetPasswordViewModel();
-        }
-        private void TextBlock_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            this.Close();
         }
     }
 }

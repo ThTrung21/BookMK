@@ -63,21 +63,20 @@
                     </Grid.RowDefinitions>
                     <TextBlock
                         Grid.Row="0"
-                        Text="Username or Email"
+                        Text="Username"
                         FontFamily="{StaticResource Inter}"
                         FontSize="20" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
                         
 
 
-                    <Border
-                        Grid.Row="1"
-                        CornerRadius="15">
+                   
                     <TextBox
+                        Grid.Row="1"
                          BorderThickness="2"  Foreground="#99AAB5"
                         BorderBrush="#1E2124"
                         Background="#282B30"
                         FontSize="20"
-                        Height="44"
+                        Height="40"
                       VerticalAlignment="Center"
                       
                       Style="{StaticResource FilledTextBox}">
@@ -88,7 +87,7 @@
                                 </Binding>
                         </TextBox.Text>
                     </TextBox>
-                    </Border>
+                    
                 </Grid>
 
                 <Grid Grid.Row="3">
@@ -105,46 +104,45 @@
 
 
 
-                    <Border
+
+                    <TextBox
+                        
                         Grid.Row="1"
-                        CornerRadius="15">
-                        <TextBox
                          BorderThickness="2"  Foreground="#99AAB5"
                         BorderBrush="#1E2124"
                         Background="#282B30"
                         FontSize="20"
-                        Height="44"
+                        Height="40"
                       VerticalAlignment="Center"
                       
                       Style="{StaticResource FilledTextBox}">
-                            <TextBox.Text>
-                                <Binding                               
+                        <TextBox.Text>
+                            <Binding                               
                                 Path="password"
                                 UpdateSourceTrigger="PropertyChanged">
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
 
-                                </Binding>
-                            </TextBox.Text>
-                        </TextBox>
-                    </Border>
                 </Grid>
 
-                <Grid
-                  Grid.Row="4">
-                    
-                    <Button
+
+
+                <Button
+                        Grid.Row="4"
                         Background="#5876df"
                         Command="{Binding LoginCommand,IsAsync=True}"
                         materialDesign:ButtonAssist.CornerRadius="10"
                         Height="36"
                         IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
                         Style="{StaticResource MaterialDesignRaisedButton}"
+                        Content="Sign in"
+                        FontFamily="{StaticResource Inter}"
+                            FontSize="20px"
                         ToolTip="MaterialDesignRaisedButton with Round Corners">
-                        <TextBlock
-                            Text="Sign in"
-                            FontFamily="{StaticResource Inter}"
-                            FontSize="20px"/>
+                        
                     </Button>
-                </Grid>
+               
                 <Grid
                     Grid.Row="5"
                     VerticalAlignment="Top"
@@ -153,6 +151,7 @@
                     <TextBlock
                         Text="Forgot Password?"
                         Foreground="#5876DF"
+                        
                         FontFamily="{StaticResource Inter}"
                         TextAlignment="Center"
                         FontSize="18px"

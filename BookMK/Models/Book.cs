@@ -18,7 +18,7 @@ namespace BookMK.Models
         //avatar
         public string Cover { get; set; }
         public string Title { get; set; }
-        public string Type { get; set; }
+        public string Genre { get; set; }
         public int ReleaseYear { get; set; }
 
         public int AuthorID { get; set; }

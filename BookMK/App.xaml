@@ -6,7 +6,7 @@
              StartupUri="/Windows/MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
-            <FontFamily x:Key="Righteous">/BookMK;component/Fonts/Righteous-Regular.tff#Righteous</FontFamily>
+            <FontFamily x:Key="Righteous">/BookMK;component/Fonts/Righteous-Regular.ttf#Righteous</FontFamily>
             <FontFamily x:Key="RobotoMono">/BookMK;component/Fonts/RobotoMono-Regular.ttf#Roboto Mono</FontFamily>
             <FontFamily x:Key="Inter">/BookMK;component/Fonts/Inter-Regular.ttf#Inter</FontFamily>
 

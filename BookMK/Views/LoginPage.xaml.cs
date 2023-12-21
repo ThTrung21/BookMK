@@ -29,6 +29,9 @@ namespace BookMK.Views
 
         private void TextBlock_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
+            ResetPasswordForm form = new ResetPasswordForm();
+            form.ShowDialog();
+
             // f = new SignUpWindow();
             //f.ShowDialog();
         }

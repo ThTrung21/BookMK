@@ -30,9 +30,9 @@
                 <ColumnDefinition Width="60"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <materialDesign:PackIcon Kind="BookOpenVariant"  Height="48px" Width="48px"
+            <materialDesign:PackIcon Kind="BookOpenVariant"  Height="60" Width="60"
                                                  Grid.Column="0"
-                                                 Margin="0 0 8 0"
+                                                
                                                  HorizontalAlignment="Right" VerticalAlignment="Center"
                                                  Foreground="White" />
             <TextBlock Grid.Column="1" Text="Books" VerticalAlignment="Center" FontFamily="{StaticResource RobotoMono}" Foreground="White" FontSize="48px" FontWeight="Bold"></TextBlock>
@@ -93,7 +93,7 @@
             CornerRadius="20"
             Grid.Row="2">           
             <Grid>
-                <listviews:BookListView SelectCommand="{Binding LeftMouseButtonDownCommand}"/>
+                <listviews:BookListView />
             </Grid>
         </Border>
 

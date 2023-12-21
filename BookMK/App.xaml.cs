@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BookMK.Models;
+using BookMK.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -13,5 +15,6 @@ namespace BookMK
     /// </summary>
     public partial class App : Application
     {
+       
     }
 }

@@ -26,7 +26,7 @@ namespace BookMK.Views.InsertForm
         public InsertAuthorForm()
         {
             InitializeComponent();
-            
+            this.DataContext = new AuthorFormViewModel();
         }
 
         private void CloseBtn_Click(object sender, MouseButtonEventArgs e)
