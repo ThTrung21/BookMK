@@ -1,4 +1,5 @@
-﻿using BookMK.ViewModels;
+﻿using BookMK.Models;
+using BookMK.ViewModels;
 using BookMK.ViewModels.InsertFormViewModels;
 
 using BookMK.Views.InsertForm;
@@ -21,13 +22,19 @@ namespace BookMK.Views.InsertForm
     /// <summary>
     /// Interaction logic for InsertAuthorForm.xaml
     /// </summary>
+    /// 
+    
     public partial class InsertAuthorForm : Window
     {
+       
         public InsertAuthorForm()
         {
             InitializeComponent();
-            this.DataContext = new AuthorFormViewModel();
+           // this.DataContext = new AuthorFormViewModel();
         }
+
+        
+
 
         private void CloseBtn_Click(object sender, MouseButtonEventArgs e)
         {
@@ -37,23 +44,19 @@ namespace BookMK.Views.InsertForm
 
         private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                this.DataContext = await AuthorFormViewModel.Initialize();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error initializing ViewModel: {ex.Message}");
-            }
+            this.DataContext = await AuthorFormViewModel.Initialize();
         }
 
         private void DoneBtn_Click(object sender, RoutedEventArgs e)
         {
             AuthorFormViewModel vm = this.DataContext as AuthorFormViewModel;
-            if (vm.InsertAuthor != null)
-            {
-                vm.InsertAuthor.Execute(this);
-            }
+            
+                if (vm.InsertAuthor != null)
+                {
+                    vm.InsertAuthor.Execute(this);
+                }
+           
+           
 
         }
 

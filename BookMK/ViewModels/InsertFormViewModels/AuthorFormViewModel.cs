@@ -1,4 +1,5 @@
 ﻿using BookMK.Commands.InsertCommand;
+using BookMK.Commands.UpdateCommand;
 using BookMK.Models;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,9 @@ namespace BookMK.ViewModels.InsertFormViewModels
 {
     public class AuthorFormViewModel : ViewModelBase
     {
+       
+
+
         private Int32 _id;
         public Int32 ID
         {
@@ -30,7 +34,15 @@ namespace BookMK.ViewModels.InsertFormViewModels
             get { return _note; }
             set { _note = value; OnPropertyChanged(nameof(Note)); }
         }
+        public AuthorFormViewModel()
+        {
 
+           
+        }
+
+        
+
+     
         public ICommand InsertAuthor { get; set; }
 
         public static async Task<AuthorFormViewModel> Initialize()
@@ -42,8 +54,11 @@ namespace BookMK.ViewModels.InsertFormViewModels
 
         private async Task IntializeAsync()
         {
-            await Task.Run(() =>
+            await Task.Run(async () =>
             {
+                // Simulate an asynchronous operation
+                await Task.Delay(1000);
+
                 ID = Author.CreateID();
                 InsertAuthor = new InsertAuthorCommand(this);
             });
@@ -51,8 +66,8 @@ namespace BookMK.ViewModels.InsertFormViewModels
 
 
 
-       
 
-       
+
+
     }
 }

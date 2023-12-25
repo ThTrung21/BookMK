@@ -23,7 +23,7 @@ namespace BookMK.Models
         public string Phone { get; set; }
         public string FullName { get; set; }
         public string Email { get; set; }
-        
+        public bool IsVerified { get; set; }
         //admin=3 staff=2
         public string Role { get; set; }
 
@@ -69,6 +69,21 @@ namespace BookMK.Models
 
 
         }
+       
+        public static bool IsExisted(string Name, string Phone)
+        {
+            DataProvider<Staff> db = new DataProvider<Staff>(Staff.Collection);
+
+            // Use a filter that checks both Username and Phone
+            FilterDefinition<Staff> filter = Builders<Staff>.Filter.And(
+                Builders<Staff>.Filter.Regex(x => x.Username, new BsonRegularExpression("^" + Regex.Escape(Name) + "$", "i")),
+                Builders<Staff>.Filter.Regex(x => x.Phone, new BsonRegularExpression("^" + Regex.Escape(Phone) + "$", "i"))
+            );
+
+            return db.collection.Find(filter).Any();
+        }
+
+
 
         //hash password before storing in database
         public static string HashPassword(string password)

@@ -1,5 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
                     xmlns:converter="clr-namespace:BookMK.Converters">
     <converter:StringNullOrEmptyConverter x:Key="StringNullOrEmptyConverter"/>
     
@@ -34,7 +35,7 @@
                                           VerticalAlignment="Center"
                                           Margin="5 0">
                             </ScrollViewer>
-                            
+                            <materialDesign:PackIcon Kind="Magnify" Grid.Column="1" Width="44" Height="40" />
                             <!--<Image Grid.Column="1" ToolTip="LAKJSDKLAJSKLDJLKAJKSLDK" Source="/icons/search.png"/>-->
 
                             <Label x:Name="watermark" 
@@ -42,7 +43,7 @@
                                    HorizontalAlignment="Left" 
                                    Margin="5 0" 
                                    FontSize="{TemplateBinding FontSize}"
-                                   Foreground="LightGray"
+                                   Foreground="#99AAB5"
                                    Content="Search"/>
                         </Grid>
                     </Border>
@@ -51,9 +52,7 @@
 
                             <Setter Property="Visibility" Value="Hidden" TargetName="watermark"/>
                         </Trigger>
-                        <DataTrigger Binding="{Binding YourTextProperty, Converter={StaticResource StringNullOrEmptyConverter}}" Value="False">
-                            <Setter Property="Visibility" Value="Hidden" TargetName="watermark"/>
-                        </DataTrigger>
+                        
                     </ControlTemplate.Triggers>
 
 
@@ -102,4 +101,6 @@
             </Setter.Value>
         </Setter>
     </Style>
+
+    
 </ResourceDictionary>

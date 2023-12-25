@@ -82,7 +82,7 @@
                       Style="{StaticResource FilledTextBox}">
                         <TextBox.Text>
                                 <Binding                               
-                                Path="username"
+                                Path="Username"
                                 UpdateSourceTrigger="PropertyChanged">
                                 </Binding>
                         </TextBox.Text>
@@ -118,7 +118,7 @@
                       Style="{StaticResource FilledTextBox}">
                         <TextBox.Text>
                             <Binding                               
-                                Path="password"
+                                Path="Password"
                                 UpdateSourceTrigger="PropertyChanged">
                             </Binding>
                         </TextBox.Text>

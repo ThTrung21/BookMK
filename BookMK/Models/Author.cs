@@ -62,7 +62,7 @@ namespace BookMK.Models
         }
 
         //search author
-        public static Author GetCustomerByName(string Name)
+        public static Author GetAuthorByName(string Name)
         {
             if (Name == null)
             {

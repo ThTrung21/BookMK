@@ -173,32 +173,50 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Commands\AsyncCommandBase.cs" />
+    <Compile Include="Commands\ChangePasswordCommand.cs" />
     <Compile Include="Commands\CommandBase.cs" />
     <Compile Include="Commands\InsertCommand\InsertAuthorCommand.cs" />
+    <Compile Include="Commands\InsertCommand\InsertCustomerCommand.cs" />
+    <Compile Include="Commands\InsertCommand\InsertStaffCommand.cs" />
     <Compile Include="Commands\LoginCommand.cs" />
+    <Compile Include="Commands\UpdateCommand\UpdateAuthorCommand.cs" />
+    <Compile Include="Commands\UpdateCommand\UpdateStaffCommand.cs" />
     <Compile Include="Converters\StringNullOrEmptyConverter.cs" />
     <Compile Include="Models\Account.cs" />
     <Compile Include="Models\Staff.cs" />
     <Compile Include="ViewModels\AccountViewModel.cs" />
     <Compile Include="ViewModels\AuthorViewModel.cs" />
     <Compile Include="ViewModels\BookViewModel.cs" />
+    <Compile Include="ViewModels\CustomerViewModel.cs" />
     <Compile Include="ViewModels\DashBoardViewModel.cs" />
     <Compile Include="ViewModels\InsertFormViewModels\AuthorFormViewModel.cs" />
+    <Compile Include="ViewModels\InsertFormViewModels\InsertCustomerViewModel.cs" />
+    <Compile Include="ViewModels\InsertFormViewModels\InsertStaffViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\ResetPasswordViewModel.cs" />
+    <Compile Include="ViewModels\SettingViewModel.cs" />
+    <Compile Include="ViewModels\StaffViewModel.cs" />
+    <Compile Include="ViewModels\VerifyEmailViewModel.cs" />
+    <Compile Include="ViewModels\ViewForm\ViewAuthorViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
+    <Compile Include="Views\Form\VerifyEmailForm.xaml.cs">
+      <DependentUpon>VerifyEmailForm.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\InsertForm\InsertAuthorForm.xaml.cs">
       <DependentUpon>InsertAuthorForm.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\InsertForm\InsertCustomerForm.xaml.cs">
+      <DependentUpon>InsertCustomerForm.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\InsertForm\InsertStaffForm.xaml.cs">
+      <DependentUpon>InsertStaffForm.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ListViews\BookListView.xaml.cs">
       <DependentUpon>BookListView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\DashBoard.xaml.cs">
-      <DependentUpon>DashBoard.xaml</DependentUpon>
     </Compile>
     <Page Include="Styles\Button.xaml">
       <SubType>Designer</SubType>
@@ -208,7 +226,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Styles\Combobox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Form\VerifyEmailForm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\InsertForm\InsertAuthorForm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\InsertForm\InsertCustomerForm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\InsertForm\InsertStaffForm.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -228,7 +262,27 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Pages\DashBoard.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\HomePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\Setting.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\StaffPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\ResetPasswordForm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ViewForm\ViewAuthorForm.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -253,8 +307,23 @@
     <Compile Include="Views\Pages\CustomerPage.xaml.cs">
       <DependentUpon>CustomerPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Pages\DashBoard.xaml.cs">
+      <DependentUpon>DashBoard.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\HomePage.xaml.cs">
+      <DependentUpon>HomePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\Setting.xaml.cs">
+      <DependentUpon>Setting.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\StaffPage.xaml.cs">
+      <DependentUpon>StaffPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ResetPasswordForm.xaml.cs">
       <DependentUpon>ResetPasswordForm.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ViewForm\ViewAuthorForm.xaml.cs">
+      <DependentUpon>ViewAuthorForm.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\DashBoardWindow.xaml.cs">
       <DependentUpon>DashBoardWindow.xaml</DependentUpon>
@@ -270,10 +339,6 @@
     <Page Include="Views\LoginPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\DashBoard.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
@@ -325,7 +390,9 @@
     <Resource Include="Images\TechyBG.png" />
     <Content Include="mongocrypt.dll" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Commands\DeleteCommand\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MaterialDesignThemes.4.9.0\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.4.9.0\build\MaterialDesignThemes.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

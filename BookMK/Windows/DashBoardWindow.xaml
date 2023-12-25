@@ -176,7 +176,7 @@
                     <!--Custoemr btn-->
                 <RadioButton
                     Name="CustomerBtn"
-                    Style="{StaticResource RadioButtonDashboard}">
+                    Style="{StaticResource RadioButtonDashboard}" Checked="CustomerBtn_Checked">
                     <Grid  VerticalAlignment="Center" Width="219" >
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="60"/>
@@ -212,7 +212,7 @@
                     <!--Custoemr btn-->
                     <RadioButton
                     Name="StaffBtn"
-                    Style="{StaticResource RadioButtonDashboard}">
+                    Style="{StaticResource RadioButtonDashboard}" Checked="StaffBtn_Checked">
                         <Grid  VerticalAlignment="Center" Width="219" >
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="60"/>
@@ -231,7 +231,7 @@
                    <!--Staff-->
                 <StackPanel Grid.Row="1" VerticalAlignment="Bottom" Margin="0,0,0,0">
                     <Button
-                        Style="{StaticResource SettingButton1}">
+                        Style="{StaticResource SettingButton1}" Click="Button_Click_1">
                         <Grid  VerticalAlignment="Center" Width="219" >
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="60"/>

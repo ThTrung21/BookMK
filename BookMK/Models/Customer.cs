@@ -17,7 +17,7 @@ namespace BookMK.Models
         [BsonRepresentation(MongoDB.Bson.BsonType.Int64)]
 
         public int ID { get; set; }
-        public int Role {get;set; }
+        public string Role {get;set; }
         public string Username { get; set; }
         public string PasswordHash { get; set; }
         public string Phone { get; set; }
@@ -25,7 +25,7 @@ namespace BookMK.Models
         public string Email { get; set; }
         public string Address { get; set; }
         public int PurchasePoint { get; set; }
-       
+        public bool IsVerified { get; set; }
 
         public static string Collection = "customers";
 
@@ -34,7 +34,7 @@ namespace BookMK.Models
         {
             DataProvider<Customer> db = new DataProvider<Customer>(Customer.Collection);
             List<Customer> allcs = db.ReadAll().OrderBy(p => p.ID).ToList();
-            int expectedValue = 1;
+            int expectedValue = 0;
             foreach (var o in allcs)
             {
                 int num = o.ID;
@@ -56,13 +56,27 @@ namespace BookMK.Models
             DataProvider<Customer> db = new DataProvider<Customer>(Customer.Collection);
             FilterDefinition<Customer> filter = Builders<Customer>.Filter.Regex(x => x.Username, new BsonRegularExpression("^" + Regex.Escape(Name) + "$", "i"));
 
-            List<Customer> resultls = db.ReadFiltered(filter);
-            bool exists = resultls.Count > 0;
+            //List<Customer> resultls = db.ReadFiltered(filter);
+            //bool exists = resultls.Count > 0;
 
-            return exists;
+            //return exists;
+            return db.collection.Find(filter).Any();
 
-           
+
         }
+        public static bool IsExisted(string Name, string Phone)
+        {
+            DataProvider<Customer> db = new DataProvider<Customer>(Customer.Collection);
+
+            // Use a filter that checks both Username and Phone
+            FilterDefinition<Customer> filter = Builders<Customer>.Filter.And(
+                Builders<Customer>.Filter.Regex(x => x.Username, new BsonRegularExpression("^" + Regex.Escape(Name) + "$", "i")),
+                Builders<Customer>.Filter.Regex(x => x.Phone, new BsonRegularExpression("^" + Regex.Escape(Phone) + "$", "i"))
+            );
+
+            return db.collection.Find(filter).Any();
+        }
+
 
         public override string ToString()
         {

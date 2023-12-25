@@ -1,4 +1,5 @@
-﻿using BookMK.ViewModels;
+﻿using BookMK.Models;
+using BookMK.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,7 +26,20 @@ namespace BookMK.Windows
             InitializeComponent();
             this.DataContext = new DashBoardViewModel();
         }
+        public Staff s { get; set; }
 
+        public DashBoardWindow(Staff loggedinStaff)
+        {
+            InitializeComponent();
+            this.DataContext = new DashBoardViewModel(loggedinStaff);
+           
+            this.s = loggedinStaff;
+            if (s.Role != "admin")
+            {
+                //this.AuthorBtn.Visibility = Visibility.Collapsed;
+                this.StaffBtn.Visibility = Visibility.Collapsed;
+            }
+        }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
@@ -38,6 +52,21 @@ namespace BookMK.Windows
         private void  AuthorBtn_Checked(object sender, RoutedEventArgs e)
         {
             (this.DataContext as DashBoardViewModel).SwitchAuthorPage();
+        }
+
+        private void CustomerBtn_Checked(object sender, RoutedEventArgs e)
+        {
+            (this.DataContext as DashBoardViewModel).SwitchCustomerPage();
+        }
+
+        private void StaffBtn_Checked(object sender, RoutedEventArgs e)
+        {
+            (this.DataContext as DashBoardViewModel).SwitchStaffPage();
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            (this.DataContext as DashBoardViewModel).SwitchSettingPage();
         }
     }
 }

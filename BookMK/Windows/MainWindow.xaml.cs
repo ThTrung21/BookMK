@@ -38,7 +38,7 @@ namespace BookMK
             bool staffExists = Staff.IsExisted("admin");
             if (staffExists)
             {
-                MessageBox.Show("Yes");
+               
             }
             else
             {
@@ -50,51 +50,48 @@ namespace BookMK
                     Username = "admin",
                     PasswordHash = Staff.HashPassword("12345"),
                     Phone = "",
-                    FullName = "",
-                    Email = ""
+                    FullName = "admin",
+                    Email = "",
+                    IsVerified = false
                 };
 
                 // Insert the admin account into the database
                 staffDataProvider.Insert(adminAccount);
             }
+
+
+
+
+            //===================================================================================
+
+            // Create a customer instance for unregistered customer purchase
+            var customerProvider = new DataProvider<Customer>("customers");
+            // Check if any accounts exist in the database with the username "admin"
+            bool customerExists = Customer.IsExisted("annonymous");
+            if (!customerExists)
+            {
+
+                // Seed a customer for annonymous
+                var Walk_in = new Customer
+                {
+                    ID = 0,
+                    Role = "customer",
+                    Username = "annonymous",
+                    PasswordHash = Customer.HashPassword("12345"),
+                    Phone = "",
+                    FullName = "Walk-in Customers",
+                    Email = "",
+                    Address = "",
+                    PurchasePoint = 0
+                };
+
+                // Insert the admin account into the database
+                customerProvider.Insert(Walk_in);
+            }
+
         }
 
 
-
-        //===================================================================================
-
-        //// Create a customer instance for unregistered customer purchase
-        // var customerProvider = new DataProvider<Customer>("customers");
-        // // Check if any accounts exist in the database with the username "admin"
-        // bool customerExists = Customer.IsExisted("admin");
-        // if (!customerExists)
-        // {
-
-        //     // Seed a customer for annonymous
-        //     var Walk_in = new Customer
-        //     {
-        //         ID = 0,
-        //         Role = 0,
-        //         Username = "annonymous",
-        //         PasswordHash = Customer.HashPassword("12345"),
-        //         Phone = "",
-        //         FullName = "",
-        //         Email = "",
-        //         Address = "",
-        //         PurchasePoint = 0
-        //     };
-
-        //     // Insert the admin account into the database
-        //     customerProvider.Insert(Walk_in);
-        // }
-
-    }
-
-
-
-
-
-
-       
+    }  
 }
 

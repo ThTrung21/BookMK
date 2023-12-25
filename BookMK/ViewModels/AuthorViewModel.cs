@@ -13,11 +13,11 @@ using System.Windows;
 
 namespace BookMK.ViewModels
 {
-    public class AuthorViewModel: ViewModelBase
+    public class AuthorViewModel : ViewModelBase
     {
         public AuthorViewModel() { }
 
-        
+
         private ObservableCollection<Author> _authors;
         public ObservableCollection<Author> Authors
         {
@@ -33,13 +33,35 @@ namespace BookMK.ViewModels
             set
             {
                 _searchString = value;
-                //Search();
+                Search();
                 OnPropertyChanged(nameof(SearchString));
             }
         }
 
+        private string _name = "";
+        public string Name
+        {
+            get { return _name; }
+            set
+            {
+                _name = value;
 
-       
+                OnPropertyChanged(nameof(Name));
+            }
+        }
+
+        private string _note = "";
+        public string Note
+        {
+            get { return _note; }
+            set
+            {
+                _note = value;
+
+                OnPropertyChanged(nameof(Note));
+            }
+        }
+
 
         //update list
         public void UpdateAuthorList(List<Author> authors)
@@ -63,14 +85,14 @@ namespace BookMK.ViewModels
         {
             DataProvider<Author> db = new DataProvider<Author>(Author.Collection);
             List<Author> AllAuthors = await db.ReadAllAsync();
-            this._authors = new ObservableCollection<Author>(AllAuthors);
+            this.Authors = new ObservableCollection<Author>(AllAuthors);
 
         }
 
         //search
         private async void Search()
         {
-            await Task.Run(() =>
+            await Task.Run(async () =>
             {
                 DataProvider<Author> db = new DataProvider<Author>(Author.Collection);
                 string searchInput = SearchString.Trim();
@@ -79,7 +101,10 @@ namespace BookMK.ViewModels
                 //FilterDefinition<Customer> filter = Builders<Customer>.Filter.Where(c => c.ID.ToString().Contains(searchInput));
                 //results = db.ReadFiltered(filter
 
-                FilterDefinition<Author> filter = Builders<Author>.Filter.Regex("Name", new BsonRegularExpression(searchInput, "i"));
+                FilterDefinition<Author> filter =
+                Builders<Author>.Filter.Where(
+                    s => (s.Name.ToLower().Trim().Contains(searchInput)));
+
                 results = db.ReadFiltered(filter);
 
                 Application.Current.Dispatcher.Invoke(() =>
@@ -92,8 +117,7 @@ namespace BookMK.ViewModels
                 });
             });
         }
+
+
     }
-
-    
-
 }

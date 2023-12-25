@@ -10,17 +10,16 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace BookMK.Views
+namespace BookMK.Views.Form
 {
     /// <summary>
-    /// Interaction logic for UserControl1.xaml
+    /// Interaction logic for VerifyEmailForm.xaml
     /// </summary>
-    public partial class UserControl1 : UserControl
+    public partial class VerifyEmailForm : Window
     {
-        public UserControl1()
+        public VerifyEmailForm()
         {
             InitializeComponent();
         }

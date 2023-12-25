@@ -16,6 +16,8 @@
                 <ResourceDictionary Source="Styles/FilledTextBox.xaml"/>
                 <ResourceDictionary Source="Styles/ButtonDashBoard.xaml"/>
                 <ResourceDictionary Source="Styles/Button.xaml"/>
+                <ResourceDictionary Source="Styles/Combobox.xaml"/>
+
                 <!--Material design lib-->
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />

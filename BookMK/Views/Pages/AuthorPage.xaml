@@ -4,16 +4,17 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:BookMK.Views.Pages"
+      Loaded="Page_Loaded"
       mc:Ignorable="d" 
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-      xmlns:listviews="clr-namespace:BookMK.Views.ListViews"
+      
       
       d:DesignHeight="700" d:DesignWidth="930"
       Title="Author">
     
     <Grid
         Margin="16 0 10 8 "
-        Background="#36393e">
+        Background="Transparent">
 
         <Grid.RowDefinitions>
             <RowDefinition Height="100"/>
@@ -50,7 +51,7 @@
                 Height="44px"
                 Width="350px"
                 BorderThickness="2"  
-                Text="{Binding SearchString}"
+                Text="{Binding SearchString, UpdateSourceTrigger=PropertyChanged}"
                 BorderBrush="#1E2124"
                 Background="#282B30"
                 FontSize="18"
@@ -63,9 +64,7 @@
 
             
             
-            <Button Grid.Column="1"  Margin="8 0 0 0 " HorizontalAlignment="Left" Width="48" Height="44" Padding="0" Style="{StaticResource RoundedButtonStyle}" >
-                <materialDesign:PackIcon Kind="Magnify" Width="32" Height="32" HorizontalAlignment="Center" Foreground="White" />
-            </Button>
+         
            
             <Button
                 Name="AddBtn"
@@ -76,8 +75,8 @@
                 FontSize="18"
                 Background="#5876DF"
                 FontFamily="{StaticResource RobotoMono}"
-                
-                Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                Cursor="Hand"
+                Style="{StaticResource RoundedButtonStyle}"
                 ToolTip="Resource name: MaterialDesignRaisedLightDarkButton" Click="AddBtn_Click" />
 
         </Grid>
@@ -87,16 +86,20 @@
             Background="#282B30"
             CornerRadius="20"
             Grid.Row="2"
-            Padding="8 8">
+           >
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="32"/>
+                    <RowDefinition Height="36"/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                <Grid  Grid.Row="0">
+                <Grid  Grid.Row="0"
+                       HorizontalAlignment="Center"
+                       Width="904"
+                       Margin="2"
+                       >
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="97"/>
-                        <ColumnDefinition Width="351"/>
+                        <ColumnDefinition Width="90"/>
+                        <ColumnDefinition Width="343"/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
                     
@@ -105,7 +108,7 @@
                             BorderBrush="White"
                             BorderThickness="0 0 2 2">
                         <TextBlock 
-                               Text="AuthorID"
+                               Text="ID"
                                VerticalAlignment="Center"
                                HorizontalAlignment="Center"
                                FontFamily="{StaticResource RobotoMono}"
@@ -143,22 +146,21 @@
 
                 </Grid>
                 <ListView
-                     Grid.Row="1"
+                    Grid.Row="1"
                      x:Name="myListView"
+                     HorizontalAlignment="Stretch"
+                     VerticalAlignment="Top"
+                     Width="904"
                      ScrollViewer.HorizontalScrollBarVisibility="Disabled" ItemsSource="{Binding Authors}">
-                    <ListView.Resources>
-                        <Style TargetType="TextBlock" >
-                            <Setter Property="Foreground" Value="Black"/>
-                        </Style>
-                    </ListView.Resources>
+                    
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ListViewItem >
-                                <Grid PreviewMouseLeftButtonDown="Grid_PreviewMouseLeftButtonDown" Margin="-10 -10"  Width="800" Height="55">
+                                <Grid PreviewMouseLeftButtonDown="Grid_PreviewMouseLeftButtonDown" Cursor="Hand"  Margin="-14 -8" Width="904" Height="33" >
 
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="97"/>
-                                        <ColumnDefinition Width="351"/>
+                                        <ColumnDefinition Width="90"/>
+                                        <ColumnDefinition Width="343"/>
                                         <ColumnDefinition/>
                                        
                                     </Grid.ColumnDefinitions>
@@ -169,34 +171,60 @@
                                                     <Setter Property="Opacity" Value="1"></Setter>
                                                 </Trigger>
                                                 <Trigger Property="IsMouseOver" Value="True">
-                                                    <Setter Property="Opacity" Value="0.5"></Setter>
+                                                    <Setter Property="Opacity" Value="0.7"></Setter>
                                                 </Trigger>
                                             </Style.Triggers>
                                         </Style>
                                     </Grid.Style>
-                                    <Border Background="White" CornerRadius="20" Grid.ColumnSpan="3"/>
-                                    <TextBlock VerticalAlignment="Center" 
-                                               Padding="10 0"
+                                    <Border Background="#36393e" CornerRadius="15"  Grid.ColumnSpan="4"/>
+                                    <Border 
+                                        Grid.Column="0"
+                                        BorderBrush="#99AAB5"
+                                        
+                                        BorderThickness="0 0 2 0">
+                                        <TextBlock VerticalAlignment="Center" 
+                                               HorizontalAlignment="Center"
+                                               Name="itemID"
+                                               
+                                               Foreground="#99AAB5"
                                                Text="{Binding ID}" FontFamily="{StaticResource Inter}" 
                                                 
                                                FontSize="20"/>
-                                    <TextBlock Grid.Column="1"
-                                               Padding="20 0"
-                                                VerticalAlignment="Center" 
+                                    </Border>
+
+                                    <Border 
+                                         Grid.Column="1"
+                                        BorderBrush="#99AAB5"
+                                        BorderThickness="0 0 2 0">
+                                        <TextBlock 
+                                               Padding="10 0"
+                                               VerticalAlignment="Center" 
+                                               Foreground="#99AAB5"
+                                               Name="itemName"
+                                               HorizontalAlignment="Center"
                                                Text="{Binding Name}" FontFamily="{StaticResource Inter}" 
-                                               
+                                     
                                                FontSize="20"/>
+                                    </Border>
                                     <TextBlock Grid.Column="2"
-                                                VerticalAlignment="Center" 
-                                               
+                                               Foreground="#99AAB5"
+                                               Padding="10 0"
+                                               VerticalAlignment="Center" 
+                                               HorizontalAlignment="Center"
+                                               Name="itemNote"
                                                Text="{Binding Note}" FontFamily="{StaticResource Inter}" 
                                                FontSize="20"/>
-                                    
+
                                 </Grid>
                             </ListViewItem>
                         </DataTemplate>
                     </ListView.ItemTemplate>
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="Width" Value="904"/>
 
+                        </Style>
+                    </ListView.ItemContainerStyle>
 
                 </ListView>
             </Grid>

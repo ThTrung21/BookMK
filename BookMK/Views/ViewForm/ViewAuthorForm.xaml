@@ -1,18 +1,18 @@
-﻿<Window x:Class="BookMK.Views.InsertForm.InsertAuthorForm"
+﻿<Window x:Class="BookMK.Views.ViewForm.ViewAuthorForm"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:BookMK.Views.InsertForm"
+        xmlns:local="clr-namespace:BookMK.Views.ViewForm"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Loaded="Window_Loaded"
+        
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         Background="#36393E"
-        Title="InsertAuthorForm" Height="420" Width="530">
-    
+        Title="AuthorViewForm" Height="420" Width="530">
+
     <Border
         CornerRadius="15"
         Padding="16 0 16 0">
@@ -47,9 +47,8 @@
                                 Height="32"
                                 Width="32px"
                                 HorizontalAlignment="Right"
-                                MouseEnter="PackIcon_MouseEnter"
-                                MouseLeave="PackIcon_MouseLeave"
-                                MouseUp="CloseBtn_Click" />
+                                Cursor="Hand"
+                                MouseUp="PackIcon_MouseUp" />
 
             </Grid>
             <Grid 
@@ -65,11 +64,12 @@
                            Grid.Row="0"
                            FontFamily="{StaticResource Inter}"/>
                 <TextBox
-                    Text="{Binding Name}"
+                    Text="{Binding CurrentAuthor.Name, UpdateSourceTrigger=PropertyChanged}"
                     Grid.Row="1" 
                     FontSize="18"
                     Margin="0 10 0 0"
                     Height="44"    
+                    Name="txtboxName"
                     TextAlignment="Left"
                     VerticalAlignment="top"  
                     MaxLength="50"
@@ -90,10 +90,12 @@
                      Grid.Row="1"
                     CornerRadius="15" 
                     Margin="0 4 0 0">
-                     
+
                     <TextBox
-                        Text="{Binding Note}"
-                        TextWrapping="Wrap"
+                       Text="{Binding CurrentAuthor.Note, UpdateSourceTrigger=PropertyChanged}"
+                        TextWrapping="Wrap
+                        "
+                        Name="txtboxNote"
                         BorderThickness="2"
                         Foreground="#99AAB5"
                         BorderBrush="#1E2124"
@@ -113,12 +115,12 @@
                     Name="InsertBtn"
                     Margin="8 0 0 0 " 
                     HorizontalAlignment="Center" Width="200" Height="40" Padding="0" 
-                    Content="Done"
-                    Click="DoneBtn_Click"
+                    Content="Update"
+                    Click="InsertBtn_Click_1"
                     FontFamily="{StaticResource Inter}"
                     FontSize="18"
                     Style="{StaticResource RoundedButtonStyle}" >
-               
+
             </Button>
 
 
