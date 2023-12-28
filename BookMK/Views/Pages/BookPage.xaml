@@ -5,17 +5,20 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:BookMK.Views.Pages"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-      
+      Loaded="Page_Loaded"
+      xmlns:converter="clr-namespace:BookMK.Converters"
       xmlns:listviews="clr-namespace:BookMK.Views.ListViews"
       mc:Ignorable="d" 
       d:DesignHeight="700" d:DesignWidth="930"
       Title="Book">
-  
-    
+    <Page.Resources>
+        <converter:PathToBookCover x:Key="PathToImage"/>
+    </Page.Resources>
+
     <Grid
         Margin="16 0 10 8 "
         Background="#36393e">
-        
+
         <Grid.RowDefinitions>
             <RowDefinition Height="100"/>
             <RowDefinition Height="55"/>
@@ -39,13 +42,13 @@
         </Grid>
         <Grid
             Grid.Row="1">
-            
+
             <!--Command row-->
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="350"/>
                 <ColumnDefinition/>
-                <ColumnDefinition Width="124"/>
-                <ColumnDefinition Width="124"/>
+                <ColumnDefinition Width="136"/>
+                <ColumnDefinition Width="136"/>
             </Grid.ColumnDefinitions>
             <TextBox
                 Name="SearchBox"
@@ -56,45 +59,116 @@
                 Background="#282B30"
                 FontSize="18"
                 Grid.Column="0"
+                Text="{Binding SearchString, UpdateSourceTrigger=PropertyChanged}"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Left"
                 Foreground="#99AAB5"
                 Style="{StaticResource SearchTextbox}">
             </TextBox>
-            
-            
-            <Button Grid.Column="1"  Margin="8 0 0 0 " HorizontalAlignment="Left" Width="48" Height="44" Padding="0" Style="{StaticResource RoundedButtonStyle}" >
-                <materialDesign:PackIcon Kind="Magnify" Width="32" Height="32" HorizontalAlignment="Center" Foreground="White" />
-            </Button>
-            
-            <Button
-                Grid.Column="2"
-                Height="40"
-                Margin="0 0 5 0"
-                Content="_DARK"
-                IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
-                Style="{StaticResource MaterialDesignRaisedDarkButton}"
-                ToolTip="Resource name: MaterialDesignRaisedLightDarkButton" />
+
+
+            <ComboBox
+                Name="ComboboxFilter"
+                Grid.Column="1"
+                HorizontalContentAlignment="Left"
+                Margin="8,4,0,0"
+                Foreground="White"
+                Background="#5876DF" 
+           
+                SelectedIndex="{Binding SelectedIndex,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"
+                materialDesign:HintAssist.Foreground="white"
+                materialDesign:HintAssist.HelperText="Genre"
+                Style="{StaticResource myComboBox}"
+                HorizontalAlignment="Left"
+                Padding="4"
+                materialDesign:HintAssist.FontFamily="{StaticResource Inter}"
+                Height="44" Width="132" VerticalAlignment="Top">
+
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding }" Width="170" FontSize="20"    Foreground="White" Padding="7 0" />
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+
+           
 
             <Button
+                Name="AddBtn"
                 Grid.Column="3"
                 Height="40"
                 Margin="5 0 0 0"
-                Content="_DARK"
-                IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
-                Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                Content="Add Book"
+                FontSize="18"
+                Width="124"
+                Background="#5876DF"
+                FontFamily="{StaticResource RobotoMono}"
+                Click="AddBtn_Click"
+                Cursor="Hand"
+                
+                Style="{StaticResource RoundedButtonStyle}"
                 ToolTip="Resource name: MaterialDesignRaisedLightDarkButton" />
 
+
         </Grid>
+        
+
+
         <Border
             BorderBrush="Black"
             BorderThickness="1px"
             Background="#282B30"
             CornerRadius="20"
-            Grid.Row="2">           
-            <Grid>
-                <listviews:BookListView />
-            </Grid>
+            Padding="0 8"
+            Grid.Row="2">
+
+
+            <ListView ScrollViewer.VerticalScrollBarVisibility="Disabled" ItemsSource="{Binding Books}">
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Vertical"/>
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <materialDesign:Card BorderThickness="3px"
+                                  BorderBrush="White"
+                                  Background="#36393e"
+                                  Foreground="White"
+                                  Width="210"
+                                  UniformCornerRadius="6"
+                                  Height="300">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="218"/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <Image Margin="16 16 16 0"
+                                       Source="{Binding Cover,Converter={StaticResource PathToImage}}"
+                                       Stretch="Uniform"/>
+                                    <StackPanel Grid.Row="1" Margin="8 8">
+                                        <TextBlock Text="{Binding Title}"
+                                   FontFamily="{StaticResource Inter}"
+                                   FontSize="16"
+                                   TextAlignment="Center"
+                                   FontWeight="Bold"
+                                   TextWrapping="Wrap"/>
+                                        <TextBlock VerticalAlignment="Center"
+                                   TextAlignment="Center"
+                                   FontFamily="{StaticResource Inter}"
+                                   FontStyle="Italic"
+                                   Text="{Binding AuthorName}"
+                                   TextWrapping="Wrap"/>
+                                    </StackPanel>
+                            </Grid>
+                        </materialDesign:Card>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <!--ItemsSource="{Binding YourItems}"-->
+           
+
         </Border>
 
 

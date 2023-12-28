@@ -30,11 +30,10 @@ namespace BookMK.Views.ViewForm
 
         public ViewAuthorForm(Author a)
         {
-            MessageBox.Show(a.Note);
-            this.au = a;
+            
+            
             InitializeComponent();
-            this.txtboxName.Text = a.Name;
-            this.txtboxNote.Text = a.Note;
+           
            
             this.DataContext = new ViewAuthorViewModel(a);
 

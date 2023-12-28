@@ -194,6 +194,7 @@
                 <!--Import-->
                     <RadioButton
                     Name="Importbtn"
+                        Click="Importbtn_Click"
                     Style="{StaticResource RadioButtonDashboard}">
                         <Grid  VerticalAlignment="Center" Width="219" >
                             <Grid.ColumnDefinitions>

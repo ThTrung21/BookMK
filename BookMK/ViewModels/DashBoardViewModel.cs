@@ -56,7 +56,10 @@ namespace BookMK.ViewModels
         {
             CurrentPage = new Uri("/Views/Pages/AuthorPage.xaml", UriKind.Relative);
         }
-
+        public void SwitchImportPage()
+        {
+            CurrentPage = new Uri("/Views/Pages/ImportPage.xaml", UriKind.Relative);
+        }
 
         public void SwitchCustomerPage()
         {

@@ -67,6 +67,7 @@
          
            
             <Button
+                
                 Name="AddBtn"
                 Grid.Column="3"
                 Height="40"

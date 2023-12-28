@@ -142,7 +142,8 @@ namespace BookMK.ViewModels
                     Staffs.Clear();
                     foreach (Staff s in results)
                     {
-                        Staffs.Add(s);
+                        if (s.Role != "admin")
+                            Staffs.Add(s);
                     }
                 });
             });

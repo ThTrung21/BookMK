@@ -1,40 +1,44 @@
-﻿using BookMK.ViewModels;
-using BookMK.Models;
+﻿using BookMK.Models;
+using BookMK.ViewModels.ViewForm;
+using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using BookMK.ViewModels.ViewForm;
-using MongoDB.Driver;
 
 namespace BookMK.Commands.UpdateCommand
 {
-    public class UpdateStaffCommand : AsyncCommandBase
+    public class UpdateCustomerCommand: AsyncCommandBase
     {
-        ViewStaffViewModel vm;
-        public UpdateStaffCommand(ViewStaffViewModel vm) { this.vm = vm; }
+        ViewCustomerViewModel vm;
+
+        public UpdateCustomerCommand(ViewCustomerViewModel vm)
+        {
+            this.vm = vm;
+        }
+
         public override async Task ExecuteAsync(object parameter)
         {
-            Staff updatedStaff = vm.CurrentStaff;
+            Customer updatedCustomer = vm.CurrentCustomer;
 
             try
             {
                 // Check if both Name and Note are empty
-
+                
 
                 await Task.Run(() =>
                 {
-                    FilterDefinition<Staff> filter = Builders<Staff>.Filter.Eq(x => x.ID, updatedStaff.ID);
-                    UpdateDefinition<Staff> update = Builders<Staff>.Update
-                        .Set(x => x.FullName, updatedStaff.FullName)
-                        .Set(x => x.Username, updatedStaff.Phone)
-                        .Set(x => x.Phone, updatedStaff.Phone);
-                        
-                    //more attributes
+                    FilterDefinition<Customer> filter = Builders<Customer>.Filter.Eq(x => x.ID, updatedCustomer.ID);
+                    UpdateDefinition<Customer> update = Builders<Customer>.Update
+                        .Set(x => x.FullName, updatedCustomer.FullName)
+                        .Set(x => x.Username, updatedCustomer.Phone)
+                        .Set(x => x.Address, updatedCustomer.Address)
+                        .Set(x => x.Phone, updatedCustomer.Phone);
+                        //more attributes
 
-                    DataProvider<Staff> db = new DataProvider<Staff>(Staff.Collection);
+                    DataProvider<Customer> db = new DataProvider<Customer>(Customer.Collection);
                     db.Update(filter, update);
 
                     Application.Current.Dispatcher.Invoke(() =>
@@ -50,5 +54,6 @@ namespace BookMK.Commands.UpdateCommand
                 MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
     }
 }

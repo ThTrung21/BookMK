@@ -1,6 +1,7 @@
 ﻿using BookMK.Models;
 using BookMK.ViewModels;
 using BookMK.Views.InsertForm;
+using BookMK.Views.ViewForm;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -34,16 +35,7 @@ namespace BookMK.Views.Pages
             this.DataContext = await StaffViewModel.Initialize();
            
         }
-        //Mouse cursor for close btn
-        //private void PackIcon_MouseEnter(object sender, MouseEventArgs e)
-        //{
-        //    Mouse.OverrideCursor = Cursors.Hand;
-        //}
-        //private void PackIcon_MouseLeave(object sender, MouseEventArgs e)
-        //{
-        //    Mouse.OverrideCursor = null;
-        //}
-
+        
         
 
         private async void AddBtn_Click(object sender, RoutedEventArgs e)
@@ -57,15 +49,26 @@ namespace BookMK.Views.Pages
 
 
         private DateTime _lastClickTime;
-
-        private void AddBtn_MouseEnter(object sender, MouseEventArgs e)
+        private async void Grid_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            Mouse.OverrideCursor = Cursors.Hand;
-        }
+            if ((DateTime.Now - _lastClickTime).TotalMilliseconds < 500)
+            {
+                Grid g = sender as Grid;
+                Staff s = g.DataContext as Staff;
 
-        private void AddBtn_MouseLeave(object sender, MouseEventArgs e)
-        {
-            Mouse.OverrideCursor = null;
+                ViewStaffForm f = new ViewStaffForm(s);
+                f.ShowDialog();
+
+                //update the list
+                if (this.DataContext != null)
+                {
+                    StaffViewModel vm = this.DataContext as StaffViewModel;
+                    DataProvider<Staff> db = new DataProvider<Staff>(Staff.Collection);
+                    vm.UpdateListStaff(await db.ReadAllAsync());
+                }
+
+            }
+            _lastClickTime = DateTime.Now;
         }
     }
 }

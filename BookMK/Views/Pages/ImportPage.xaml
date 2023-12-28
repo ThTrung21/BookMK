@@ -1,18 +1,18 @@
-﻿<Page x:Class="BookMK.Views.Pages.StaffPage"
+﻿<Page x:Class="BookMK.Views.Pages.ImportPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:BookMK.Views.Pages"
+      mc:Ignorable="d" 
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       Loaded="Page_Loaded"
-      mc:Ignorable="d" 
       d:DesignHeight="700" d:DesignWidth="930"
-      Title="StaffPage">
+      Title="ImportPage">
 
     <Grid
         Margin="16 0 10 8 "
-        Background="Transparent">
+        Background="#36393e">
 
         <Grid.RowDefinitions>
             <RowDefinition Height="100"/>
@@ -28,26 +28,44 @@
                 <ColumnDefinition Width="60"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <materialDesign:PackIcon Kind="BriefcaseAccount" 
-                                     Height="60" Width="60"
+            <materialDesign:PackIcon Kind="ExitToApp"  Height="60" Width="60"
                                                  Grid.Column="0"
                                                 Margin="0 4 0 0"
                                                  HorizontalAlignment="Right" VerticalAlignment="Center"
                                                  Foreground="White" />
-            <TextBlock Grid.Column="1" Text="Staff" VerticalAlignment="Center" FontFamily="{StaticResource RobotoMono}" Foreground="White" FontSize="48px" FontWeight="Bold"></TextBlock>
+            <TextBlock Grid.Column="1" Text="Import" VerticalAlignment="Center" FontFamily="{StaticResource RobotoMono}" Foreground="White" FontSize="48px" FontWeight="Bold"></TextBlock>
         </Grid>
         <Grid
             Grid.Row="1">
 
             <!--Command row-->
             <Grid.ColumnDefinitions>
-                
+                <ColumnDefinition Width="150"/>
                 <ColumnDefinition Width="350"/>
                 <ColumnDefinition/>
 
                 <ColumnDefinition Width="124"/>
             </Grid.ColumnDefinitions>
-           
+
+            <ComboBox
+                Name="ComboboxFilter"
+                Grid.Column="0"
+                Foreground="White"
+                Background="#FF282B30" 
+                SelectedIndex="{Binding SelectedIndex,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"
+                materialDesign:HintAssist.Foreground="#99AAB5"
+                Style="{StaticResource myComboBox}"
+                Padding="4"
+                materialDesign:HintAssist.FontFamily="{StaticResource Inter}"
+                Height="44" Width="133">
+
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding }" Width="170" FontSize="20"  Background="#36393e"   Foreground="#99AAB5" Padding="7 0" />
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+
             <TextBox
                 Height="44px"
                 Width="350px"
@@ -56,42 +74,40 @@
                 BorderBrush="#1E2124"
                 Background="#282B30"
                 FontSize="18"
-                Grid.Column="0"
+                Grid.Column="1"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Left"
                 Foreground="#99AAB5"
-                Cursor="Hand"
                 Style="{StaticResource SearchTextbox}">
             </TextBox>
 
 
 
 
-         
+
             <Button
                 Name="AddBtn"
-               Grid.Column="3"
+                Grid.Column="3"
                 Height="40"
                 Margin="5 0 0 0"
                 Content="Add"
                 FontSize="18"
                 Background="#5876DF"
                 FontFamily="{StaticResource RobotoMono}"
-                
+                Click="AddBtn_Click"
+                Cursor="Hand"
                 Style="{StaticResource RoundedButtonStyle}"
-                ToolTip="Resource name: MaterialDesignRaisedLightDarkButton" Click="AddBtn_Click" />
-            
+                ToolTip="Resource name: MaterialDesignRaisedLightDarkButton" />
+
         </Grid>
-        
         <Border
             BorderBrush="Black"
             BorderThickness="1px"
             Background="#282B30"
             CornerRadius="20"
             Grid.Row="2"
-          >
-            <Grid
-                >
+           >
+            <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="36"/>
                     <RowDefinition/>
@@ -99,14 +115,12 @@
                 <Grid  Grid.Row="0"
                        HorizontalAlignment="Center"
                        Width="904"
-                       Margin="8 8 8 2"
-                       
+                       Margin="2"
                        >
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="90"/>
                         <ColumnDefinition Width="343"/>
                         <ColumnDefinition/>
-                      
                     </Grid.ColumnDefinitions>
 
                     <!--Header 1-->
@@ -128,7 +142,7 @@
                             BorderBrush="White"
                             BorderThickness="0 0 2 2">
                         <TextBlock 
-                               Text="Name"
+                               Text="Date"
                                VerticalAlignment="Center"
                                HorizontalAlignment="Center"
                                FontFamily="{StaticResource RobotoMono}"
@@ -142,40 +156,32 @@
                             BorderBrush="White"
                             BorderThickness="0 0 2 2">
                         <TextBlock 
-                               Text="Phone"
+                               Text="Total"
                                VerticalAlignment="Center"
                                HorizontalAlignment="Center"
                                FontFamily="{StaticResource RobotoMono}"
                                FontSize="18"
                                Foreground="White"/>
                     </Border>
-                    <!--header 4-->
-                    <!--<Border Grid.Column="3"
-                            BorderBrush="White"
-                            BorderThickness="0 0 2 2">
-                    </Border>-->
+
                 </Grid>
-                
                 <ListView
-                     Grid.Row="1"
+                    Grid.Row="1"
                      x:Name="myListView"
                      HorizontalAlignment="Stretch"
                      VerticalAlignment="Top"
                      Width="904"
-                     
-                     ScrollViewer.HorizontalScrollBarVisibility="Disabled" ItemsSource="{Binding Staffs}">
-                    
+                     ScrollViewer.HorizontalScrollBarVisibility="Disabled" ItemsSource="{Binding Authors}">
+
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <ListViewItem>
-
-                                <Grid  PreviewMouseLeftButtonDown="Grid_PreviewMouseLeftButtonDown" Cursor="Hand"  Margin="-14 -8" Width="904" Height="33" >
+                            <ListViewItem >
+                                <Grid PreviewMouseLeftButtonDown="Grid_PreviewMouseLeftButtonDown" Cursor="Hand"  Margin="-14 -8" Width="904" Height="33" >
 
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="90"/>
                                         <ColumnDefinition Width="343"/>
                                         <ColumnDefinition/>
-                                        
 
                                     </Grid.ColumnDefinitions>
                                     <Grid.Style>
@@ -189,13 +195,12 @@
                                                 </Trigger>
                                             </Style.Triggers>
                                         </Style>
-                                        
                                     </Grid.Style>
-                                    
                                     <Border Background="#36393e" CornerRadius="15"  Grid.ColumnSpan="4"/>
                                     <Border 
                                         Grid.Column="0"
-                                        BorderBrush="White"
+                                        BorderBrush="#99AAB5"
+                                        
                                         BorderThickness="0 0 2 0">
                                         <TextBlock VerticalAlignment="Center" 
                                                HorizontalAlignment="Center"
@@ -209,7 +214,7 @@
 
                                     <Border 
                                          Grid.Column="1"
-                                        BorderBrush="White"
+                                        BorderBrush="#99AAB5"
                                         BorderThickness="0 0 2 0">
                                         <TextBlock 
                                                Padding="10 0"
@@ -217,7 +222,7 @@
                                                Foreground="#99AAB5"
                                                Name="itemName"
                                                HorizontalAlignment="Center"
-                                               Text="{Binding FullName}" FontFamily="{StaticResource Inter}" 
+                                               Text="{Binding Import}" FontFamily="{StaticResource Inter}" 
                                      
                                                FontSize="20"/>
                                     </Border>
@@ -226,26 +231,22 @@
                                                Padding="10 0"
                                                VerticalAlignment="Center" 
                                                HorizontalAlignment="Center"
-                                               Name="itemPhone"
-                                               Text="{Binding Phone}" FontFamily="{StaticResource Inter}" 
+                                               Name="itemNote"
+                                               Text="{Binding TotalPrice}" FontFamily="{StaticResource Inter}" 
                                                FontSize="20"/>
-                                    
+
                                 </Grid>
-                              
                             </ListViewItem>
-                            
                         </DataTemplate>
                     </ListView.ItemTemplate>
                     <ListView.ItemContainerStyle>
                         <Style TargetType="ListViewItem">
                             <Setter Property="Width" Value="904"/>
-                            
+
                         </Style>
                     </ListView.ItemContainerStyle>
 
                 </ListView>
-               
-
             </Grid>
         </Border>
     </Grid>

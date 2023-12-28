@@ -65,6 +65,7 @@ namespace BookMK.Commands.InsertCommand
                     Phone = _Phone,
                     FullName = _FullName,
                     Email = _Email,
+                    Address = _Address,
                     IsVerified = _IsVerified,
                     Role = _Role
                 };

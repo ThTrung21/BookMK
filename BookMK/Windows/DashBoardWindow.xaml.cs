@@ -38,6 +38,8 @@ namespace BookMK.Windows
             {
                 //this.AuthorBtn.Visibility = Visibility.Collapsed;
                 this.StaffBtn.Visibility = Visibility.Collapsed;
+                this.Importbtn.Visibility = Visibility.Collapsed;
+                
             }
         }
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -67,6 +69,11 @@ namespace BookMK.Windows
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             (this.DataContext as DashBoardViewModel).SwitchSettingPage();
+        }
+
+        private void Importbtn_Click(object sender, RoutedEventArgs e)
+        {
+            (this.DataContext as DashBoardViewModel).SwitchImportPage();
         }
     }
 }

@@ -176,20 +176,26 @@
     <Compile Include="Commands\ChangePasswordCommand.cs" />
     <Compile Include="Commands\CommandBase.cs" />
     <Compile Include="Commands\InsertCommand\InsertAuthorCommand.cs" />
+    <Compile Include="Commands\InsertCommand\InsertBookCommand.cs" />
     <Compile Include="Commands\InsertCommand\InsertCustomerCommand.cs" />
     <Compile Include="Commands\InsertCommand\InsertStaffCommand.cs" />
     <Compile Include="Commands\LoginCommand.cs" />
     <Compile Include="Commands\UpdateCommand\UpdateAuthorCommand.cs" />
+    <Compile Include="Commands\UpdateCommand\UpdateCustomerCommand.cs" />
     <Compile Include="Commands\UpdateCommand\UpdateStaffCommand.cs" />
+    <Compile Include="Converters\PathToBookCover.cs" />
     <Compile Include="Converters\StringNullOrEmptyConverter.cs" />
     <Compile Include="Models\Account.cs" />
+    <Compile Include="Models\ImportItem.cs" />
     <Compile Include="Models\Staff.cs" />
+    <Compile Include="Service\ImageStorage.cs" />
     <Compile Include="ViewModels\AccountViewModel.cs" />
     <Compile Include="ViewModels\AuthorViewModel.cs" />
     <Compile Include="ViewModels\BookViewModel.cs" />
     <Compile Include="ViewModels\CustomerViewModel.cs" />
     <Compile Include="ViewModels\DashBoardViewModel.cs" />
     <Compile Include="ViewModels\InsertFormViewModels\AuthorFormViewModel.cs" />
+    <Compile Include="ViewModels\InsertFormViewModels\InsertBookViewModel.cs" />
     <Compile Include="ViewModels\InsertFormViewModels\InsertCustomerViewModel.cs" />
     <Compile Include="ViewModels\InsertFormViewModels\InsertStaffViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
@@ -199,9 +205,23 @@
     <Compile Include="ViewModels\StaffViewModel.cs" />
     <Compile Include="ViewModels\VerifyEmailViewModel.cs" />
     <Compile Include="ViewModels\ViewForm\ViewAuthorViewModel.cs" />
+    <Compile Include="ViewModels\ViewForm\ViewCustomerViewModel.cs" />
+    <Compile Include="ViewModels\ViewForm\ViewStaffViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="Views\Form\VerifyEmailForm.xaml.cs">
       <DependentUpon>VerifyEmailForm.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\InsertForm\InsertBookForm.xaml.cs">
+      <DependentUpon>InsertBookForm.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\ImportPage.xaml.cs">
+      <DependentUpon>ImportPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ViewForm\ViewCustomerForm.xaml.cs">
+      <DependentUpon>ViewCustomerForm.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ViewForm\ViewStaffForm.xaml.cs">
+      <DependentUpon>ViewStaffForm.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\InsertForm\InsertAuthorForm.xaml.cs">
       <DependentUpon>InsertAuthorForm.xaml</DependentUpon>
@@ -230,7 +250,27 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Styles\ScrollBarStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Form\VerifyEmailForm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\InsertForm\InsertBookForm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\ImportPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ViewForm\ViewCustomerForm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ViewForm\ViewStaffForm.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -388,6 +428,7 @@
     <Resource Include="Images\Gradient.jpg" />
     <Resource Include="Images\loginBG.jpg" />
     <Resource Include="Images\TechyBG.png" />
+    <Resource Include="Images\BookCoverExample.png" />
     <Content Include="mongocrypt.dll" />
   </ItemGroup>
   <ItemGroup>

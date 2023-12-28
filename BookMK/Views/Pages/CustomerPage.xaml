@@ -3,11 +3,9 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      
       xmlns:local="clr-namespace:BookMK.Views.Pages"
       mc:Ignorable="d" 
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-      xmlns:listviews="clr-namespace:BookMK.Views.ListViews"
       Loaded="Page_Loaded"
       d:DesignHeight="700" d:DesignWidth="930"
       Title="CustomerPage">
@@ -63,7 +61,7 @@
 
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
-                        <TextBlock Text="{Binding }" Width="170" FontSize="20"   Foreground="#99AAB5" Padding="7 0" />
+                        <TextBlock Text="{Binding }" Width="170" FontSize="20"  Background="#36393e"   Foreground="#99AAB5" Padding="7 0" />
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
                 </ComboBox>
@@ -97,6 +95,7 @@
                 Background="#5876DF"
                 FontFamily="{StaticResource RobotoMono}"
                 Click="AddBtn_Click"
+                Cursor="Hand"
                 Style="{StaticResource RoundedButtonStyle}"
                 ToolTip="Resource name: MaterialDesignRaisedLightDarkButton" />
 
@@ -191,7 +190,7 @@
                         <DataTemplate>
                             <ListViewItem>
 
-                                <Grid  Margin="-14 -8" Width="904" Height="33" >
+                                <Grid PreviewMouseLeftButtonDown="Grid_PreviewMouseLeftButtonDown"  Cursor="Hand" Margin="-14 -8" Width="904" Height="33" >
 
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="90"/>

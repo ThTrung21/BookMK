@@ -1,6 +1,7 @@
 ﻿using BookMK.Models;
 using BookMK.ViewModels;
 using BookMK.Views.InsertForm;
+using BookMK.Views.ViewForm;
 using BookMK.Windows;
 using System;
 using System.Collections.Generic;
@@ -30,19 +31,14 @@ namespace BookMK.Views.Pages
             InitializeComponent();
             ComboboxFilter.ItemsSource = new List<string>() {"Name", "Phone" };
 
-            //do we really need to control which role get into customer?
-            //
-            //DashBoardWindow main = Application.Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive) as DashBoardWindow;
-            //DashBoardViewModel vm = main.DataContext as DashBoardViewModel;
-            //Staff loggedinS = vm.CurrentStaff;
-            //s = loggedinS;
+            
         }
         private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
             this.DataContext = await CustomerViewModel.Initialize();
            
         }
-        private DateTime _lastClickTime;
+       
 
         private async void AddBtn_Click(object sender, RoutedEventArgs e)
         {
@@ -51,6 +47,28 @@ namespace BookMK.Views.Pages
             DataProvider<Customer> db = new DataProvider<Customer>(Customer.Collection);
             List<Customer> results = await db.ReadAllAsync();
             (this.DataContext as CustomerViewModel).UpdateCustomerList(results);
+        }
+        private DateTime _lastClickTime;
+        private async void Grid_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if ((DateTime.Now - _lastClickTime).TotalMilliseconds < 500)
+            {
+                Grid g = sender as Grid;
+                Customer c = g.DataContext as Customer;
+
+                ViewCustomerForm f = new ViewCustomerForm(c);
+                f.ShowDialog();
+
+                //update the list
+                if (this.DataContext != null)
+                {
+                    CustomerViewModel vm = this.DataContext as CustomerViewModel;
+                    DataProvider<Customer> db = new DataProvider<Customer>(Customer.Collection);
+                    vm.UpdateCustomerList(await db.ReadAllAsync());
+                }
+
+            }
+            _lastClickTime = DateTime.Now;
         }
     }
 }
