@@ -163,6 +163,9 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="WPFTextBoxAutoComplete, Version=1.0.0.2, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\WPFTextBoxAutoComplete.1.0.5\lib\net40\WPFTextBoxAutoComplete.dll</HintPath>
+    </Reference>
     <Reference Include="ZstdSharp, Version=0.6.2.0, Culture=neutral, PublicKeyToken=8d151af33a4ad5cf, processorArchitecture=MSIL">
       <HintPath>..\packages\ZstdSharp.Port.0.6.2\lib\net461\ZstdSharp.dll</HintPath>
     </Reference>
@@ -180,15 +183,19 @@
     <Compile Include="Commands\InsertCommand\InsertCustomerCommand.cs" />
     <Compile Include="Commands\InsertCommand\InsertStaffCommand.cs" />
     <Compile Include="Commands\LoginCommand.cs" />
+    <Compile Include="Commands\SaveImageDialogCommand.cs" />
     <Compile Include="Commands\UpdateCommand\UpdateAuthorCommand.cs" />
     <Compile Include="Commands\UpdateCommand\UpdateCustomerCommand.cs" />
     <Compile Include="Commands\UpdateCommand\UpdateStaffCommand.cs" />
+    <Compile Include="Converters\AbsoluteFileNameToBitmapImage.cs" />
     <Compile Include="Converters\PathToBookCover.cs" />
     <Compile Include="Converters\StringNullOrEmptyConverter.cs" />
     <Compile Include="Models\Account.cs" />
     <Compile Include="Models\ImportItem.cs" />
     <Compile Include="Models\Staff.cs" />
     <Compile Include="Service\ImageStorage.cs" />
+    <Compile Include="Service\ListBoxHelper.cs" />
+    <Compile Include="Utilities\ListBoxHelper.cs" />
     <Compile Include="ViewModels\AccountViewModel.cs" />
     <Compile Include="ViewModels\AuthorViewModel.cs" />
     <Compile Include="ViewModels\BookViewModel.cs" />
@@ -204,12 +211,16 @@
     <Compile Include="ViewModels\SettingViewModel.cs" />
     <Compile Include="ViewModels\StaffViewModel.cs" />
     <Compile Include="ViewModels\VerifyEmailViewModel.cs" />
+    <Compile Include="ViewModels\ViewForm\ImportViewModel.cs" />
     <Compile Include="ViewModels\ViewForm\ViewAuthorViewModel.cs" />
     <Compile Include="ViewModels\ViewForm\ViewCustomerViewModel.cs" />
     <Compile Include="ViewModels\ViewForm\ViewStaffViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="Views\Form\VerifyEmailForm.xaml.cs">
       <DependentUpon>VerifyEmailForm.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\InsertForm\DualListBox.xaml.cs">
+      <DependentUpon>DualListBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\InsertForm\InsertBookForm.xaml.cs">
       <DependentUpon>InsertBookForm.xaml</DependentUpon>
@@ -255,6 +266,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Form\VerifyEmailForm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\InsertForm\DualListBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -429,10 +444,13 @@
     <Resource Include="Images\loginBG.jpg" />
     <Resource Include="Images\TechyBG.png" />
     <Resource Include="Images\BookCoverExample.png" />
+    <Resource Include="Images\NoImage.png" />
     <Content Include="mongocrypt.dll" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Commands\DeleteCommand\" />
+    <Folder Include="Custom\" />
+    <Folder Include="IMAGE_BOOK\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MaterialDesignThemes.4.9.0\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.4.9.0\build\MaterialDesignThemes.targets')" />

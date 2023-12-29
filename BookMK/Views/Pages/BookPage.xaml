@@ -70,23 +70,25 @@
             <ComboBox
                 Name="ComboboxFilter"
                 Grid.Column="1"
+                FontSize="20"
+                
+                
                 HorizontalContentAlignment="Left"
                 Margin="8,4,0,0"
                 Foreground="White"
                 Background="#5876DF" 
            
                 SelectedIndex="{Binding SelectedIndex,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"
-                materialDesign:HintAssist.Foreground="white"
-                materialDesign:HintAssist.HelperText="Genre"
+                ItemsSource="{Binding  ComboBoxItems}"
                 Style="{StaticResource myComboBox}"
                 HorizontalAlignment="Left"
-                Padding="4"
+                Padding="8 4"
                 materialDesign:HintAssist.FontFamily="{StaticResource Inter}"
                 Height="44" Width="132" VerticalAlignment="Top">
 
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
-                        <TextBlock Text="{Binding }" Width="170" FontSize="20"    Foreground="White" Padding="7 0" />
+                        <TextBlock Text="{Binding }" Width="170" FontSize="20"    Foreground="White" Padding="8 0" />
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
@@ -122,8 +124,56 @@
             Padding="0 8"
             Grid.Row="2">
 
+            <ListView ItemsSource="{Binding Books}"
+                      HorizontalContentAlignment="Center"
+                      ScrollViewer.VerticalScrollBarVisibility="Hidden">
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <UniformGrid Columns="4"/>
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+                
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        
+                            <materialDesign:Card BorderThickness="3px"
+                                      BorderBrush="White"
+                                      Background="#36393e"
+                                      Foreground="White"
+                                      Width="210"
+                                      UniformCornerRadius="6"
+                                      Height="300">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="218"/>
+                                        <RowDefinition/>
+                                    </Grid.RowDefinitions>
+                                    <Image Margin="16 16 16 0"
+                               Source="{Binding Cover, Converter={StaticResource PathToImage}}"
+                               Stretch="Uniform"/>
+                                    <StackPanel Grid.Row="1" Margin="8 8">
+                                        <TextBlock Text="{Binding Title}"
+                                       FontFamily="{StaticResource Inter}"
+                                       FontSize="16"
+                                       TextAlignment="Center"
+                                       FontWeight="Bold"
+                                       TextWrapping="Wrap"/>
+                                        <TextBlock VerticalAlignment="Center"
+                                       TextAlignment="Center"
+                                       FontFamily="{StaticResource Inter}"
+                                       FontStyle="Italic"
+                                       Text="{Binding AuthorName}"
+                                       TextWrapping="Wrap"/>
+                                    </StackPanel>
+                                </Grid>
+                            </materialDesign:Card>
+                       
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
 
-            <ListView ScrollViewer.VerticalScrollBarVisibility="Disabled" ItemsSource="{Binding Books}">
+
+            <!--<ListView ScrollViewer.VerticalScrollBarVisibility="Disabled" ItemsSource="{Binding Books}">
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
                         <WrapPanel Orientation="Vertical"/>
@@ -164,7 +214,7 @@
                         </materialDesign:Card>
                     </DataTemplate>
                 </ListView.ItemTemplate>
-            </ListView>
+            </ListView>-->
 
             <!--ItemsSource="{Binding YourItems}"-->
            

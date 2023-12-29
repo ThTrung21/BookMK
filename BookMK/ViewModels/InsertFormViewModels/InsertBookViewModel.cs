@@ -1,15 +1,24 @@
-﻿using System;
+﻿using BookMK.Commands;
+using BookMK.Commands.InsertCommand;
+using BookMK.Models;
+using MongoDB.Driver;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace BookMK.ViewModels.InsertFormViewModels
 {
     public class InsertBookViewModel:ViewModelBase
     {
-        private Int64 _id;
-        public Int64 ID
+       
+       public List<Author> authorList;
+
+        private Int32 _id;
+        public Int32 ID
         {
             get { return _id; }
             set { _id = value; OnPropertyChanged(nameof(ID)); }
@@ -29,32 +38,114 @@ namespace BookMK.ViewModels.InsertFormViewModels
             get { return _releaseyear; }
             set { _releaseyear = value; OnPropertyChanged(nameof(ReleaseYear)); }
         }
-        private string _sellprice;
-        public string SellPrice
+        private double _sellprice;
+        public double SellPrice
         {
             get { return _sellprice; }
             set { _sellprice = value; OnPropertyChanged(nameof(SellPrice)); }
         }
-
-
-        private string[] _genre;
-        public string[] Genre
+        private string _author;
+        public string AuthorName
         {
-            get => _genre;
+            get { return _author; }
+            set { _author = value; OnPropertyChanged(nameof(Author)); }
+        }
+
+        public ObservableCollection<Author> ComboBoxItems { get; set; } = new ObservableCollection<Author>(Author.GetAuthorsList());
+
+        private StringBuilder _filename = new StringBuilder("");
+        public StringBuilder Filename
+        {
+            get => _filename;
+            set { _filename = value; OnPropertyChanged(nameof(Filename)); }
+        }
+
+        private Author _selectedAuthor;
+        public Author SelectedAuthor
+        {
+            get { return _selectedAuthor; }
             set
             {
-                if (value.Length > 3)
-                {
-                    // Take appropriate action, e.g., trim the array or throw an exception
-                    throw new ArgumentException("Genre array cannot have more than 3 elements.");
-                    
-                }
+                _selectedAuthor = value;
+                OnPropertyChanged(nameof(SelectedAuthor));
+            }
+        }
+        //Genre selecting logic
 
-                _genre = value;
+
+
+        
+        public ObservableCollection<string> ComboBoxGenreItems { get; set; } = new ObservableCollection<string>(new List<string>() {  "Mystery", "Romance", "Sci-Fi", "Thriller", "History", "Education", "Comic", "Fantasy" });
+        
+        private List<string> _selectedGenres;
+        public List<string> SelectedGenres
+        {
+            get { return _selectedGenres; }
+            set
+            {     
+                _selectedGenres = value;               
+                OnPropertyChanged(nameof(SelectedGenres));
+              
             }
         }
 
-        public InsertBookViewModel() { }
+
+
+
+        //private string[] _genre;
+        //public string[] Genre
+        //{
+        //    get => _genre;
+        //    set
+        //    {
+        //        if (value.Length > 3)
+        //        {
+        //            // Take appropriate action, e.g., trim the array or throw an exception
+        //            throw new ArgumentException("Genre array cannot have more than 3 elements.");
+
+        //        }
+
+        //        _genre = value;
+        //    }
+        //}
+
+
+
+        public ICommand SaveImageDialog { get; set; }
+        public ICommand InsertBook { get; set; }
+
+        public InsertBookViewModel() 
+        {
+            this.SaveImageDialog = new SaveImageDialogCommand(Filename, this);
+
+        }
+
+        
+
+        public static async Task<InsertBookViewModel> Initialize()
+        {
+            InsertBookViewModel viewModel = new InsertBookViewModel();
+            await viewModel.IntializeAsync();
+            return viewModel;
+        }
+        private async Task IntializeAsync()
+        {
+            await Task.Run(async () =>
+            {
+                // Simulate an asynchronous operation
+                await Task.Delay(1000);
+
+
+
+
+
+                ID = Book.CreateID();
+                //SaveImageDialog = new SaveImageDialogCommand(Filename, this);
+                InsertBook = new InsertBookCommand(this,Filename);
+                this.SaveImageDialog = new SaveImageDialogCommand(Filename, this);
+            });
+
+        }
 
     }
 }

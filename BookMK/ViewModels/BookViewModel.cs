@@ -84,22 +84,7 @@ namespace BookMK.ViewModels
         }
 
 
-        //private string _sellprice;
-        //public string SellPrice
-        //{
-        //    get => _sellprice;
-        //    set
-        //    {
-        //        _sellprice=value; OnPropertyChanged(nameof(SellPrice));
-        //    }
-        //}
-
-        //private string _releaseyear;
-        //public string ReleaseYear
-        //{
-        //    get { return _releaseyear; }
-        //    set { _releaseyear=value; OnPropertyChanged(nameof(ReleaseYear));}
-        //}
+        
 
         public ObservableCollection<string> ComboBoxItems { get; set; } = new ObservableCollection<string>(new List<string>() { "All", "Mystery", "Romance", "Sci-Fi", "Thriller" ,"History", "Education", "Comic", "Fantasy" });
         private int _selectedIndex = 0;
@@ -151,7 +136,7 @@ namespace BookMK.ViewModels
                 if(SelectedIndex == 0)
                 {
                     FilterDefinition<Book> filter = Builders<Book>.Filter.Where(
-                    b => (b.Title.ToLower().Trim().Contains(searchInput)));
+                    b => (b.Title.ToLower().Trim().Contains(searchInput) || b.AuthorName.ToLower().Trim().Contains(searchInput)));
                     results = db.ReadFiltered(filter);
                 }
                 else

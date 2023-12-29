@@ -5,14 +5,20 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookMK.Views.InsertForm"
+        xmlns:converter="clr-namespace:BookMK.Converters"    
+        xmlns:behaviors="clr-namespace:WPFTextBoxAutoComplete;assembly=WPFTextBoxAutoComplete"
+        xmlns:Service="clr-namespace:BookMK.Service"
+        
         mc:Ignorable="d"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         Loaded="Window_Loaded"
         Background="#36393E"
-        Title="InsertBookForm" Width="930" Height="532">
-    
+        Title="InsertBookForm" Width="930" Height="550">
+    <Window.Resources>
+        <converter:AbsoluteFileNameToBitmapImage x:Key="filenameToImage"/>
+    </Window.Resources>
     
     <Border
         CornerRadius="15"
@@ -38,15 +44,285 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <Grid Grid.Column="0">
-                    
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="350"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <Rectangle Grid.Row="0"
+                               Width="270"
+                               Height="340"
+                               VerticalAlignment="Bottom">
+                        <Rectangle.Fill>
+                            <ImageBrush Stretch="Uniform" ImageSource="{Binding Filename, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource filenameToImage}}"></ImageBrush>
+                        </Rectangle.Fill>
+                    </Rectangle>
+
+                    <Button Grid.Row="1"
+                            VerticalAlignment="Top"
+                            Background="Transparent"
+                            BorderBrush="Transparent"
+                            Cursor="Hand"
+                            Width="130"
+                            Padding="0"
+                            
+                            Content="Change Cover"
+                            Command="{Binding SaveImageDialog}"
+                            >
+                        <Button.ContentTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding}" 
+                                           FontFamily="{StaticResource Inter}"
+                                           Foreground="#5876DF"
+                                           TextDecorations="Underline"/>
+                            </DataTemplate>
+                        </Button.ContentTemplate>
+                    </Button>
                 </Grid>
                 <Grid Grid.Column="1">
-                    <
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="80"/>
+                        <RowDefinition  Height="90"/>
+                        <RowDefinition Height="84"/>
+                        <RowDefinition/>
+                        <RowDefinition Height="44"/>
+                    </Grid.RowDefinitions>
+                    <Grid 
+                    Grid.Row="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="20"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Text="Name:"
+                           Foreground="White"
+                           VerticalAlignment="Top"
+                           FontSize="20"
+                           Grid.Row="0"
+                           FontFamily="{StaticResource Inter}"/>
+                        <TextBox
+                    Text="{Binding Title,UpdateSourceTrigger=PropertyChanged}"
+                    Grid.Row="1" 
+                    FontSize="18"
+                    Margin="0 10 0 0"
+                    Height="44"    
+                    TextAlignment="Left"
+                    VerticalAlignment="top"  
+                    MaxLength="50"
+                    Style="{StaticResource FilledTextBox}"/>
+                    </Grid>
+                    <Grid Grid.Row="1"
+                          Margin="0 0">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="20"/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Text="Author:"
+                           Foreground="White"
+                           VerticalAlignment="Top"
+                           FontSize="20"
+                           Grid.Row="0"
+                           FontFamily="{StaticResource Inter}"/>
+                            <ComboBox 
+                                Grid.Row="1"
+                                x:Name="comboBox" 
+                                HorizontalAlignment="Left" 
+                                VerticalAlignment="Top" 
+                                Width="370"
+                                IsEditable="True" 
+                                ItemsSource="{Binding ComboBoxItems}"
+                                StaysOpenOnEdit="True"
+                                SelectedItem="{Binding SelectedAuthor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                Background="Transparent"
+                                Foreground="White"
+                                FontFamily="{StaticResource Inter}"
+                                FontSize="20"
+                                TextSearch.TextPath="Name" 
+                                Style="{StaticResource myComboBox}"
+                                Height="56"
+                                Margin="0,6,0,0">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Name}" Width="370" FontSize="20" Foreground="White" Padding="8 0" />
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+
+
+
+                        </Grid>
+                    </Grid>
+                    <Grid Grid.Row="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid 
+                                Grid.Column="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="24"/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Text="Release Year:"
+                                   Foreground="White"
+                                   VerticalAlignment="Top"
+                                   FontSize="20"
+                                   Grid.Row="0"
+                                      
+                                   FontFamily="{StaticResource Inter}"/>
+                            <TextBox
+                                    Text="{Binding ReleaseYear,UpdateSourceTrigger=PropertyChanged}"
+                                    Grid.Row="1" 
+                                    FontSize="18"
+                                    Margin="0 10 10 0"
+                                    Height="44"    
+                                    TextAlignment="Left"
+                                    VerticalAlignment="top"  
+                                    MaxLength="50"
+                                    Style="{StaticResource FilledTextBox}"/>
+                        </Grid>
+                        <Grid 
+                                Grid.Column="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="24"/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Text="Selling Price:"
+                                   Foreground="White"
+                                   VerticalAlignment="Top"
+                                   FontSize="20"
+                                   Grid.Row="0"
+                                   FontFamily="{StaticResource Inter}"/>
+                            <TextBox
+                                    Text="{Binding SellPrice,UpdateSourceTrigger=PropertyChanged}"
+                                    Grid.Row="1" 
+                                    FontSize="18"
+                                    Margin="0 10 0 0"
+                                    Height="44"    
+                                    TextAlignment="Left"
+                                    VerticalAlignment="top"  
+                                    MaxLength="50"
+                                    Style="{StaticResource FilledTextBox}"/>
+                        </Grid>
+                    </Grid>
+                    <Button Grid.Row="4" 
+                    Name="InsertBtn"
+                    VerticalAlignment="Center"
+                    Margin="0 0 0 0 " 
+                    HorizontalAlignment="Center" Width="200" Height="40" Padding="0" 
+                    Content="Add"
+                    Click="InsertBtn_Click"
+                    FontFamily="{StaticResource Inter}"
+                    FontSize="18"
+                    Cursor="Hand"
+                            Style="{StaticResource RoundedButtonStyle}" >
+                    
+                    </Button>
+
+                    <Grid
+                        Grid.Row="3">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="20"/>
+                            <RowDefinition/>
+                            <RowDefinition Height="32"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Text="Genres:"
+                                   Foreground="White"
+                                   VerticalAlignment="Top"
+                                   FontSize="20"
+                                   Grid.Row="0"
+                                      
+                                   FontFamily="{StaticResource Inter}"/>
+
+                        <Grid
+                            Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+
+                            <Border
+                                Grid.Column="0"
+                                Margin="0 4"
+                                
+                                BorderBrush="White"
+                                BorderThickness="2"
+                                CornerRadius="15">
+                                <ListBox 
+                                    ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                                    ItemContainerStyle="{StaticResource HighlightListBoxItemStyle}" 
+                                    ItemsSource="{Binding ComboBoxGenreItems}"
+                                    Foreground="White"
+                                    FontSize="18"
+                                    FontFamily="{StaticResource Inter}"
+                                    x:Name="AvailableListBox"  
+                                    SelectionMode="Single" />
+                            </Border>
+                            <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                <Button  Style="{StaticResource RoundedButtonStyle}" Content="&gt;" FontSize="20"  Width="40" Margin="0,5" Name="AddGenre" Click="AddGenre_Click"/>
+                                <Button  Style="{StaticResource RoundedButtonStyle}" Content="&lt;" FontSize="20" Width="40" Margin="0,5" Name="RemoveGenre" Click="RemoveGenre_Click"/>
+                            </StackPanel>
+                            <Border
+                                Grid.Column="2"
+                                Margin="0 4"
+                                BorderBrush="White"
+                                BorderThickness="2"
+                                CornerRadius="15">
+                                <ListBox 
+                                    x:Name="SelectedListBox"  
+                                    ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                                    Foreground="White"
+                                    FontSize="18"
+                                    
+                                    FontFamily="{StaticResource Inter}"
+                                    ItemContainerStyle="{StaticResource HighlightListBoxItemStyle}" Grid.Column="2" SelectionMode="Multiple" />
+                            </Border>
+                        </Grid>
+
+                        <!--<Border
+                            Margin="0 4"
+                            BorderBrush="White"
+                            BorderThickness="2"
+                            CornerRadius="15"
+                            
+                            Grid.Row="1">
+                            
+                            
+                            <ListBox 
+                                
+                                ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                                Name="MyListBox"                                
+                                Foreground="White"
+                                FontSize="18"
+                                ItemContainerStyle="{StaticResource HighlightListBoxItemStyle}"
+                                FontFamily="{StaticResource RobotoMono}"
+                                SelectedItem="{Binding SelectedGenres}"
+                                ItemsSource="{Binding ComboBoxGenreItems}"
+                                PreviewMouseDown="MyListBox_PreviewMouseDown"
+                                SelectionMode="Multiple" SelectionChanged="MyListBox_SelectionChanged">
+
+                            
+                            </ListBox>
+                        </Border>-->
+                        <TextBlock
+                            Grid.Row="2"
+                            Foreground="#B44E4E"
+                            Text="You can choose up to 3 genres!"
+                            FontStyle="Italic"
+                            Margin="0 4 0 0"
+                            
+                            FontFamily="{StaticResource Inter}"
+                            FontSize="18"/>
+                    </Grid>
+                   
+                 
+
                 </Grid>
-                
-                
+
+
             </Grid>
         </Grid>
-        
+
     </Border>
 </Window>

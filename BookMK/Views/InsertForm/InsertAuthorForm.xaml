@@ -115,6 +115,7 @@
                     HorizontalAlignment="Center" Width="200" Height="40" Padding="0" 
                     Content="Done"
                     Click="DoneBtn_Click"
+                    Cursor="Hand"
                     FontFamily="{StaticResource Inter}"
                     FontSize="18"
                     Style="{StaticResource RoundedButtonStyle}" >

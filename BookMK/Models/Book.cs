@@ -15,7 +15,7 @@ namespace BookMK.Models
         [BsonId]
         [BsonRepresentation(MongoDB.Bson.BsonType.Int64)]
 
-        protected int ID { get; set; }
+        public int ID { get; set; }
 
         //avatar
         public string Cover { get; set; }

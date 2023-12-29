@@ -82,7 +82,13 @@ namespace BookMK.Models
                 return null;
         }
 
+        public static List<Author> GetAuthorsList()
+        {
+            DataProvider<Author> db = new DataProvider<Author>(Author.Collection);
+            List<Author> AllAuthors = db.ReadAll();
 
+            return AllAuthors;
+        }
     }
     
 

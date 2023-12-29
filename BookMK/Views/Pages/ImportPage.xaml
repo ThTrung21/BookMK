@@ -40,31 +40,14 @@
 
             <!--Command row-->
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="150"/>
+                <ColumnDefinition Width="0"/>
                 <ColumnDefinition Width="350"/>
                 <ColumnDefinition/>
 
-                <ColumnDefinition Width="124"/>
+                <ColumnDefinition Width="150"/>
             </Grid.ColumnDefinitions>
 
-            <ComboBox
-                Name="ComboboxFilter"
-                Grid.Column="0"
-                Foreground="White"
-                Background="#FF282B30" 
-                SelectedIndex="{Binding SelectedIndex,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"
-                materialDesign:HintAssist.Foreground="#99AAB5"
-                Style="{StaticResource myComboBox}"
-                Padding="4"
-                materialDesign:HintAssist.FontFamily="{StaticResource Inter}"
-                Height="44" Width="133">
-
-                <ComboBox.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock Text="{Binding }" Width="170" FontSize="20"  Background="#36393e"   Foreground="#99AAB5" Padding="7 0" />
-                    </DataTemplate>
-                </ComboBox.ItemTemplate>
-            </ComboBox>
+            
 
             <TextBox
                 Height="44px"
@@ -90,11 +73,12 @@
                 Grid.Column="3"
                 Height="40"
                 Margin="5 0 0 0"
-                Content="Add"
+                Content="New Import"
                 FontSize="18"
                 Background="#5876DF"
                 FontFamily="{StaticResource RobotoMono}"
                 Click="AddBtn_Click"
+                Width="120"
                 Cursor="Hand"
                 Style="{StaticResource RoundedButtonStyle}"
                 ToolTip="Resource name: MaterialDesignRaisedLightDarkButton" />

@@ -69,8 +69,8 @@ namespace BookMK.ViewModels
                 OnPropertyChanged(nameof(Phone));
             }
         }
-        private bool _purchasepoint;
-        public bool PurchasePoint
+        private int _purchasepoint;
+        public int PurchasePoint
         {
             get
             {

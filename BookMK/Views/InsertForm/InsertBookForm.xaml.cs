@@ -1,5 +1,8 @@
-﻿using System;
+﻿using BookMK.Models;
+using BookMK.ViewModels.InsertFormViewModels;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,14 +22,78 @@ namespace BookMK.Views.InsertForm
     /// </summary>
     public partial class InsertBookForm : Window
     {
+       
+        
+       
         public InsertBookForm()
         {
             InitializeComponent();
+            this.DataContext = new InsertBookViewModel();
+
+            
         }
 
         private void CloseBtn_MouseUp(object sender, MouseButtonEventArgs e)
         {
             this.Close();
+        }
+
+        private async void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            this.DataContext = await InsertBookViewModel.Initialize();
+        }
+
+        private void InsertBtn_Click(object sender, RoutedEventArgs e)
+        {
+            InsertBookViewModel vm = this.DataContext as InsertBookViewModel;
+            vm.SelectedGenres= new List<string>();
+            foreach (var item in SelectedListBox.Items)
+            {
+                MessageBox.Show(item.ToString());
+                vm.SelectedGenres.Add(item.ToString());
+            }
+
+            if (vm.InsertBook != null)
+            {
+                vm.InsertBook.Execute(this);
+            }
+        }
+
+       
+        private void MoveItems(ListBox source, ListBox destination)
+        {
+            List<string> selectedItems = new List<string>();
+            foreach (var selectedItem in source.SelectedItems)
+            {
+                selectedItems.Add(selectedItem.ToString());
+            }
+
+            foreach (var item in selectedItems)
+            {
+                
+                destination.Items.Add(item);
+            }
+
+        }
+
+        private void AddGenre_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.SelectedListBox.Items.Count < 3)
+                MoveItems(this.AvailableListBox, this.SelectedListBox);
+            else
+                MessageBox.Show("Maximum genre has been chosen!!!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+        }
+
+        private void RemoveGenre_Click(object sender, RoutedEventArgs e)
+        {
+            if(this.SelectedListBox.Items.Count>1)
+            {
+                this.SelectedListBox.Items.Remove(this.SelectedListBox.SelectedItem);
+            }
+            else
+            {
+                MessageBox.Show("Please add another genre before removing this!!!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
         }
     }
 }

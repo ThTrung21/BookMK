@@ -33,12 +33,12 @@ namespace BookMK.Views.Pages
             DashBoardViewModel vm = main.DataContext as DashBoardViewModel;
             Staff loggedinS = vm.CurrentStaff;
             s = loggedinS;
-            if(s != null)
+            if(s.Role != "admin")
             {
                 this.AddBtn.Visibility = Visibility.Collapsed;
             }
 
-            ComboboxFilter.ItemsSource = new List<string>() { "All", "Mystery","Romance","Sci-Fi","Thriller","History","Education","Comic", "Fantasy" };
+            //ComboboxFilter.ItemsSource = new List<string>() { "All", "Mystery","Romance","Sci-Fi","Thriller","History","Education","Comic", "Fantasy" };
             this.DataContext =new BookViewModel();
         }
        
