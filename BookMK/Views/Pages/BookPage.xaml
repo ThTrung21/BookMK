@@ -136,7 +136,8 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         
-                            <materialDesign:Card BorderThickness="3px"
+                            <materialDesign:Card
+                                      PreviewMouseLeftButtonDown="Card_PreviewMouseLeftButtonDown"
                                       BorderBrush="White"
                                       Background="#36393e"
                                       Foreground="White"
@@ -149,8 +150,8 @@
                                         <RowDefinition/>
                                     </Grid.RowDefinitions>
                                     <Image Margin="16 16 16 0"
-                               Source="{Binding Cover, Converter={StaticResource PathToImage}}"
-                               Stretch="Uniform"/>
+                                   Source="{Binding Cover, Converter={StaticResource PathToImage}}"
+                                   Stretch="Uniform"/>
                                     <StackPanel Grid.Row="1" Margin="8 8">
                                         <TextBlock Text="{Binding Title}"
                                        FontFamily="{StaticResource Inter}"

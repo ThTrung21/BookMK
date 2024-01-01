@@ -69,7 +69,7 @@ namespace BookMK.Models
                 return null;
             }
 
-            Customer c = new Customer();
+            Author c = new Author();
             DataProvider<Author> db = new DataProvider<Author>(Author.Collection);
 
             FilterDefinition<Author> filter = Builders<Author>.Filter.Eq(x => x.Name, Name);
@@ -89,6 +89,9 @@ namespace BookMK.Models
 
             return AllAuthors;
         }
+
+
+       
     }
     
 

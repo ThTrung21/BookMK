@@ -32,6 +32,10 @@ namespace BookMK.Views.InsertForm
 
             
         }
+        private bool IsNumeric(string input)
+        {
+            return int.TryParse(input, out _);
+        }
 
         private void CloseBtn_MouseUp(object sender, MouseButtonEventArgs e)
         {
@@ -49,7 +53,7 @@ namespace BookMK.Views.InsertForm
             vm.SelectedGenres= new List<string>();
             foreach (var item in SelectedListBox.Items)
             {
-                MessageBox.Show(item.ToString());
+                
                 vm.SelectedGenres.Add(item.ToString());
             }
 
@@ -93,6 +97,14 @@ namespace BookMK.Views.InsertForm
             else
             {
                 MessageBox.Show("Please add another genre before removing this!!!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+        }
+
+        private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (!IsNumeric(e.Text))
+            {
+                e.Handled = true; // Suppress non-numeric input
             }
         }
     }

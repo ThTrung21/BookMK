@@ -1,6 +1,7 @@
 ﻿using BookMK.Models;
 using BookMK.ViewModels;
 using BookMK.Views.InsertForm;
+using BookMK.Views.ViewForm;
 using BookMK.Windows;
 using System;
 using System.Collections.Generic;
@@ -56,7 +57,27 @@ namespace BookMK.Views.Pages
         {
             this.DataContext = await BookViewModel.Initialize();
         }
+        private DateTime _lastClickTime;
+        private async void Card_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if ((DateTime.Now - _lastClickTime).TotalMilliseconds < 500)
+            {
+                MaterialDesignThemes.Wpf.Card g = sender as MaterialDesignThemes.Wpf.Card;
+                Book s = g.DataContext as Book;
 
-        
+                ViewBookForm f = new ViewBookForm(s);
+                f.ShowDialog();
+
+                //update the list
+                if (this.DataContext != null)
+                {
+                    BookViewModel vm = this.DataContext as BookViewModel;
+                    DataProvider<Book> db = new DataProvider<Book>(Book.Collection);
+                    vm.UpdateBookList(await db.ReadAllAsync());
+                }
+
+            }
+            _lastClickTime = DateTime.Now;
+        }
     }
 }

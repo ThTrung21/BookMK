@@ -178,13 +178,17 @@
     <Compile Include="Commands\AsyncCommandBase.cs" />
     <Compile Include="Commands\ChangePasswordCommand.cs" />
     <Compile Include="Commands\CommandBase.cs" />
+    <Compile Include="Commands\InsertCommand\AddItemImportCommand.cs" />
     <Compile Include="Commands\InsertCommand\InsertAuthorCommand.cs" />
     <Compile Include="Commands\InsertCommand\InsertBookCommand.cs" />
     <Compile Include="Commands\InsertCommand\InsertCustomerCommand.cs" />
+    <Compile Include="Commands\InsertCommand\InsertImportCommand.cs" />
     <Compile Include="Commands\InsertCommand\InsertStaffCommand.cs" />
     <Compile Include="Commands\LoginCommand.cs" />
+    <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="Commands\SaveImageDialogCommand.cs" />
     <Compile Include="Commands\UpdateCommand\UpdateAuthorCommand.cs" />
+    <Compile Include="Commands\UpdateCommand\UpdateBookCommand.cs" />
     <Compile Include="Commands\UpdateCommand\UpdateCustomerCommand.cs" />
     <Compile Include="Commands\UpdateCommand\UpdateStaffCommand.cs" />
     <Compile Include="Converters\AbsoluteFileNameToBitmapImage.cs" />
@@ -201,9 +205,11 @@
     <Compile Include="ViewModels\BookViewModel.cs" />
     <Compile Include="ViewModels\CustomerViewModel.cs" />
     <Compile Include="ViewModels\DashBoardViewModel.cs" />
+    <Compile Include="ViewModels\ImportViewModel.cs" />
     <Compile Include="ViewModels\InsertFormViewModels\AuthorFormViewModel.cs" />
     <Compile Include="ViewModels\InsertFormViewModels\InsertBookViewModel.cs" />
     <Compile Include="ViewModels\InsertFormViewModels\InsertCustomerViewModel.cs" />
+    <Compile Include="ViewModels\InsertFormViewModels\InsertImportViewModel.cs" />
     <Compile Include="ViewModels\InsertFormViewModels\InsertStaffViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
@@ -211,11 +217,15 @@
     <Compile Include="ViewModels\SettingViewModel.cs" />
     <Compile Include="ViewModels\StaffViewModel.cs" />
     <Compile Include="ViewModels\VerifyEmailViewModel.cs" />
-    <Compile Include="ViewModels\ViewForm\ImportViewModel.cs" />
     <Compile Include="ViewModels\ViewForm\ViewAuthorViewModel.cs" />
+    <Compile Include="ViewModels\ViewForm\ViewBookViewModel.cs" />
     <Compile Include="ViewModels\ViewForm\ViewCustomerViewModel.cs" />
+    <Compile Include="ViewModels\ViewForm\ViewImportViewModel.cs" />
     <Compile Include="ViewModels\ViewForm\ViewStaffViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
+    <Compile Include="Views\Components\DatePicker.xaml.cs">
+      <DependentUpon>DatePicker.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Form\VerifyEmailForm.xaml.cs">
       <DependentUpon>VerifyEmailForm.xaml</DependentUpon>
     </Compile>
@@ -225,11 +235,20 @@
     <Compile Include="Views\InsertForm\InsertBookForm.xaml.cs">
       <DependentUpon>InsertBookForm.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\InsertForm\InsertImportForm.xaml.cs">
+      <DependentUpon>InsertImportForm.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Pages\ImportPage.xaml.cs">
       <DependentUpon>ImportPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ViewForm\ViewBookForm.xaml.cs">
+      <DependentUpon>ViewBookForm.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ViewForm\ViewCustomerForm.xaml.cs">
       <DependentUpon>ViewCustomerForm.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ViewForm\ViewImportView.xaml.cs">
+      <DependentUpon>ViewImportView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ViewForm\ViewStaffForm.xaml.cs">
       <DependentUpon>ViewStaffForm.xaml</DependentUpon>
@@ -261,7 +280,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Styles\DatePicker.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Styles\ScrollBarStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Components\DatePicker.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -277,11 +304,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\InsertForm\InsertImportForm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Pages\ImportPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\ViewForm\ViewBookForm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\ViewForm\ViewCustomerForm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ViewForm\ViewImportView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

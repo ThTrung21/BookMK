@@ -27,9 +27,9 @@ namespace BookMK.Commands.InsertCommand
         }
         public int GetAuthorID(Author auth)
         { 
-        //string lowerCaseAuthorName = authorName.ToLower().Trim();
+        
             string authName= auth.Name;
-        // Search for the author in the database
+        
         DataProvider<Author> db = new DataProvider<Author>(Author.Collection);
         FilterDefinition<Author> filter = Builders<Author>.Filter.Where(a => a.Name.ToLower().Trim() == authName);
             List<Author> authors = db.ReadFiltered(filter);
@@ -54,16 +54,12 @@ namespace BookMK.Commands.InsertCommand
                 List<string> _Genre = vm.SelectedGenres;
                 String _ReleaseYear = vm.ReleaseYear;
                 Double _SellPrice = vm.SellPrice;
-                Int32 _AuthorID = GetAuthorID(vm.SelectedAuthor);
+               // Int32 _AuthorID = GetAuthorID(vm.SelectedAuthor);
 
 
 
 
-                if (_AuthorID == -1)
-                {
-                    MessageBox.Show($"An error occurred!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return;
-                }
+                
                 if ((_Title == null) || (_Author == null) || (_ReleaseYear == null) || (_SellPrice == 0) /*|| (_Genre == null)*/)
                 {
                     MessageBox.Show("Please fill in every fields!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
@@ -84,8 +80,8 @@ namespace BookMK.Commands.InsertCommand
                     Genre = _Genre,
                     Title = _Title,
                     AuthorName = _Author,
-                    //AuthorID = _AuthorID,
-                    //genre
+                    
+                    
                     Stock = 0
                 };
 

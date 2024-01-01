@@ -1,6 +1,7 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,7 +14,7 @@ namespace BookMK.Models
         [BsonRepresentation(MongoDB.Bson.BsonType.Int64)]
 
         public int ID { get; set; }
-        public List<ImportItem> Items { get; set; }
+        public ObservableCollection<ImportItem> Items { get; set; }
        
         public double TotalPrice { get; set; }
         public DateTime Time { get; set; }
@@ -27,7 +28,7 @@ namespace BookMK.Models
         {
             DataProvider<Import> db = new DataProvider<Import>(Import.Collection);
             List<Import> allcs = db.ReadAll().OrderBy(p => p.ID).ToList();
-            int expectedValue = 0;
+            int expectedValue = 1;
             foreach (var o in allcs)
             {
                 int num = o.ID;

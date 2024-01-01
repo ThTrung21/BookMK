@@ -21,7 +21,7 @@ namespace BookMK.Views.ViewForm
     /// </summary>
     public partial class ViewCustomerForm : Window
     {
-        Customer c { get; set; }
+        //Customer c { get; set; }
 
         public ViewCustomerForm()
         {

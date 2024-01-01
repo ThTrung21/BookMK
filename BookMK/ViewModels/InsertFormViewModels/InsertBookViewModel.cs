@@ -44,12 +44,12 @@ namespace BookMK.ViewModels.InsertFormViewModels
             get { return _sellprice; }
             set { _sellprice = value; OnPropertyChanged(nameof(SellPrice)); }
         }
-        private string _author;
-        public string AuthorName
-        {
-            get { return _author; }
-            set { _author = value; OnPropertyChanged(nameof(Author)); }
-        }
+        //private string _author;
+        //public string AuthorName
+        //{
+        //    get { return _author; }
+        //    set { _author = value; OnPropertyChanged(nameof(Author)); }
+        //}
 
         public ObservableCollection<Author> ComboBoxItems { get; set; } = new ObservableCollection<Author>(Author.GetAuthorsList());
 
@@ -70,7 +70,7 @@ namespace BookMK.ViewModels.InsertFormViewModels
                 OnPropertyChanged(nameof(SelectedAuthor));
             }
         }
-        //Genre selecting logic
+        
 
 
 
@@ -92,23 +92,7 @@ namespace BookMK.ViewModels.InsertFormViewModels
 
 
 
-        //private string[] _genre;
-        //public string[] Genre
-        //{
-        //    get => _genre;
-        //    set
-        //    {
-        //        if (value.Length > 3)
-        //        {
-        //            // Take appropriate action, e.g., trim the array or throw an exception
-        //            throw new ArgumentException("Genre array cannot have more than 3 elements.");
-
-        //        }
-
-        //        _genre = value;
-        //    }
-        //}
-
+      
 
 
         public ICommand SaveImageDialog { get; set; }

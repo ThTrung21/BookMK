@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace BookMK.Models
 {
@@ -33,7 +34,12 @@ namespace BookMK.Models
         public static string Collection = "books";
 
         public Book() { }
-
+        public override string ToString()
+        {
+            if (this.Title != null)
+                return this.Title;
+            return "";
+        }
         public static int CreateID()
         {
             DataProvider<Book> db = new DataProvider<Book>(Book.Collection);
@@ -75,6 +81,32 @@ namespace BookMK.Models
             return db.collection.Find(filter).Any();
 
 
+        }
+        public static List<Book> GetBooksList()
+        {
+            DataProvider<Book> db = new DataProvider<Book>(Book.Collection);
+            List<Book> AllBooks = db.ReadAll();
+
+            return AllBooks;
+        }
+        public static Book GetBook(int id)
+        {
+            if(id==null)
+            {
+                return null;
+            }
+
+            Book c = new Book();
+            DataProvider<Book> db = new DataProvider<Book>(Book.Collection);
+
+            FilterDefinition<Book> filter = Builders<Book>.Filter.Eq(x => x.ID, id);
+            List<Book> b = db.ReadFiltered(filter);
+            if (b.Count > 0)
+            {
+                return b[0];
+            }
+            else
+                return null;
         }
     }
 }

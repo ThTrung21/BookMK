@@ -61,7 +61,7 @@
 
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
-                        <TextBlock Text="{Binding }" Width="170" FontSize="20"  Background="#36393e"   Foreground="#99AAB5" Padding="7 0" />
+                        <TextBlock Text="{Binding }" Width="170" FontSize="20"   Foreground="#99AAB5" Padding="7 0" />
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
                 </ComboBox>

@@ -40,16 +40,59 @@
 
             <!--Command row-->
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="0"/>
-                <ColumnDefinition Width="350"/>
-                <ColumnDefinition/>
-
+                
+                
+                <ColumnDefinition Width="450"/>
+                <ColumnDefinition />
                 <ColumnDefinition Width="150"/>
             </Grid.ColumnDefinitions>
 
-            
+            <!--<StackPanel Orientation="Horizontal" Grid.Column="0">
+                <TextBlock
+                    FontFamily="{StaticResource Inter}"
+                    FontSize="20"
+                    FontWeight="Bold"
+                    Foreground="White"
+                    VerticalAlignment="Center"
+                    
+                    Text="From:"/>
 
-            <TextBox
+                <DatePicker
+                    Margin="8 0 8 0" 
+                    
+                   
+                    Text="{Binding SelectedStartDate, StringFormat=dd/MM/yyyy}"
+                    Width="100" 
+                    Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
+                    SelectedDate="{Binding SelectedStartDate}" />
+                <TextBlock
+                    FontFamily="{StaticResource Inter}"
+                    FontSize="20"
+                    FontWeight="Bold"
+                    Foreground="White"
+                    VerticalAlignment="Center"
+                    Text="To:"/>
+                <DatePicker 
+                    Width="100" 
+                    Margin="8 0 8 0" 
+                    
+                    Text="{Binding SelectedEndDate, StringFormat=dd/MM/yyyy}"
+                    Style="{StaticResource MaterialDesignFloatingHintDatePicker}" SelectedDate="{Binding SelectedEndDate}" />
+                <Button
+                    Command="{Binding SearchImport}" 
+                    Click="Button_Click"
+                    Cursor="Hand"
+                    Margin="16 0 0 0"
+                    Content="Search" 
+                    Background="#FF5876DF"
+                    FontSize="18"
+                    FontWeight="Bold"
+                    Style="{StaticResource RoundedButtonStyle}"
+                    FontFamily="{StaticResource RobotoMono}"
+                     />
+            </StackPanel>-->
+
+            <!--<TextBox
                 Height="44px"
                 Width="350px"
                 BorderThickness="2"  
@@ -62,7 +105,7 @@
                 HorizontalAlignment="Left"
                 Foreground="#99AAB5"
                 Style="{StaticResource SearchTextbox}">
-            </TextBox>
+            </TextBox>-->
 
 
 
@@ -70,7 +113,7 @@
 
             <Button
                 Name="AddBtn"
-                Grid.Column="3"
+                Grid.Column="2"
                 Height="40"
                 Margin="5 0 0 0"
                 Content="New Import"
@@ -140,7 +183,7 @@
                             BorderBrush="White"
                             BorderThickness="0 0 2 2">
                         <TextBlock 
-                               Text="Total"
+                               Text="Total ($)"
                                VerticalAlignment="Center"
                                HorizontalAlignment="Center"
                                FontFamily="{StaticResource RobotoMono}"
@@ -155,7 +198,7 @@
                      HorizontalAlignment="Stretch"
                      VerticalAlignment="Top"
                      Width="904"
-                     ScrollViewer.HorizontalScrollBarVisibility="Disabled" ItemsSource="{Binding Authors}">
+                     ScrollViewer.HorizontalScrollBarVisibility="Disabled" ItemsSource="{Binding Imports}">
 
                     <ListView.ItemTemplate>
                         <DataTemplate>
@@ -206,7 +249,8 @@
                                                Foreground="#99AAB5"
                                                Name="itemName"
                                                HorizontalAlignment="Center"
-                                               Text="{Binding Import}" FontFamily="{StaticResource Inter}" 
+                                               Text="{Binding Time,StringFormat='dd/MM/yyyy' }"
+                                               FontFamily="{StaticResource Inter}" 
                                      
                                                FontSize="20"/>
                                     </Border>

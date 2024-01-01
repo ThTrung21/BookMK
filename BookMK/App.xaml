@@ -9,7 +9,13 @@
             <FontFamily x:Key="Righteous">/BookMK;component/Fonts/Righteous-Regular.ttf#Righteous</FontFamily>
             <FontFamily x:Key="RobotoMono">/BookMK;component/Fonts/RobotoMono-Regular.ttf#Roboto Mono</FontFamily>
             <FontFamily x:Key="Inter">/BookMK;component/Fonts/Inter-Regular.ttf#Inter</FontFamily>
-            
+            <Color x:Key="PrimaryColor">#FF5876DF</Color>
+            <SolidColorBrush x:Key="PrimaryHueLightBrush" Color="#FF5876DF"/>
+            <SolidColorBrush x:Key="PrimaryHueLightForegroundBrush" Color="White"/>
+            <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#FF5876DF"/>
+            <SolidColorBrush x:Key="PrimaryHueMidForegroundBrush" Color="White"/>
+            <SolidColorBrush x:Key="PrimaryHueDarkBrush" Color="#FF5876DF"/>
+            <SolidColorBrush x:Key="PrimaryHueDarkForegroundBrush" Color="#FF5876DF"/>
 
             <ResourceDictionary.MergedDictionaries>
                 <!--Resource dictionaries-->
@@ -18,12 +24,16 @@
                 <ResourceDictionary Source="Styles/Button.xaml"/>
                 <ResourceDictionary Source="Styles/Combobox.xaml"/>
                 <ResourceDictionary Source="Styles/ScrollBarStyle.xaml"/>
+                <ResourceDictionary Source="Styles/DatePicker.xaml"/>
                 
                 <!--Material design lib-->
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
+            
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.DeepPurple.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml" />
+
+                
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

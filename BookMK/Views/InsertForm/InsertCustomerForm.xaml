@@ -38,7 +38,7 @@
                                                  Margin="0 0 8 0"
                                                  HorizontalAlignment="Right" VerticalAlignment="Center"
                                                  Foreground="White" />
-                <TextBlock Grid.Column="1" Text="Customers" VerticalAlignment="Center" FontFamily="{StaticResource RobotoMono}" Foreground="White" FontSize="36" FontWeight="Bold"></TextBlock>
+                <TextBlock Grid.Column="1" Text="Customer" VerticalAlignment="Center" FontFamily="{StaticResource RobotoMono}" Foreground="White" FontSize="36" FontWeight="Bold"></TextBlock>
                 <!--close button-->
                 <materialDesign:PackIcon
                                 Kind="CloseThick"
@@ -47,8 +47,7 @@
                                 Height="32"
                                 Width="32px"
                                 HorizontalAlignment="Right"
-                                MouseEnter="PackIcon_MouseEnter"
-                                MouseLeave="PackIcon_MouseLeave"
+                                Cursor="Hand"
                                 MouseUp="CloseBtn_Click" />
 
             </Grid>
