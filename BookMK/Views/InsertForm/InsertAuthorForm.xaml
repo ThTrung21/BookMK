@@ -113,7 +113,7 @@
                     Name="InsertBtn"
                     Margin="8 0 0 0 " 
                     HorizontalAlignment="Center" Width="200" Height="40" Padding="0" 
-                    Content="Done"
+                    Content="Insert"
                     Click="DoneBtn_Click"
                     Cursor="Hand"
                     FontFamily="{StaticResource Inter}"

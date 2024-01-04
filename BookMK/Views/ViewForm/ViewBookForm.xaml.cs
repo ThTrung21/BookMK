@@ -55,5 +55,14 @@ namespace BookMK.Views.ViewForm
                 vm.UpdateBook.Execute(this);
             }
         }
+
+        private void DeleteBtn_Click(object sender, RoutedEventArgs e)
+        {
+            ViewBookViewModel vm = this.DataContext as ViewBookViewModel;
+            if (vm.DeleteBook != null)
+            {
+                vm.DeleteBook.Execute(this);
+            }
+        }
     }
 }

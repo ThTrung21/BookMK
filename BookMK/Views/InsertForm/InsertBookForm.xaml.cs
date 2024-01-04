@@ -79,6 +79,7 @@ namespace BookMK.Views.InsertForm
             }
 
         }
+        
 
         private void AddGenre_Click(object sender, RoutedEventArgs e)
         {
@@ -101,6 +102,14 @@ namespace BookMK.Views.InsertForm
         }
 
         private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (!IsNumeric(e.Text))
+            {
+                e.Handled = true; // Suppress non-numeric input
+            }
+        }
+
+        private void TextBox_PreviewTextInput_1(object sender, TextCompositionEventArgs e)
         {
             if (!IsNumeric(e.Text))
             {

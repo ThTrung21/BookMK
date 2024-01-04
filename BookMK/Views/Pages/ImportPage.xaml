@@ -33,7 +33,7 @@
                                                 Margin="0 4 0 0"
                                                  HorizontalAlignment="Right" VerticalAlignment="Center"
                                                  Foreground="White" />
-            <TextBlock Grid.Column="1" Text="Import" VerticalAlignment="Center" FontFamily="{StaticResource RobotoMono}" Foreground="White" FontSize="48px" FontWeight="Bold"></TextBlock>
+            <TextBlock Grid.Column="1" Text="Imports" VerticalAlignment="Center" FontFamily="{StaticResource RobotoMono}" Foreground="White" FontSize="48px" FontWeight="Bold"></TextBlock>
         </Grid>
         <Grid
             Grid.Row="1">

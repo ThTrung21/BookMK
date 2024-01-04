@@ -115,7 +115,7 @@
                                                  Margin="0 0 8 0"
                                                  HorizontalAlignment="Right"
                                                  Foreground="White" />
-                        <TextBlock Grid.Column="1" Text="Books" VerticalAlignment="Center" FontFamily="{StaticResource RobotoMono}" Foreground="White" FontSize="20px" FontWeight="Bold"></TextBlock>
+                        <TextBlock Grid.Column="1" Text="Book" VerticalAlignment="Center" FontFamily="{StaticResource RobotoMono}" Foreground="White" FontSize="20px" FontWeight="Bold"></TextBlock>
                     </Grid>
                 </RadioButton>
                 
@@ -134,7 +134,7 @@
                                                  Margin="0 0 8 0"
                                                  HorizontalAlignment="Right"
                                                  Foreground="White" />
-                        <TextBlock Grid.Column="1" Text="Authors" VerticalAlignment="Center" FontFamily="{StaticResource RobotoMono}" Foreground="White" FontSize="20px" FontWeight="Bold"></TextBlock>
+                        <TextBlock Grid.Column="1" Text="Author" VerticalAlignment="Center" FontFamily="{StaticResource RobotoMono}" Foreground="White" FontSize="20px" FontWeight="Bold"></TextBlock>
                     </Grid>
                 </RadioButton>
 
@@ -152,11 +152,12 @@
                                                  Margin="0 0 8 0"
                                                  HorizontalAlignment="Right"
                                                  Foreground="White" />
-                            <TextBlock Grid.Column="1" Text="Orders" VerticalAlignment="Center" FontFamily="{StaticResource RobotoMono}" Foreground="White" FontSize="20px" FontWeight="Bold"></TextBlock>
+                            <TextBlock Grid.Column="1" Text="Order" VerticalAlignment="Center" FontFamily="{StaticResource RobotoMono}" Foreground="White" FontSize="20px" FontWeight="Bold"></TextBlock>
                     </Grid>
                 </RadioButton>
                     <!--discount btn-->
                     <RadioButton
+                    Checked="DiscountBtn_Checked"
                     Name="DiscountBtn"
                     Style="{StaticResource RadioButtonDashboard}">
                         <Grid  VerticalAlignment="Center" Width="219" >

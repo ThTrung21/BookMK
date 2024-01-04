@@ -75,5 +75,10 @@ namespace BookMK.Windows
         {
             (this.DataContext as DashBoardViewModel).SwitchImportPage();
         }
+
+        private void DiscountBtn_Checked(object sender, RoutedEventArgs e)
+        {
+            (this.DataContext as DashBoardViewModel).SwitchDiscountPage();
+        }
     }
 }

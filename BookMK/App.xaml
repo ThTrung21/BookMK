@@ -25,6 +25,7 @@
                 <ResourceDictionary Source="Styles/Combobox.xaml"/>
                 <ResourceDictionary Source="Styles/ScrollBarStyle.xaml"/>
                 <ResourceDictionary Source="Styles/DatePicker.xaml"/>
+                <ResourceDictionary Source="Styles/TabControl.xaml"/>
                 
                 <!--Material design lib-->
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />

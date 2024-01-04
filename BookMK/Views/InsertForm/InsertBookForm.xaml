@@ -195,6 +195,7 @@
                                    Grid.Row="0"
                                    FontFamily="{StaticResource Inter}"/>
                             <TextBox
+                                    PreviewTextInput="TextBox_PreviewTextInput_1"
                                     Text="{Binding SellPrice,UpdateSourceTrigger=PropertyChanged}"
                                     Grid.Row="1" 
                                     FontSize="18"

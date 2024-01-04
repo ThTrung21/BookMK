@@ -39,7 +39,7 @@ namespace BookMK.Commands.UpdateCommand
 
                     Application.Current.Dispatcher.Invoke(() =>
                     {
-                        MessageBox.Show("Customer updated successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                        MessageBox.Show("Staff updated successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                         Window f = parameter as Window;
                         f?.Close();
                     });

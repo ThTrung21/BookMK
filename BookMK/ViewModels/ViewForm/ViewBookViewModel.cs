@@ -1,4 +1,6 @@
-﻿using BookMK.Commands;
+﻿using Amazon.Runtime.Internal.Util;
+using BookMK.Commands;
+using BookMK.Commands.DeleteCommand;
 using BookMK.Commands.UpdateCommand;
 using BookMK.Models;
 using BookMK.Service;
@@ -69,6 +71,7 @@ namespace BookMK.ViewModels.ViewForm
 
         public ICommand UpdateBook { get;set; }
         public ICommand SaveImageDialog { get; set; }
+        public ICommand DeleteBook { get; set; }
 
         public ViewBookViewModel() { }
         public ViewBookViewModel(Book b) 
@@ -79,6 +82,7 @@ namespace BookMK.ViewModels.ViewForm
            
             this.SaveImageDialog = new SaveImageDialogCommand(Filename, this);
             this.UpdateBook = new UpdateBookCommand(this, Filename);
+            this.DeleteBook = new DeleteBookCommand(this, Filename);
 
         }
     }
