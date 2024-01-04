@@ -179,6 +179,7 @@
     <Compile Include="Commands\ChangePasswordCommand.cs" />
     <Compile Include="Commands\CommandBase.cs" />
     <Compile Include="Commands\DeleteCommand\DeleteBookCommand.cs" />
+    <Compile Include="Commands\DeleteCommand\DeleteDiscountCommand.cs" />
     <Compile Include="Commands\InsertCommand\AddItemImportCommand.cs" />
     <Compile Include="Commands\InsertCommand\InsertAuthorCommand.cs" />
     <Compile Include="Commands\InsertCommand\InsertBookCommand.cs" />
@@ -223,6 +224,7 @@
     <Compile Include="ViewModels\ViewForm\ViewAuthorViewModel.cs" />
     <Compile Include="ViewModels\ViewForm\ViewBookViewModel.cs" />
     <Compile Include="ViewModels\ViewForm\ViewCustomerViewModel.cs" />
+    <Compile Include="ViewModels\ViewForm\ViewDiscountViewModel.cs" />
     <Compile Include="ViewModels\ViewForm\ViewImportViewModel.cs" />
     <Compile Include="ViewModels\ViewForm\ViewStaffViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
@@ -255,6 +257,9 @@
     </Compile>
     <Compile Include="Views\ViewForm\ViewCustomerForm.xaml.cs">
       <DependentUpon>ViewCustomerForm.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ViewForm\ViewDiscountForm.xaml.cs">
+      <DependentUpon>ViewDiscountForm.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ViewForm\ViewImportView.xaml.cs">
       <DependentUpon>ViewImportView.xaml</DependentUpon>
@@ -338,6 +343,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ViewForm\ViewCustomerForm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ViewForm\ViewDiscountForm.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

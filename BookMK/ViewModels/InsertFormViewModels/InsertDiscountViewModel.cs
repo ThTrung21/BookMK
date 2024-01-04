@@ -37,12 +37,12 @@ namespace BookMK.ViewModels.InsertFormViewModels
             }
         }
         private Book _selectedfreebook;
-        public Book SelectedFreeBooks
+        public Book SelectedFreeBook
         {
             get => _selectedfreebook;
             set
             {
-                _selectedfreebook = value; OnPropertyChanged(nameof(SelectedFreeBooks));
+                _selectedfreebook = value; OnPropertyChanged(nameof(SelectedFreeBook));
             }
         }
 

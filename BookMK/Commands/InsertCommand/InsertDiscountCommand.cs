@@ -71,7 +71,7 @@ namespace BookMK.Commands.InsertCommand
                             ID = _ID,
                             Type = "BOGO",
                             BookID = vm.SelectedBaseBooks.ID,
-                            BookID_free = vm.SelectedFreeBooks.ID,
+                            BookID_free = vm.SelectedFreeBook.ID,
                             EligibleBill = 0,
                             Value = 0,
                             Time = DateTime.Now,

@@ -3,6 +3,7 @@ using BookMK.ViewModels;
 
 using BookMK.ViewModels.ViewForm;
 using BookMK.Views.InsertForm;
+using BookMK.Views.ViewForm;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -44,10 +45,27 @@ namespace BookMK.Views.Pages
             List<Discount> results = await db.ReadAllAsync();
             (this.DataContext as DiscountViewModel).UpdateDiscountList(results);
         }
-
-        private void Grid_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private DateTime _lastClickTime;
+        private async void Grid_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
+            if ((DateTime.Now - _lastClickTime).TotalMilliseconds < 500)
+            {
+                Grid g = sender as Grid;
+                Discount s = g.DataContext as Discount;
 
+                ViewDiscountForm f = new ViewDiscountForm(s);
+                f.ShowDialog();
+
+                //update the list
+                if (this.DataContext != null)
+                {
+                    DiscountViewModel vm = this.DataContext as DiscountViewModel;
+                    DataProvider<Discount> db = new DataProvider<Discount>(Discount.Collection);
+                    vm.UpdateDiscountList(await db.ReadAllAsync());
+                }
+
+            }
+            _lastClickTime = DateTime.Now;
         }
     }
 }
