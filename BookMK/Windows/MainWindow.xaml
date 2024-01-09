@@ -12,6 +12,7 @@
         WindowStyle="None"
         WindowStartupLocation="CenterScreen"
         mc:Ignorable="d"
+        Loaded="BookMK_Loaded"
         Title="MainWindow" Height="700" Width="1200"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         Background="{DynamicResource MaterialDesignPaper}">
@@ -21,12 +22,7 @@
     
     <Grid>
         <views:LoginPage/>
-        <!--<Grid.Resources>
-            <DataTemplate DataType="{x:Type vms:LoginViewModel}">
-               <views:LoginPage/>
-            </DataTemplate>
-        </Grid.Resources>
-       -->
+       
         
     </Grid>
    

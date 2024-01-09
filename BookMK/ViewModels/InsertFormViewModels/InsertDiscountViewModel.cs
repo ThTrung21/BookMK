@@ -80,7 +80,7 @@ namespace BookMK.ViewModels.InsertFormViewModels
 
 
 
-
+                IsChecked = false;
                 ID = Discount.CreateID();
      
                 InsertDiscount1 = new InsertDiscountCommand(this,1);

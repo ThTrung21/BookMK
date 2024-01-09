@@ -32,6 +32,7 @@ namespace BookMK.Views.InsertForm
 
         private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            
             this.DataContext = await InsertDiscountViewModel.Initialize();
         }
 
@@ -93,13 +94,26 @@ namespace BookMK.Views.InsertForm
         private void RadioButton_Checked(object sender, RoutedEventArgs e)
         {
             InsertDiscountViewModel vm = this.DataContext as InsertDiscountViewModel;
-            vm.IsChecked=  true;
+            vm.IsChecked=  !vm.IsChecked;
+            var radioButton= (RadioButton)sender;
+            if(radioButton.IsChecked==true)
+                radioButton.IsChecked= false;
         }
 
         private void RadioButton_Unchecked(object sender, RoutedEventArgs e)
         {
             InsertDiscountViewModel vm = this.DataContext as InsertDiscountViewModel;
             vm.IsChecked = false;
+        }
+
+        private void radiobtn_Click(object sender, RoutedEventArgs e)
+        {
+            InsertDiscountViewModel vm = this.DataContext as InsertDiscountViewModel;
+            vm.IsChecked = !vm.IsChecked;
+            if((string)this.radiobtn.Content=="Specific Book")
+                this.radiobtn.Content = "All Books";
+            else
+                this.radiobtn.Content = "Specific Book";
         }
     }
 }

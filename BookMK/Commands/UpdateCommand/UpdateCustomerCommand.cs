@@ -33,7 +33,7 @@ namespace BookMK.Commands.UpdateCommand
                     FilterDefinition<Customer> filter = Builders<Customer>.Filter.Eq(x => x.ID, updatedCustomer.ID);
                     UpdateDefinition<Customer> update = Builders<Customer>.Update
                         .Set(x => x.FullName, updatedCustomer.FullName)
-                        .Set(x => x.Username, updatedCustomer.Phone)
+                        
                         .Set(x => x.Address, updatedCustomer.Address)
                         .Set(x => x.Phone, updatedCustomer.Phone);
                         //more attributes

@@ -23,7 +23,11 @@ namespace BookMK.Commands
         }
         public override async Task ExecuteAsync(object parameter)
         {
-
+            if (vm.NewPassword == null)
+            {
+                MessageBox.Show("Your new password is invalid!!!");
+                return;
+            }
             MessageBoxResult asking = MessageBox.Show("Are you sure to save change?", "REMINDING",
                 MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (asking == MessageBoxResult.No) return;
@@ -31,11 +35,7 @@ namespace BookMK.Commands
             try
             {
                 String _NewPassword = Staff.HashPassword(vm.NewPassword);
-                if (_NewPassword == null)
-                {
-                    MessageBox.Show("Your new password is invalid!!!");
-                    return;
-                }
+                
                 //for staff
                 if(kind==1)
                 {

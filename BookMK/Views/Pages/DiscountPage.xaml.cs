@@ -52,7 +52,8 @@ namespace BookMK.Views.Pages
             {
                 Grid g = sender as Grid;
                 Discount s = g.DataContext as Discount;
-
+                if (s.ID == 0)
+                    return;
                 ViewDiscountForm f = new ViewDiscountForm(s);
                 f.ShowDialog();
 

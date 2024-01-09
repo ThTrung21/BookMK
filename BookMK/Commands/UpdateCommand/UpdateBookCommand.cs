@@ -32,7 +32,7 @@ namespace BookMK.Commands.UpdateCommand
         public override async Task ExecuteAsync(object parameter)
         {
             Book _CurrentBook = vm.CurrentBook;
-            string filepath = filename.ToString();
+            
 
 
             if ( _CurrentBook.SellPrice == 0)
@@ -58,10 +58,7 @@ namespace BookMK.Commands.UpdateCommand
 
 
                     
-                    if (!String.IsNullOrEmpty(filepath))
-                    {
-                        ImageStorage.StoreImage(filepath, ImageStorage.BookImageLocation, _CurrentBook.Cover);
-                    }
+                   
                     Application.Current.Dispatcher.Invoke(() =>
                     {
                         MessageBox.Show("Book updated successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);

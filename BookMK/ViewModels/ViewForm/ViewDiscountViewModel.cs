@@ -72,8 +72,18 @@ namespace BookMK.ViewModels.ViewForm
         {
             this.CurrentDiscount = d;
 
-            SelectedBaseBooks = Book.GetBook(CurrentDiscount.BookID).Title;
+            if (CurrentDiscount.BookID == 0)
+            {
+                SelectedBaseBooks = "All books";
+            }
+            else SelectedBaseBooks = Book.GetBook(CurrentDiscount.BookID).Title;
+            
+            
             if( CurrentDiscount.BookID_free==-1)
+            {
+                SelectedFreeBook = null;
+            }
+            else if(CurrentDiscount.ID==0)
             {
                 SelectedFreeBook = null;
             }

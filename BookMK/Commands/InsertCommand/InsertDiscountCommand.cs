@@ -49,7 +49,14 @@ namespace BookMK.Commands.InsertCommand
 
 
                         };
-                        await db.InsertOneAsync(d);
+
+                        if(Discount.IsExistedPercentageAll()==false || vm.IsChecked==false)
+                            await db.InsertOneAsync(d);
+                        else
+                        {
+                            MessageBox.Show("Store-wide discount already existed \n Discount will not be added!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                            return;
+                        }
 
                         break;
                     case 2:
@@ -57,7 +64,7 @@ namespace BookMK.Commands.InsertCommand
                         {
                             ID = _ID,
                             Type = "Amount",
-                            BookID = -1,
+                            BookID = 0,
                             BookID_free = -1,
                             EligibleBill =vm.EligibleBill,
                             Value = vm.Value,

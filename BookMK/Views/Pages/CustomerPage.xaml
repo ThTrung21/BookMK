@@ -12,7 +12,7 @@
 
     <Grid
         Margin="16 0 10 8 "
-        Background="#36393e">
+        Background="Transparent">
 
         <Grid.RowDefinitions>
             <RowDefinition Height="100"/>

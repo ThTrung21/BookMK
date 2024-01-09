@@ -55,7 +55,10 @@ namespace BookMK.Views.Pages
             {
                 Grid g = sender as Grid;
                 Staff s = g.DataContext as Staff;
-
+                if(s.ID==0)
+                {
+                    return;
+                }
                 ViewStaffForm f = new ViewStaffForm(s);
                 f.ShowDialog();
 

@@ -75,7 +75,8 @@ namespace BookMK.ViewModels.ViewForm
             this.Discounts.Clear();
             foreach (Discount d in discounts)
             {
-                Discounts.Add(d);
+                
+                    Discounts.Add(d);
             }
         }
 
@@ -103,29 +104,35 @@ namespace BookMK.ViewModels.ViewForm
                 DataProvider<Discount> db = new DataProvider<Discount>(Discount.Collection);
                
                 List<Discount> results = new List<Discount>();
-                //switch (_selectedIndex)
-                //{
-                //    case 1:
-                //        {
-                //            FilterDefinition<Discount> filter = Builders<Discount>.Filter.ElemMatch(d => d.Type, "Percentage");
-                //            results = db.ReadFiltered(filter);
-                //        }
-                //        break;
-                //    case 2:
-                //        {
-                //            FilterDefinition<Discount> filter = Builders<Discount>.Filter.ElemMatch(d => d.Type, "Amount");
-                //            results = db.ReadFiltered(filter);
-                //        }
-                //        break;
-                //    case 3:
-                //        {
-                //            FilterDefinition<Discount> filter = Builders<Discount>.Filter.ElemMatch(d => d.Type, "BOGO");
-                //            results = db.ReadFiltered(filter);
-                //        }
-                //        break;
-                //    default:
-                //        return;
-                //}
+                switch (_selectedIndex)
+                {
+                    case 0:
+                        {
+                            //FilterDefinition<Discount> filter = Builders<Discount>.Filter.Eq(d => d.Type, "Percentage");
+                            results = db.ReadAll();
+                        }
+                        break;
+                    case 1:
+                        {
+                            FilterDefinition<Discount> filter = Builders<Discount>.Filter.Eq(d => d.Type, "Percentage");
+                            results = db.ReadFiltered(filter);
+                        }
+                        break;
+                    case 2:
+                        {
+                            FilterDefinition<Discount> filter = Builders<Discount>.Filter.Eq(d => d.Type, "Amount");
+                            results = db.ReadFiltered(filter);
+                        }
+                        break;
+                    case 3:
+                        {
+                            FilterDefinition<Discount> filter = Builders<Discount>.Filter.Eq(d => d.Type, "BOGO");
+                            results = db.ReadFiltered(filter);
+                        }
+                        break;
+                    default:
+                        return;
+                }
                 Application.Current.Dispatcher.Invoke(() => {
                     Discounts.Clear();
                     foreach (Discount c in results)

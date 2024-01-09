@@ -42,17 +42,18 @@ namespace BookMK.Views.Pages
                 {
                    // this.Change_Password.Visibility = Visibility.Collapsed;
                 }
+                if(s.Role!="admin")
+                {
+                    this.LoyalCustomer.Visibility = Visibility.Collapsed;
+                }
             }
-            else
-            {
-
-            }
+            
 
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            //kind: 1-staff 2-customer
+            //kind: 1-staff
             if (s != null)
             {
                 this.DataContext = new SettingViewModel(s);
@@ -75,6 +76,18 @@ namespace BookMK.Views.Pages
 
             }
             this.NewPassword_field.Text = null;
+        }
+
+        private void discountbtn_Click(object sender, RoutedEventArgs e)
+        {
+            SettingViewModel vm = this.DataContext as SettingViewModel;
+
+            if (vm.UpdateLoyalDiscount != null)
+            {
+                vm.UpdateLoyalDiscount.Execute(this);
+
+            }
+            
         }
     }
 }

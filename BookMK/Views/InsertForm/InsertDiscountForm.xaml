@@ -116,20 +116,21 @@
                                     </ComboBox>
 
                                 </Grid>
-                                <RadioButton
+                                <Button
                                     HorizontalAlignment="Center"
                                     Foreground="White"
-                                    Checked="RadioButton_Checked"
-                                    Unchecked="RadioButton_Unchecked"
+                                    Name="radiobtn"
+                                    Style="{StaticResource RoundedButtonStyle}"
+                                    Width="150"
+                                    Click="radiobtn_Click"
+                                    Content="Specific Book"
+                                    FontSize="20"
+                                    FontFamily="{StaticResource Inter}"
+                                           
                                     Grid.Column="1">
-                                    <RadioButton.Content>
-                                        <TextBlock
-                                            Text="All Books"
-                                            FontSize="22"
-                                            FontFamily="{StaticResource Inter}"
-                                            Foreground="White"/>
-                                    </RadioButton.Content>
-                                </RadioButton>
+                                    
+                                    
+                                </Button>
                             </Grid>
                             
 

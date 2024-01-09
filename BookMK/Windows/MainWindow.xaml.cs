@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using MongoDB.Driver;
 using MongoDB.Bson;
 using BookMK.Models;
+using BookMK.Commands;
 
 namespace BookMK
 {
@@ -26,6 +27,7 @@ namespace BookMK
         public MainWindow()
         {
             InitializeComponent();
+            
 
             MongoClient client = new MongoClient("mongodb://localhost:27017");
             IMongoDatabase database = client.GetDatabase("BookMK");
@@ -67,7 +69,7 @@ namespace BookMK
             // Create a customer instance for unregistered customer purchase
             var customerProvider = new DataProvider<Customer>("customers");
             // Check if any accounts exist in the database with the username "admin"
-            bool customerExists = Customer.IsExisted("annonymous");
+            bool customerExists = Customer.IsExisted("Walk-in Customers");
             if (!customerExists)
             {
 
@@ -75,23 +77,44 @@ namespace BookMK
                 var Walk_in = new Customer
                 {
                     ID = 0,
-                    Role = "customer",
-                    Username = "annonymous",
-                    PasswordHash = Customer.HashPassword("12345"),
                     Phone = "",
                     FullName = "Walk-in Customers",
                     Email = "",
                     Address = "",
+                    IsLoyalDiscountReady = false,
                     PurchasePoint = 0
+                    
                 };
 
                 // Insert the admin account into the database
                 customerProvider.Insert(Walk_in);
             }
+            //===================================================================================
 
+
+
+
+            var loyaldiscountProvider = new DataProvider<Discount>("discounts");
+            bool discountexists = Discount.IsExistedLoyal();
+            if(!discountexists)
+            {
+                var loyal = new Discount
+                {
+                    ID = 0,
+                    Type="Loyal",
+                    Value = 0,
+                    PointMileStone = 100,
+                    Time=DateTime.Now
+                };
+                loyaldiscountProvider.Insert(loyal);
+            }
+            
         }
 
+        private void BookMK_Loaded(object sender, RoutedEventArgs e)
+        {
 
+        }
     }  
 }
 

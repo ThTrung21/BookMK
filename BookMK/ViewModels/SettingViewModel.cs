@@ -1,7 +1,9 @@
 ﻿using BookMK.Commands;
 using BookMK.Commands.InsertCommand;
+using BookMK.Commands.UpdateCommand;
 using BookMK.Models;
 using BookMK.ViewModels.InsertFormViewModels;
+using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,28 +34,54 @@ namespace BookMK.ViewModels
             get => _newpassword;
             set { _newpassword = value; OnPropertyChanged(nameof(NewPassword)); }
         }
+        private double _discountamount;
+        public double DiscountAmount
+        {
+            get => _discountamount;
+            set { _discountamount = value; OnPropertyChanged(nameof(DiscountAmount)); }
+        }
+        private double _pointmilestone;
+        public double PointMilestone
+        {
+            get => _pointmilestone;
+            set { _pointmilestone = value; OnPropertyChanged(nameof(PointMilestone)); }
+        }
+        private string _email;
+        public string Email
+        {
+            get => _email;
+            set { _email = value; OnPropertyChanged(nameof(Email)); }
+        }
 
         public ICommand ChangePassword { get; set; }
+        public ICommand UpdateLoyalDiscount { get; set; }
 
-        
+        public Discount GetDiscount()
+        {
+            DataProvider<Discount> db = new DataProvider<Discount>(Discount.Collection);
+            FilterDefinition<Discount> filter = Builders<Discount>.Filter.Eq(x => x.ID, 0);
+            List<Discount> b = db.ReadFiltered(filter);
+            if (b.Count() > 0)
+                return b[0];
+            return null;
+        }
+
 
         public SettingViewModel() { }
         public SettingViewModel(Staff s)
         {
-           
+           Discount loyal=GetDiscount();
+            this.DiscountAmount = loyal.Value;
+            this.PointMilestone = loyal.PointMileStone;
+
+
             this.CurrentStaff = s;
             
             this.ChangePassword = new ChangePasswordCommand(this,1);
-        
+
+            this.UpdateLoyalDiscount= new UpdateLoyalDiscountCommand(this);
         }
-        public SettingViewModel(Customer c)
-        {
-
-            this.CurrentCustomer = c;
-
-            this.ChangePassword = new ChangePasswordCommand(this, 2);
-
-        }
+       
 
 
         //public static async Task<SettingViewModel> Initialize(int Kind)

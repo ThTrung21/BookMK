@@ -92,8 +92,7 @@ namespace BookMK.ViewModels
 
         public ImportViewModel()
         {
-            SelectedStartDate = DateTime.Now;
-            SelectedEndDate = DateTime.Now;
+           
            
         }
 

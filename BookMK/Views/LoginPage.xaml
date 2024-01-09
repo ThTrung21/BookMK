@@ -139,9 +139,9 @@
                         Content="Sign in"
                         FontFamily="{StaticResource Inter}"
                             FontSize="20px"
-                        ToolTip="MaterialDesignRaisedButton with Round Corners">
-                        
-                    </Button>
+                       >
+
+                </Button>
                
                 <Grid
                     Grid.Row="5"

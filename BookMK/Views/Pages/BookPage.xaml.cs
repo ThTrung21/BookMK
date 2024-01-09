@@ -26,7 +26,7 @@ namespace BookMK.Views.Pages
     public partial class BookPage : Page
     {
         Staff s { get; set; }
-        Customer c { get; set; }
+      
         public BookPage()
         {
             InitializeComponent();

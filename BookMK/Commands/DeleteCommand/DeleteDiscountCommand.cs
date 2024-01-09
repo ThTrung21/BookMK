@@ -28,6 +28,10 @@ namespace BookMK.Commands.DeleteCommand
 
             try
             {
+                if(_CurrentDiscount.Type=="Loyal")
+                {
+                    MessageBox.Show("You can't delete this type of discount !", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
                 await Task.Run(() =>
                 {
                     FilterDefinition<Discount> filter = Builders<Discount>.Filter.Eq(x => x.ID, _CurrentDiscount.ID);
@@ -39,7 +43,7 @@ namespace BookMK.Commands.DeleteCommand
                   
                     Application.Current.Dispatcher.Invoke(() =>
                     {
-                        MessageBox.Show("Book deleted !", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                        MessageBox.Show("Discount deleted !", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                         Window f = parameter as Window;
                         f?.Close();
                     });

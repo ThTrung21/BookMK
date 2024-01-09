@@ -17,15 +17,13 @@ namespace BookMK.Models
         [BsonRepresentation(MongoDB.Bson.BsonType.Int64)]
 
         public int ID { get; set; }
-        public string Role {get;set; }
-        public string Username { get; set; }
-        public string PasswordHash { get; set; }
+       
         public string Phone { get; set; }
         public string FullName { get; set; }
         public string Email { get; set; }
         public string Address { get; set; }
         public int PurchasePoint { get; set; }
-        public bool IsVerified { get; set; }
+        public bool IsLoyalDiscountReady { get; set; }
 
         public static string Collection = "customers";
 
@@ -54,7 +52,7 @@ namespace BookMK.Models
         public static bool IsExisted(string Name)
         {
             DataProvider<Customer> db = new DataProvider<Customer>(Customer.Collection);
-            FilterDefinition<Customer> filter = Builders<Customer>.Filter.Regex(x => x.Username, new BsonRegularExpression("^" + Regex.Escape(Name) + "$", "i"));
+            FilterDefinition<Customer> filter = Builders<Customer>.Filter.Regex(x => x.FullName, new BsonRegularExpression("^" + Regex.Escape(Name) + "$", "i"));
 
             //List<Customer> resultls = db.ReadFiltered(filter);
             //bool exists = resultls.Count > 0;
@@ -70,7 +68,7 @@ namespace BookMK.Models
 
             // Use a filter that checks both Username and Phone
             FilterDefinition<Customer> filter = Builders<Customer>.Filter.And(
-                Builders<Customer>.Filter.Regex(x => x.Username, new BsonRegularExpression("^" + Regex.Escape(Name) + "$", "i")),
+                Builders<Customer>.Filter.Regex(x => x.FullName, new BsonRegularExpression("^" + Regex.Escape(Name) + "$", "i")),
                 Builders<Customer>.Filter.Regex(x => x.Phone, new BsonRegularExpression("^" + Regex.Escape(Phone) + "$", "i"))
             );
 
@@ -85,16 +83,35 @@ namespace BookMK.Models
             return "";
         }
 
-        public static string HashPassword(string password)
+        public static List<Customer> GetCustomerList()
         {
-            using (SHA256 sha256 = SHA256.Create())
+            DataProvider<Customer> db = new DataProvider<Customer>(Customer.Collection);
+            List<Customer> c = db.ReadAll();
+
+            return c;
+        }
+
+        public static Author GetAuthorByName(string Name)
+        {
+            if (Name == null)
             {
-                byte[] hashedBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
-                return BitConverter.ToString(hashedBytes).Replace("-", "").ToLower();
+                return null;
             }
+
+            Author c = new Author();
+            DataProvider<Author> db = new DataProvider<Author>(Author.Collection);
+
+            FilterDefinition<Author> filter = Builders<Author>.Filter.Eq(x => x.Name, Name);
+            List<Author> authors = db.ReadFiltered(filter);
+            if (authors.Count > 0)
+            {
+                return authors[0];
+            }
+            else
+                return null;
         }
 
 
-        
+
     }
 }

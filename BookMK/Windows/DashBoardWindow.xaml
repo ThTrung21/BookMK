@@ -14,7 +14,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="700" d:DesignWidth="1200"
              TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-             Background="{x:Null}" Height="700" Width="1200">
+             Background="{x:Null}" Height="700" Width="1240">
 
     
     
@@ -25,7 +25,15 @@
 
         </Grid.ColumnDefinitions>
         <Border Grid.ColumnSpan="2" CornerRadius="15" Background="#36393e">
-            <Button Content="Button" Margin="1052,22,28,646" Click="Button_Click"/>
+            <materialDesign:PackIcon
+                                Kind="CloseThick"
+                                Grid.Column="2"
+                                Foreground="#B44E4E"
+                                Height="36"
+                                Width="36px"
+                                HorizontalAlignment="Right"
+                                Cursor="Hand"
+                                MouseUp="PackIcon_MouseUp" />
         </Border>
 
         <!--first element-->
@@ -115,7 +123,7 @@
                                                  Margin="0 0 8 0"
                                                  HorizontalAlignment="Right"
                                                  Foreground="White" />
-                        <TextBlock Grid.Column="1" Text="Book" VerticalAlignment="Center" FontFamily="{StaticResource RobotoMono}" Foreground="White" FontSize="20px" FontWeight="Bold"></TextBlock>
+                        <TextBlock Grid.Column="1" Text="Books" VerticalAlignment="Center" FontFamily="{StaticResource RobotoMono}" Foreground="White" FontSize="20px" FontWeight="Bold"></TextBlock>
                     </Grid>
                 </RadioButton>
                 
@@ -134,13 +142,14 @@
                                                  Margin="0 0 8 0"
                                                  HorizontalAlignment="Right"
                                                  Foreground="White" />
-                        <TextBlock Grid.Column="1" Text="Author" VerticalAlignment="Center" FontFamily="{StaticResource RobotoMono}" Foreground="White" FontSize="20px" FontWeight="Bold"></TextBlock>
+                        <TextBlock Grid.Column="1" Text="Authors" VerticalAlignment="Center" FontFamily="{StaticResource RobotoMono}" Foreground="White" FontSize="20px" FontWeight="Bold"></TextBlock>
                     </Grid>
                 </RadioButton>
 
                 <!--Order btn-->
                 <RadioButton
                     Name="OrderBtn"
+                    Checked="OrderBtn_Checked"
                     Style="{StaticResource RadioButtonDashboard}">
                     <Grid  VerticalAlignment="Center" Width="219" >
                         <Grid.ColumnDefinitions>
@@ -152,7 +161,7 @@
                                                  Margin="0 0 8 0"
                                                  HorizontalAlignment="Right"
                                                  Foreground="White" />
-                            <TextBlock Grid.Column="1" Text="Order" VerticalAlignment="Center" FontFamily="{StaticResource RobotoMono}" Foreground="White" FontSize="20px" FontWeight="Bold"></TextBlock>
+                            <TextBlock Grid.Column="1" Text="Orders" VerticalAlignment="Center" FontFamily="{StaticResource RobotoMono}" Foreground="White" FontSize="20px" FontWeight="Bold"></TextBlock>
                     </Grid>
                 </RadioButton>
                     <!--discount btn-->
@@ -170,7 +179,7 @@
                                                  Margin="0 0 8 0"
                                                  HorizontalAlignment="Right"
                                                  Foreground="White" />
-                            <TextBlock Grid.Column="1" Text="Discount" VerticalAlignment="Center" FontFamily="{StaticResource RobotoMono}" Foreground="White" FontSize="20px" FontWeight="Bold"></TextBlock>
+                            <TextBlock Grid.Column="1" Text="Discounts" VerticalAlignment="Center" FontFamily="{StaticResource RobotoMono}" Foreground="White" FontSize="20px" FontWeight="Bold"></TextBlock>
                         </Grid>
                     </RadioButton>
 
@@ -188,7 +197,7 @@
                                                  Margin="0 0 8 0"
                                                  HorizontalAlignment="Right"
                                                  Foreground="White" />
-                            <TextBlock Grid.Column="1" Text="Customer" VerticalAlignment="Center" FontFamily="{StaticResource RobotoMono}" Foreground="White" FontSize="20px" FontWeight="Bold"></TextBlock>
+                            <TextBlock Grid.Column="1" Text="Customers" VerticalAlignment="Center" FontFamily="{StaticResource RobotoMono}" Foreground="White" FontSize="20px" FontWeight="Bold"></TextBlock>
                     </Grid>
                 </RadioButton>
         
@@ -207,7 +216,7 @@
                                                  Margin="0 0 8 0"
                                                  HorizontalAlignment="Right"
                                                  Foreground="White" />
-                            <TextBlock Grid.Column="1" Text="Import" VerticalAlignment="Center" FontFamily="{StaticResource RobotoMono}" Foreground="White" FontSize="20px" FontWeight="Bold"></TextBlock>
+                            <TextBlock Grid.Column="1" Text="Imports" VerticalAlignment="Center" FontFamily="{StaticResource RobotoMono}" Foreground="White" FontSize="20px" FontWeight="Bold"></TextBlock>
                         </Grid>
                     </RadioButton>
                 

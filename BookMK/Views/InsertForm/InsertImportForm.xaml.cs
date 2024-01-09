@@ -81,10 +81,7 @@ namespace BookMK.Views.InsertForm
             this.DataContext = await InsertImportViewModel.Initialize();
         }
 
-        private void myListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-           
-        }
+       
         private DateTime _lastClickTime;
         private void Grid_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
@@ -96,7 +93,7 @@ namespace BookMK.Views.InsertForm
                 // Check if an item is selected
                 if (i != null)
                 {
-                    Debug.WriteLine("We found the item");
+                    
                     // Execute the remove command in the ViewModel
                     ((InsertImportViewModel)DataContext).RemoveItemCommand.Execute(i);
                 }

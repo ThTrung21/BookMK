@@ -91,7 +91,7 @@ namespace BookMK.Models
         }
         public static Book GetBook(int id)
         {
-            if(id==null)
+            if(id==0)
             {
                 return null;
             }

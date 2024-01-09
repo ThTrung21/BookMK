@@ -31,14 +31,13 @@ namespace BookMK.Commands.InsertCommand
             try
             {
                 Int64 _ID = vm.ID;
-                String _Username = vm.Phone;
-                String _PasswordHash = Customer.HashPassword("12345");
+                
                 String _Phone = vm.Phone;
                 String _FullName = vm.FullName;
                 String _Email = vm.Email;
                 String _Address = vm.Address;
-                bool _IsVerified = false;
-                string _Role = "customer";
+              
+               
 
                 if ((_FullName == null) || (_Email == null) || (_Phone == null) || (_Address == null))
                 {
@@ -59,15 +58,13 @@ namespace BookMK.Commands.InsertCommand
 
                 Customer c = new Customer()
                 {
-                    ID = (int)_ID,
-                    Username = _Username,
-                    PasswordHash = _PasswordHash,
+                    ID = (int)_ID,       
                     Phone = _Phone,
                     FullName = _FullName,
                     Email = _Email,
                     Address = _Address,
-                    IsVerified = _IsVerified,
-                    Role = _Role
+                  
+                   
                 };
 
                 DataProvider<Customer> db = new DataProvider<Customer>(Customer.Collection);

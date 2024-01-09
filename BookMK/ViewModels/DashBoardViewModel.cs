@@ -78,6 +78,10 @@ namespace BookMK.ViewModels
         {
             CurrentPage = new Uri("/Views/Pages/DiscountPage.xaml", UriKind.Relative);
         }
+        public void SwitchOrderPage()
+        {
+            CurrentPage = new Uri("/Views/Pages/OrderPage.xaml", UriKind.Relative);
+        }
     }
 
     

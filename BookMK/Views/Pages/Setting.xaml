@@ -11,60 +11,61 @@
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       d:DesignHeight="700" d:DesignWidth="930"
       Title="Setting">
-
-    <StackPanel
+    <ScrollViewer VerticalScrollBarVisibility="Hidden">
+        <StackPanel
+        
         Margin="16 0 10 8 "
         Background="#36393E">
-        
 
-        <Grid Grid.Row="0"
+
+            <Grid
               Height="100"
               VerticalAlignment="Center" 
               HorizontalAlignment="Left"
               Width="300" >
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="60"/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <materialDesign:PackIcon Kind="Gear"  Height="60px" Width="60px"
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="60"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <materialDesign:PackIcon Kind="Gear"  Height="60px" Width="60px"
                                                  Grid.Column="0"
                                                  
                                                  HorizontalAlignment="Right" VerticalAlignment="Center"
                                                  Foreground="White" />
-            <TextBlock Grid.Column="1" Text="Setting" VerticalAlignment="Center" FontFamily="{StaticResource RobotoMono}" Foreground="White" FontSize="48px" FontWeight="Bold"></TextBlock>
-        </Grid>
+                <TextBlock Grid.Column="1" Text="Setting" VerticalAlignment="Center" FontFamily="{StaticResource RobotoMono}" Foreground="White" FontSize="48px" FontWeight="Bold"></TextBlock>
+            </Grid>
 
-        <Grid
+            <Grid
             Height="200"
             Margin="36 0 0 0"
-            Grid.Row="1">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="36"/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-            <TextBlock
+          >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="36"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <TextBlock
                 FontFamily="{StaticResource Inter}"
                 FontSize="32"
                 Text="Account Information"
                 FontWeight="Bold"
                 Foreground="White"
                 Grid.Row="0"/>
-            
-            <Grid 
+
+                <Grid 
                 VerticalAlignment="Center"
                 Grid.Row="1">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="20"/>
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
-                <TextBlock Text="Email"
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="20"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="Email"
                            Foreground="White"
                            VerticalAlignment="Top"
                            FontSize="20"
                            
                            Grid.Row="0"
                            FontFamily="{StaticResource Inter}"/>
-                <TextBox
+                    <TextBox
                     Text="{Binding Email}"
                     Grid.Row="1" 
                     FontSize="18"
@@ -76,20 +77,20 @@
                     
                     MaxLength="50"
                     Style="{StaticResource FilledTextBox}"/>
+                </Grid>
+
             </Grid>
 
-        </Grid>
-
-        <Grid
+            <Grid
              Margin="36 0 0 0"
             Name="Change_Password"
-            Grid.Row="2">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="36"/>
-                <RowDefinition Height="100"/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-            <TextBlock
+            >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="100"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <TextBlock
                 FontFamily="{StaticResource Inter}"
                 FontSize="32"
                 Text="Change Password"
@@ -97,21 +98,21 @@
                 Foreground="White"
                 Grid.Row="0"/>
 
-            <Grid 
+                <Grid 
                 VerticalAlignment="Center"
                 Grid.Row="1">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="20"/>
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
-                <TextBlock Text="New Password"
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="20"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="New Password"
                            Foreground="White"
                            VerticalAlignment="Top"
                            FontSize="20"
                            
                            Grid.Row="0"
                            FontFamily="{StaticResource Inter}"/>
-                <TextBox
+                    <TextBox
                     Text="{Binding NewPassword}"
                     Grid.Row="1" 
                     FontSize="18"
@@ -123,8 +124,8 @@
                     
                     MaxLength="50"
                     Style="{StaticResource FilledTextBox}"/>
-            </Grid>
-            <Button Grid.Row="3" 
+                </Grid>
+                <Button Grid.Row="3" 
                     Name="InsertBtn"
                     HorizontalAlignment="Left"
                     
@@ -137,8 +138,101 @@
                     
                     Style="{StaticResource RoundedButtonStyle}" >
 
-            </Button>
-        </Grid>
+                </Button>
+            </Grid>
+            <Grid
+            Margin="36 32 0 0"
+            Name="LoyalCustomer">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="100"/>
+                    <RowDefinition />
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <TextBlock
+                FontFamily="{StaticResource Inter}"
+                FontSize="32"
+                Text="Loyal Customer Discount"
+                FontWeight="Bold"
+                Foreground="White"
+                Grid.Row="0"/>
+                <Grid 
+                VerticalAlignment="Center"
+                Grid.Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="20"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="Discount Amount ($):"
+                           Foreground="White"
+                           VerticalAlignment="Top"
+                           FontSize="20"
+                           
+                           Grid.Row="0"
+                           FontFamily="{StaticResource Inter}"/>
+                    <TextBox
+                    Text="{Binding DiscountAmount}"
+                    Grid.Row="1" 
+                    FontSize="18"
+                    Margin="0,10,442,0"
+                    Height="44"    
+                    Name="discount_"
+                    TextAlignment="Left"
+                    VerticalAlignment="Top"  
+                    
+                    MaxLength="50"
+                    Style="{StaticResource FilledTextBox}"/>
+                </Grid>
 
-    </StackPanel>
+                <Grid 
+                VerticalAlignment="Top"
+                Grid.Row="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="20"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="Point Milestone"
+                           Foreground="White"
+                           VerticalAlignment="Top"
+                           FontSize="20"
+                           
+                           Grid.Row="0"
+                           FontFamily="{StaticResource Inter}"/>
+                    <TextBox
+                    Text="{Binding PointMilestone}"
+                    Grid.Row="1" 
+                    FontSize="18"
+                    Margin="0,10,442,0"
+                    Height="44"    
+                    Name="a"
+                    TextAlignment="Left"
+                    VerticalAlignment="Top"  
+                    
+                    MaxLength="50"
+                    Style="{StaticResource FilledTextBox}"/>
+                </Grid>
+
+                <Button Grid.Row="3" 
+                    Margin="0 16 0 0"
+                    Name="discountbtn"
+                    HorizontalAlignment="Left"
+                    
+                    Width="200" Height="40" Padding="0" 
+                    Content="Update"
+                    Click="discountbtn_Click"
+                    VerticalAlignment="Top"
+                    FontFamily="{StaticResource Inter}"
+                    FontSize="18"
+                    Cursor="Hand"
+                    Style="{StaticResource RoundedButtonStyle}" >
+
+                </Button>
+
+
+
+
+
+            </Grid>
+        </StackPanel>
+    </ScrollViewer>
 </Page>

@@ -186,14 +186,18 @@
     <Compile Include="Commands\InsertCommand\InsertCustomerCommand.cs" />
     <Compile Include="Commands\InsertCommand\InsertDiscountCommand.cs" />
     <Compile Include="Commands\InsertCommand\InsertImportCommand.cs" />
+    <Compile Include="Commands\InsertCommand\InsertOrderCommand.cs" />
     <Compile Include="Commands\InsertCommand\InsertStaffCommand.cs" />
     <Compile Include="Commands\LoginCommand.cs" />
     <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="Commands\SaveImageDialogCommand.cs" />
+    <Compile Include="Commands\SeedingDatabase.cs" />
     <Compile Include="Commands\UpdateCommand\UpdateAuthorCommand.cs" />
     <Compile Include="Commands\UpdateCommand\UpdateBookCommand.cs" />
     <Compile Include="Commands\UpdateCommand\UpdateCustomerCommand.cs" />
+    <Compile Include="Commands\UpdateCommand\UpdateLoyalDiscountCommand.cs" />
     <Compile Include="Commands\UpdateCommand\UpdateStaffCommand.cs" />
+    <Compile Include="Commands\UpdateCommand\UpdateStockCommand.cs" />
     <Compile Include="Converters\AbsoluteFileNameToBitmapImage.cs" />
     <Compile Include="Converters\PathToBookCover.cs" />
     <Compile Include="Converters\StringNullOrEmptyConverter.cs" />
@@ -213,9 +217,11 @@
     <Compile Include="ViewModels\InsertFormViewModels\InsertCustomerViewModel.cs" />
     <Compile Include="ViewModels\InsertFormViewModels\InsertDiscountViewModel.cs" />
     <Compile Include="ViewModels\InsertFormViewModels\InsertImportViewModel.cs" />
+    <Compile Include="ViewModels\InsertFormViewModels\InsertOrderViewModel.cs" />
     <Compile Include="ViewModels\InsertFormViewModels\InsertStaffViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\OrderViewModel.cs" />
     <Compile Include="ViewModels\ResetPasswordViewModel.cs" />
     <Compile Include="ViewModels\SettingViewModel.cs" />
     <Compile Include="ViewModels\StaffViewModel.cs" />
@@ -226,6 +232,7 @@
     <Compile Include="ViewModels\ViewForm\ViewCustomerViewModel.cs" />
     <Compile Include="ViewModels\ViewForm\ViewDiscountViewModel.cs" />
     <Compile Include="ViewModels\ViewForm\ViewImportViewModel.cs" />
+    <Compile Include="ViewModels\ViewForm\ViewOrderViewModel.cs" />
     <Compile Include="ViewModels\ViewForm\ViewStaffViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="Views\Components\DatePicker.xaml.cs">
@@ -246,11 +253,17 @@
     <Compile Include="Views\InsertForm\InsertImportForm.xaml.cs">
       <DependentUpon>InsertImportForm.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\InsertForm\InsertOrderForm.xaml.cs">
+      <DependentUpon>InsertOrderForm.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Pages\DiscountPage.xaml.cs">
       <DependentUpon>DiscountPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Pages\ImportPage.xaml.cs">
       <DependentUpon>ImportPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\OrderPage.xaml.cs">
+      <DependentUpon>OrderPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ViewForm\ViewBookForm.xaml.cs">
       <DependentUpon>ViewBookForm.xaml</DependentUpon>
@@ -263,6 +276,9 @@
     </Compile>
     <Compile Include="Views\ViewForm\ViewImportView.xaml.cs">
       <DependentUpon>ViewImportView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ViewForm\ViewOrderForm.xaml.cs">
+      <DependentUpon>ViewOrderForm.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ViewForm\ViewStaffForm.xaml.cs">
       <DependentUpon>ViewStaffForm.xaml</DependentUpon>
@@ -330,11 +346,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\InsertForm\InsertOrderForm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Pages\DiscountPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Pages\ImportPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\OrderPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -351,6 +375,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ViewForm\ViewImportView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ViewForm\ViewOrderForm.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
