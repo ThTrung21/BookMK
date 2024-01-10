@@ -38,6 +38,7 @@ namespace BookMK.Views.ViewForm
             if (s.Role != "admin")
             {
                 this.InsertBtn.Visibility = Visibility.Collapsed;
+                this.DeleteBtn.Visibility = Visibility.Collapsed;
             }
             this.DataContext = new ViewBookViewModel(b);
         }

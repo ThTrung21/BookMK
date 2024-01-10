@@ -1,5 +1,7 @@
 ﻿using BookMK.Models;
+using BookMK.ViewModels;
 using BookMK.ViewModels.ViewForm;
+using BookMK.Windows;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -33,8 +35,14 @@ namespace BookMK.Views.ViewForm
             
             
             InitializeComponent();
-           
-           
+
+            DashBoardWindow main = Application.Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive) as DashBoardWindow;
+            DashBoardViewModel vm = main.DataContext as DashBoardViewModel;
+            Staff loggedinS = vm.CurrentStaff;
+            if(loggedinS.Role!="admin")
+            {
+                this.InsertBtn.Visibility = Visibility.Collapsed;
+            }
             this.DataContext = new ViewAuthorViewModel(a);
 
         }

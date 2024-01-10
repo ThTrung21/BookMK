@@ -2,13 +2,16 @@
 using BookMK.Commands.InsertCommand;
 using BookMK.Commands.UpdateCommand;
 using BookMK.Models;
+using BookMK.Service;
 using BookMK.ViewModels.InsertFormViewModels;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace BookMK.ViewModels
@@ -52,10 +55,17 @@ namespace BookMK.ViewModels
             get => _email;
             set { _email = value; OnPropertyChanged(nameof(Email)); }
         }
+        private string _code;
+        public string Code
+        {
+            get => _code;
+            set { _code = value; OnPropertyChanged(nameof(Code)); }
+        }
 
         public ICommand ChangePassword { get; set; }
         public ICommand UpdateLoyalDiscount { get; set; }
-
+        public ICommand UpdateStaff { get; set; }
+        public ICommand verify { get;set; }
         public Discount GetDiscount()
         {
             DataProvider<Discount> db = new DataProvider<Discount>(Discount.Collection);
@@ -65,6 +75,47 @@ namespace BookMK.ViewModels
                 return b[0];
             return null;
         }
+
+        public bool IsValidEmail(string email)
+        {
+            // Regular expression for a basic email format check
+            string pattern = @"^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$";
+
+            // Use Regex.IsMatch to check if the email matches the pattern
+            return Regex.IsMatch(email, pattern);
+        }
+        public string Current6Digits { get; set; }
+
+        public async void ConfirmMail()
+        {
+            await Task.Run(() =>
+            {
+                string str = MailService.Generate6Digits();
+                Current6Digits = str;
+                Email = CurrentStaff.Email;
+               ;
+
+                MailService.SendEmail(Email, "NoReply", str);
+            });
+        }
+        public bool CheckCode()
+        {
+            if (!String.IsNullOrEmpty(Current6Digits) && Code== Current6Digits)
+            {
+                UpdateStaff = new UpdateAccountCommand(this);
+                UpdateStaff.Execute(this);
+                return true;
+            }
+            else
+            {
+                MessageBox.Show("Your code is incorrect!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return false;
+            }
+        }
+
+
+
+
 
 
         public SettingViewModel() { }
@@ -84,23 +135,6 @@ namespace BookMK.ViewModels
        
 
 
-        //public static async Task<SettingViewModel> Initialize(int Kind)
-        //{
-        //    SettingViewModel viewModel = new SettingViewModel(Kind);
-        //    await viewModel.IntializeAsync();
-        //    return viewModel;
-        //}
-
-        //private async Task IntializeAsync()
-        //{
-        //    await Task.Run(async () =>
-        //    {
-        //        // Simulate an asynchronous operation
-        //        await Task.Delay(1000);
-
-
-        //        ChangePassword = new ChangePasswordCommand(this,_kind);
-        //    });
-        //}
+        
     }
 }

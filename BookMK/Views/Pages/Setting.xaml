@@ -35,52 +35,144 @@
                 <TextBlock Grid.Column="1" Text="Setting" VerticalAlignment="Center" FontFamily="{StaticResource RobotoMono}" Foreground="White" FontSize="48px" FontWeight="Bold"></TextBlock>
             </Grid>
 
+            <!--Verify email-->
             <Grid
-            Height="200"
+            
             Margin="36 0 0 0"
           >
                 <Grid.RowDefinitions>
                     <RowDefinition Height="36"/>
-                    <RowDefinition/>
+                    <RowDefinition Height="100" />
+                    <RowDefinition Height="50"/>
+                   
                 </Grid.RowDefinitions>
                 <TextBlock
                 FontFamily="{StaticResource Inter}"
                 FontSize="32"
-                Text="Account Information"
+                Text="Verify your email"
                 FontWeight="Bold"
                 Foreground="White"
                 Grid.Row="0"/>
 
-                <Grid 
-                VerticalAlignment="Center"
-                Grid.Row="1">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="20"/>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
-                    <TextBlock Text="Email"
+                
+                <Grid
+                    VerticalAlignment="Center"
+                    Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <!--enter email-->
+                    <Grid 
+                        VerticalAlignment="Center"
+                        Grid.Column="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="20"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Text="Email"
                            Foreground="White"
                            VerticalAlignment="Top"
                            FontSize="20"
                            
                            Grid.Row="0"
                            FontFamily="{StaticResource Inter}"/>
-                    <TextBox
-                    Text="{Binding Email}"
+                        <TextBox
+                            Text="{Binding CurrentStaff.Email,UpdateSourceTrigger=PropertyChanged}"
+                            Grid.Row="1" 
+                            FontSize="18"
+                            Margin="0,10,0,0"
+                            Height="44"    
+                            Name="Email"
+                            TextAlignment="Left"
+                            VerticalAlignment="Top"  
+                    
+                            MaxLength="50"
+                            Style="{StaticResource FilledTextBox}"/>
+                    </Grid>
+
+                    <!--enter verify-->
+                    <Grid 
+                Margin="48 0"
+                VerticalAlignment="Center"
+                Grid.Column="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="20"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Text="Verification Code"
+                           Foreground="White"
+                           VerticalAlignment="Top"
+                           FontSize="20"
+                           
+                           Grid.Row="0"
+                           FontFamily="{StaticResource Inter}"/>
+                        <TextBox
+                    Text="{Binding Code,UpdateSourceTrigger=PropertyChanged}"
                     Grid.Row="1" 
                     FontSize="18"
-                    Margin="0,10,442,0"
+                    Margin="0,10,0,0"
                     Height="44"    
-                    Name="Email"
+                    Name="code"
                     TextAlignment="Left"
                     VerticalAlignment="Top"  
-                    
+                    Width="200"
+                    HorizontalAlignment="Left" 
                     MaxLength="50"
                     Style="{StaticResource FilledTextBox}"/>
+                    </Grid>
                 </Grid>
 
+                <Grid
+                    
+                    VerticalAlignment="Center"
+                    Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <Button Grid.Column="0" 
+                    Name="SendEmailBtn"
+                    HorizontalAlignment="Left"
+                    Cursor="Hand"
+                    Width="200" Height="40" Padding="0" 
+                    Content="Send code..."
+                    Click="SendEmailBtn_Click"
+                    VerticalAlignment="Center"
+                    FontFamily="{StaticResource Inter}"
+                    FontSize="18"
+                    
+                    Style="{StaticResource RoundedButtonStyle}" >
+
+                    </Button>
+
+                    <Button Grid.Column="1" 
+                    Name="VerifyBtn"
+                    Cursor="Hand"
+                    HorizontalAlignment="Left"
+                    Margin="48 0"
+                    Width="120" Height="40" Padding="0" 
+                    Content="Verify..."
+                    Click="VerifyBtn_Click"
+                    VerticalAlignment="Center"
+                    FontFamily="{StaticResource Inter}"
+                    FontSize="18"
+                    
+                    Style="{StaticResource RoundedButtonStyle}" >
+
+                    </Button>
+                </Grid>
+                
+
+
+               
+
+                
             </Grid>
 
+            
+            <!--change pass-->
             <Grid
              Margin="36 0 0 0"
             Name="Change_Password"
@@ -140,6 +232,7 @@
 
                 </Button>
             </Grid>
+            <!--loyal customer discount program-->
             <Grid
             Margin="36 32 0 0"
             Name="LoyalCustomer">

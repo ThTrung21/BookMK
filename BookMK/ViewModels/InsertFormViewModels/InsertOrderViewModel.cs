@@ -190,6 +190,8 @@ namespace BookMK.ViewModels.InsertFormViewModels
                                 Quantity = currentbook.Stock,
                                 ItemPrice = 0
                             };
+                            if (giftedbook.Quantity == 0)
+                                continue;
                             
                         }
                         

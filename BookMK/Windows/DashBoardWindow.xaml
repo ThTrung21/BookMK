@@ -14,7 +14,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="700" d:DesignWidth="1200"
              TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-             Background="{x:Null}" Height="700" Width="1240">
+             Background="{x:Null}" Height="700" Width="1220">
 
     
     
@@ -22,9 +22,9 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="219" />
             <ColumnDefinition Width="981"/>
-
+            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Border Grid.ColumnSpan="2" CornerRadius="15" Background="#36393e">
+        <Border Grid.ColumnSpan="3" CornerRadius="15" Background="#36393e">
             <materialDesign:PackIcon
                                 Kind="CloseThick"
                                 Grid.Column="2"

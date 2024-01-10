@@ -33,7 +33,7 @@ namespace BookMK.Windows
         {
             InitializeComponent();
             this.DataContext = new DashBoardViewModel(loggedinStaff);
-           
+            (this.DataContext as DashBoardViewModel).SwitchBookPage();
             this.s = loggedinStaff;
             if (s.Role != "admin")
             {
@@ -41,6 +41,7 @@ namespace BookMK.Windows
                 this.StaffBtn.Visibility = Visibility.Collapsed;
                 this.Importbtn.Visibility = Visibility.Collapsed;
                 this.DiscountBtn.Visibility = Visibility.Collapsed;
+                this.HomeBtn.Visibility = Visibility.Collapsed;
             }
         }
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -90,10 +91,11 @@ namespace BookMK.Windows
         private void PackIcon_MouseUp(object sender, MouseButtonEventArgs e)
         {
             MessageBoxResult asking= MessageBox.Show("Are you sure want to quit?","Info",MessageBoxButton.YesNo, MessageBoxImage.Question);
-            if(asking==MessageBoxResult.Yes)
+            if (asking == MessageBoxResult.Yes)
             {
                 this.Close();
             }
+            else return;
         }
     }
 }
