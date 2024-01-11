@@ -95,7 +95,17 @@ namespace BookMK.Models
             }
         }
 
-      
+      public static Staff IsStaffEmailExist(string email)
+        {
+            DataProvider<Staff> db = new DataProvider<Staff>(Staff.Collection);
+
+            // Use a filter that checks both Username and Phone
+            FilterDefinition<Staff> filter = Builders<Staff>.Filter.And(
+                 Builders<Staff>.Filter.Eq(x => x.Email, email),
+                  Builders<Staff>.Filter.Eq(x => x.IsVerified, true));
+
+            return db.collection.Find(filter).FirstOrDefault();
+        }
 
 
        

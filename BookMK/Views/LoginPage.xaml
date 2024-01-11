@@ -152,7 +152,7 @@
                     <TextBlock
                         Text="Forgot Password?"
                         Foreground="#5876DF"
-                        
+                        Cursor="Hand"
                         FontFamily="{StaticResource Inter}"
                         TextAlignment="Center"
                         FontSize="18px"

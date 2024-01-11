@@ -108,5 +108,18 @@ namespace BookMK.Models
             else
                 return null;
         }
+
+
+        public static List<Book> GetOutOfStock()
+        {
+           
+
+           
+            DataProvider<Book> db = new DataProvider<Book>(Book.Collection);
+
+            FilterDefinition<Book> filter = Builders<Book>.Filter.Eq(x => x.Stock, 0);
+            List<Book> b = db.ReadFiltered(filter);
+            return b;
+        }
     }
 }

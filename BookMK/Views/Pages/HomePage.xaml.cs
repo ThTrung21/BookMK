@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BookMK.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,11 @@ namespace BookMK.Views.Pages
         public HomePage()
         {
             InitializeComponent();
+        }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            this.DataContext = new StatisticViewModel();
         }
     }
 }

@@ -93,18 +93,19 @@
                 <!--Home btn-->
                 <RadioButton
                     Name="HomeBtn"
+                    Checked="HomeBtn_Checked"
                     Style="{StaticResource RadioButtonDashboard}">
                     <Grid  VerticalAlignment="Center" Width="219" >
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="60"/>
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
-                        <materialDesign:PackIcon Kind="Home" Height="32px" Width="32px"
+                            <materialDesign:PackIcon Kind="ChartBoxOutline" Height="32px" Width="32px"
                                                  Grid.Column="0"
                                                  Margin="0 0 8 0"
                                                  HorizontalAlignment="Right"
                                                  Foreground="White" />
-                        <TextBlock Grid.Column="1" Text="Home" VerticalAlignment="Center" FontFamily="{StaticResource RobotoMono}" Foreground="White" FontSize="20px" FontWeight="Bold"></TextBlock>
+                        <TextBlock Grid.Column="1" Text="Statistic" VerticalAlignment="Center" FontFamily="{StaticResource RobotoMono}" Foreground="White" FontSize="20px" FontWeight="Bold"></TextBlock>
                     </Grid>
                 </RadioButton>
 

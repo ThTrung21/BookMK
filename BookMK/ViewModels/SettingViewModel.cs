@@ -95,7 +95,7 @@ namespace BookMK.ViewModels
                 Email = CurrentStaff.Email;
                ;
 
-                MailService.SendEmail(Email, "NoReply", str);
+                MailService.SendEmail(Email, "[NoReply] Verify your Email", str);
             });
         }
         public bool CheckCode()

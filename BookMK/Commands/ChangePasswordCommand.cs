@@ -15,11 +15,11 @@ namespace BookMK.Commands
     public class ChangePasswordCommand : AsyncCommandBase
     {
         private readonly SettingViewModel vm;
-        int kind;
+       
         public ChangePasswordCommand(SettingViewModel vm, int kind)
         {
             this.vm = vm;
-            this.kind = kind;
+            
         }
         public override async Task ExecuteAsync(object parameter)
         {
@@ -37,8 +37,7 @@ namespace BookMK.Commands
                 String _NewPassword = Staff.HashPassword(vm.NewPassword);
                 
                 //for staff
-                if(kind==1)
-                {
+                
 
                     Staff s = vm.CurrentStaff;
                     await Task.Run(() =>
@@ -55,7 +54,7 @@ namespace BookMK.Commands
                         f?.Close();
 
                     });
-                }
+                
 
 
 

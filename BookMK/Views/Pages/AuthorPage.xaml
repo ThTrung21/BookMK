@@ -152,7 +152,7 @@
                      HorizontalAlignment="Stretch"
                      VerticalAlignment="Top"
                      Width="904"
-                     ScrollViewer.HorizontalScrollBarVisibility="Disabled" ItemsSource="{Binding Authors}">
+                     ScrollViewer.HorizontalScrollBarVisibility="Hidden" ItemsSource="{Binding Authors}">
                     
                     <ListView.ItemTemplate>
                         <DataTemplate>

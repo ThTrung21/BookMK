@@ -22,7 +22,7 @@ namespace BookMK.ViewModels
         public ObservableCollection<Author> Authors
         {
             get { return _authors; }
-            set { _authors = value; OnPropertyChanged(nameof(Author)); }
+            set { _authors = value; OnPropertyChanged(nameof(Authors)); }
         }
 
 

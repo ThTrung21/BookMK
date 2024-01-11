@@ -97,5 +97,10 @@ namespace BookMK.Windows
             }
             else return;
         }
+
+        private void HomeBtn_Checked(object sender, RoutedEventArgs e)
+        {
+            (this.DataContext as DashBoardViewModel).SwitchHomePage();
+        }
     }
 }

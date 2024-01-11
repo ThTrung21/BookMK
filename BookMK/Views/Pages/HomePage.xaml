@@ -5,13 +5,205 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:BookMK.Views.Pages"
       mc:Ignorable="d" 
+      xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:listviews="clr-namespace:BookMK.Views.ListViews"
-      
+      Loaded="Page_Loaded"
       d:DesignHeight="700" d:DesignWidth="930"
       Title="Author">
 
-    <Grid>
+    <Grid
+        Margin="16 0 10 8 "
+        Background="Transparent">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
+            
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0"
+              
+              VerticalAlignment="Center" 
+              HorizontalAlignment="Left"
+              Width="419" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="60"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <materialDesign:PackIcon Kind="ChartBoxOutline"  Height="60" Width="60"
+                                                 Grid.Column="0"
+                                                
+                                                 HorizontalAlignment="Right" VerticalAlignment="Center"
+                                                 Foreground="White" />
+            <TextBlock Grid.Column="1" Text="Statistic" VerticalAlignment="Center" FontFamily="{StaticResource RobotoMono}" Foreground="White" FontSize="48px" FontWeight="Bold"></TextBlock>
+        </Grid>
+
+
+
         
+            <Border
+                BorderBrush="Black"
+                BorderThickness="1px"
+                Background="#282B30"
+                CornerRadius="20"
+                Padding="0 8"
+                
+                Grid.Row="1">
+                <ScrollViewer VerticalScrollBarVisibility="Hidden">
+                    <StackPanel 
+                        Margin="16"
+                        Orientation="Vertical">
+                        
+                        <!--Out of stock books-->
+                        <TextBlock
+                            FontFamily="{StaticResource Inter}"
+                            FontSize="32"
+                            Text="Out of stock books"
+                            FontWeight="Bold"
+                            Foreground="White"
+                            Grid.Row="0"/>
+                        <Border BorderBrush="White"
+                                Margin="0 8 0 0"
+                                BorderThickness="3"
+                                Width="600"
+                                Height="200"
+                                HorizontalAlignment="Left"
+                                >
+                            <ListView                            
+                                x:Name="NABookList"    
+                                Padding="0"
+                                ScrollViewer.HorizontalScrollBarVisibility="Hidden" ItemsSource="{Binding OutOfStockBooks}"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Top">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <ListViewItem Padding="0">
+                                        <Grid   Width="600" Height="32" >
+
+                                            <Grid.ColumnDefinitions>
+                                                
+                                                <ColumnDefinition Width="360"/>
+                                                <ColumnDefinition/>
+
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.Style>
+                                                <Style TargetType="{x:Type Grid}">
+                                                    <Style.Triggers>
+                                                        <Trigger Property="IsMouseOver" Value="False">
+                                                            <Setter Property="Opacity" Value="1"></Setter>
+                                                        </Trigger>
+                                                        <Trigger Property="IsMouseOver" Value="True">
+                                                            <Setter Property="Opacity" Value="0.7"></Setter>
+                                                        </Trigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Grid.Style>
+                                            <Border Padding="0" Background="#36393e"  Grid.ColumnSpan="4"/>
+                                           
+                                            <Border 
+                                         Grid.Column="0"
+                                        BorderBrush="#99AAB5"
+                                        BorderThickness="0 0 2 0">
+                                                <TextBlock 
+                                               Padding="10 0"
+                                               VerticalAlignment="Center" 
+                                               Foreground="#99AAB5"
+                                               Name="itemName"
+                                               HorizontalAlignment="Center"
+                                               Text="{Binding Title}" FontFamily="{StaticResource Inter}" 
+                                     
+                                               FontSize="20"/>
+                                            </Border>
+                                            <TextBlock Grid.Column="1"
+                                               Foreground="#99AAB5"
+                                               Padding="10 0"
+                                               VerticalAlignment="Center" 
+                                               HorizontalAlignment="Center"
+                                               Name="itemNote"
+                                               Text="{Binding AuthorName}" FontFamily="{StaticResource Inter}" 
+                                               FontSize="20"/>
+
+                                        </Grid>
+                                    </ListViewItem>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                            
+                        </ListView>
+                        </Border>
+
+                    <TextBlock
+                            Margin="0 16 0 0"
+                            FontFamily="{StaticResource Inter}"
+                            FontSize="32"
+                            Text="Monthly Revenue report"
+                            FontWeight="Bold"
+                            Foreground="White"
+                            Grid.Row="0"/>
+                        
+                    <lvc:CartesianChart
+                        Margin="0 16"
+                        Height="300"
+                        Width="890"
+                        Series="{Binding SeriesCollection}">
+                        <lvc:CartesianChart.AxisX>
+                            <lvc:Axis Title="Day of the Month" Labels="{Binding AllDatesInMonth, StringFormat=dd}" />
+                        </lvc:CartesianChart.AxisX>
+                        <lvc:CartesianChart.AxisY>
+                            <lvc:Axis Title="Revenue ($)"
+                                      FontSize="14"/>
+                        </lvc:CartesianChart.AxisY>
+                    </lvc:CartesianChart>
+
+
+
+                    <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
+                        <TextBlock Text="Total ($):"
+                           Foreground="White"
+                           VerticalAlignment="Center"
+                           FontSize="24"
+                           Grid.Row="0"
+                           FontFamily="{StaticResource Inter}"/>
+                        <TextBox
+                            Text="{Binding TotalMonth,UpdateSourceTrigger=PropertyChanged}"
+                            Grid.Row="1" 
+                            IsReadOnly="True"
+                           TextAlignment="Right"
+                            Width="220"
+                   
+                            Margin="16 0 0 0"
+                            Height="44"
+                            FontSize="30"
+                            
+                            Foreground="White"
+                            Padding="8 0"
+                            VerticalAlignment="Center"  
+                           Background="Transparent"
+                   />
+
+                    </StackPanel>
+
+
+                    <TextBlock
+                            Margin="0 32 0 0"
+                            FontFamily="{StaticResource Inter}"
+                            FontSize="32"
+                            Text="Top sellers"
+                            FontWeight="Bold"
+                            Foreground="White"
+                            Grid.Row="0"/>
+
+                    
+
+                </StackPanel>
+
+                </ScrollViewer>
+        </Border>
+        
+
+
     </Grid>
 </Page>
+
+
+
+
