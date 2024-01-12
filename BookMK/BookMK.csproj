@@ -227,6 +227,7 @@
     <Compile Include="Commands\CommandBase.cs" />
     <Compile Include="Commands\DeleteCommand\DeleteBookCommand.cs" />
     <Compile Include="Commands\DeleteCommand\DeleteDiscountCommand.cs" />
+    <Compile Include="Commands\DummyData\AddBookData.cs" />
     <Compile Include="Commands\InsertCommand\AddItemImportCommand.cs" />
     <Compile Include="Commands\InsertCommand\InsertAuthorCommand.cs" />
     <Compile Include="Commands\InsertCommand\InsertBookCommand.cs" />

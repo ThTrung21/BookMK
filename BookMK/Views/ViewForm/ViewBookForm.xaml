@@ -220,13 +220,9 @@
                                     Style="{StaticResource FilledTextBox}"/>
                         </Grid>
                     </Grid>
-                    <Grid  Grid.Row="4" >
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
+                  
                         <Button
-                            Grid.Column="0"
+                            Grid.Row="4"
                             Name="InsertBtn"
                             VerticalAlignment="Center"
                             Margin="0 0 0 0 " 
@@ -239,23 +235,8 @@
                             Style="{StaticResource RoundedButtonStyle}" >
 
                         </Button>
-                        <Button
-                            Grid.Column="1"
-                            Name="DeleteBtn"
-                            VerticalAlignment="Center"
-                            Margin="0 0 0 0 " 
-                            Background="#B44E4E"
-                            HorizontalAlignment="Center" Width="200" Height="40" Padding="0" 
-                            Content="Delete"
-                            Click="DeleteBtn_Click"
-                            FontFamily="{StaticResource Inter}"
-                            FontSize="18"
-                            Cursor="Hand"
-                            
-                            Style="{StaticResource RedRoundedButtonStyle}" >
-
-                        </Button>
-                    </Grid>
+                       
+                    
                     
 
                     <Grid

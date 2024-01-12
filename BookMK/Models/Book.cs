@@ -61,7 +61,12 @@ namespace BookMK.Models
             }
             return expectedValue;
         }
-
+        public static bool IsExisted(int id)
+        {
+            DataProvider<Book> db = new DataProvider<Book>(Book.Collection);
+            FilterDefinition<Book> filter = Builders<Book>.Filter.Eq(x => x.ID, 1);
+            return db.collection.Find(filter).Any();
+        }
         public static bool IsExisted(string Name, string Author, string Year)
         {
 

@@ -16,6 +16,8 @@ using MongoDB.Driver;
 using MongoDB.Bson;
 using BookMK.Models;
 using BookMK.Commands;
+using BookMK.Commands.DummyData;
+using System.Security.Cryptography.X509Certificates;
 
 namespace BookMK
 {
@@ -88,6 +90,39 @@ namespace BookMK
 
                 // Insert the admin account into the database
                 customerProvider.Insert(Walk_in);
+            }
+            //===================================================================================
+            var authorprovider = new DataProvider<Author>("author");
+            bool authorexist = Author.IsExisted(1);
+            if(!authorexist)
+            {
+                Author a = new Author()
+                {
+                    ID = 1,
+                    Name = "Test",
+                    Note = "An example author"
+                };
+                authorprovider.Insert(a);
+            }
+            bool authorexist2 = Author.IsExisted(2);
+            if (!authorexist2)
+            {
+                Author a2 = new Author()
+                {
+                    ID = 2,
+                    Name = "J.K.Rowling",
+                    Note = "Another author"
+                };
+                authorprovider.Insert(a2);
+            }
+
+            //===================================================================================
+            var bookprovider = new DataProvider<Book>("books");
+            bool bookexist = Book.IsExisted(1);
+            ICommand addbook = new AddBookData();
+            if (!bookexist)
+            {
+                addbook.Execute(this);
             }
             //===================================================================================
 

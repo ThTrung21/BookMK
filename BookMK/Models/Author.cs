@@ -1,9 +1,11 @@
-﻿using MongoDB.Bson.Serialization.Attributes;
+﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace BookMK.Models
@@ -90,7 +92,17 @@ namespace BookMK.Models
             return AllAuthors;
         }
 
+        public static bool IsExisted(int id)
+        {
+            DataProvider<Author> db = new DataProvider<Author>(Author.Collection);
+            FilterDefinition<Author> filter = Builders<Author>.Filter.Eq(x => x.ID, 1);
 
+            //List<Customer> resultls = db.ReadFiltered(filter);
+            //bool exists = resultls.Count > 0;
+
+            //return exists;
+            return db.collection.Find(filter).Any();
+        }
        
     }
     

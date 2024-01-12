@@ -116,7 +116,7 @@ namespace BookMK.ViewModels.InsertFormViewModels
             }
             if (AmountInput >SelectedBook.Stock)
             {
-                MessageBox.Show("The amount of item is too much! Cannot add to import.", "Stock Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("The amount of item is too much! Cannot add to order.", "Stock Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 

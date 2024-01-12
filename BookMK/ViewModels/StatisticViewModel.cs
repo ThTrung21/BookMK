@@ -2,6 +2,7 @@
 using LiveCharts;
 using LiveCharts.Defaults;
 using LiveCharts.Wpf;
+using LiveCharts.Wpf.Points;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
@@ -9,6 +10,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace BookMK.ViewModels
 {
@@ -22,7 +24,6 @@ namespace BookMK.ViewModels
         }
 
         private SeriesCollection _seriescollection;
-
         public SeriesCollection SeriesCollection
         {
             get { return _seriescollection; }
@@ -32,6 +33,20 @@ namespace BookMK.ViewModels
                 OnPropertyChanged(nameof(SeriesCollection));
             }
         }
+
+        private SeriesCollection _seriespie;
+        public SeriesCollection SeriesPie
+        {
+            get { return _seriespie; }
+            set
+            {
+                _seriespie = value;
+                OnPropertyChanged(nameof(SeriesPie));
+            }
+        }
+
+
+
         private List<DateTime> _allDatesInMonth;
         public List<DateTime> AllDatesInMonth
         {
@@ -53,10 +68,6 @@ namespace BookMK.ViewModels
 
             //=====================================================================
             //current month revenue
-           
-
-           
-
             SeriesCollection = new SeriesCollection();
             var salesData = GetSalesDataForCurrentMonth();
             AllDatesInMonth = GetDaysInMonth(DateTime.Now.Year, DateTime.Now.Month);
@@ -65,10 +76,6 @@ namespace BookMK.ViewModels
                 TotalMonth += o.Total;
             }
 
-            //var dayRevenuePairs = salesData
-            //.GroupBy(order => order.Time.Day)
-            //.Select(group => new { Day = group.Key, Revenue = group.Sum(order => order.Total) })
-            //.OrderBy(pair => pair.Day);
             var dayRevenuePairs = AllDatesInMonth
             .Select(day => new
             {
@@ -87,6 +94,94 @@ namespace BookMK.ViewModels
             SeriesCollection.Add(barSeries);
 
 
+            //========================================================================
+            //Top sellers current month
+           
+            
+
+            int BookSold = GetBooksSoldInCurrentMonth().Count();
+           
+            
+            var (topBooks, titleCounts)=GetTopSellingBooksInCurrentMonth();
+            if (BookSold == 0 ||topBooks.Count<3)
+            {
+                MessageBox.Show("Not enough data to calculate. Unable to illustrate Top sellers!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return; 
+            }
+            int[] percentages= new int[3];
+            double temp;
+            for(int j=0;j<3;j++)
+            {
+                temp =(double) titleCounts[j]/BookSold;
+                percentages[j] = (int)( 100*temp) ;
+            }
+            int others = 100 - percentages[0] - percentages[1] - percentages[2];
+
+            //var slices = new ObservableCollection<PieSlice>
+            //{
+            //    new PieSlice{}
+
+
+            //    new PieSlice{Title=topBooks[0].Title, PieceValue=percentages[0]},
+            //    new PieSlice{Title=topBooks[1].Title, Percentage=percentages[1]},
+            //    new PieSlice{Title=topBooks[2].Title, Percentage=percentages[2]},
+            //    new PieSlice{Title="Others", Percentage=others}
+            //};
+
+
+            //var pieSeries = new PieSeries
+            //{
+            //    Title = "Top Sellers this month",
+            //    Values = new ChartValues<int> { 64, 17, 14, 5 },
+            //    //(slices.Select(slice=>slice.Percentage)),
+            //    DataLabels = true,
+            //    LabelPoint = point =>
+            //    //$"{point.Y}%({slices[(int)point.Participation].Title})"
+            //    $"{point.Y}%",
+            //    PushOut=10
+
+            //};
+            Func<ChartPoint, string> labelpoint = ChartPoint =>
+            string.Format(" {1:P}", ChartPoint.Y, ChartPoint.Participation);
+            SeriesPie = new SeriesCollection
+            {
+                new PieSeries
+                {
+                    Title=topBooks[0].Title,
+                    Values = new ChartValues<int>{percentages[0] },
+                    DataLabels=true,
+                    FontSize=14,
+                    
+                    LabelPoint=labelpoint
+                },
+                new PieSeries
+                {
+                    Title=topBooks[1].Title,
+                    Values = new ChartValues<int>{percentages[1] },
+                    DataLabels=true,
+                     FontSize=14,
+                    LabelPoint=labelpoint
+                },
+                new PieSeries
+                {
+                    Title=topBooks[2].Title,
+                    Values = new ChartValues<int>{percentages[2] },
+                    DataLabels=true,
+                     FontSize=14,
+                    LabelPoint=labelpoint
+                },
+                new PieSeries
+                {
+                    Title="Others",
+                    Values = new ChartValues<int>{others },
+                    DataLabels=true,
+                     FontSize=14,
+                    LabelPoint=labelpoint
+                }
+
+            };
+
+            
 
 
         }
@@ -119,5 +214,52 @@ namespace BookMK.ViewModels
           
         }
 
+        //get top books
+        private List<Book> GetBooksSoldInCurrentMonth()
+        {
+            List<Order> currentSales = GetSalesDataForCurrentMonth();
+            List<Book> BookSoldCurrent = new List<Book>();
+            foreach (Order o in currentSales)
+            {
+                foreach(OrderItem i in o.Items)
+                {
+                    for(int k=0;k<i.Quantity;k++)
+                    {
+                        if (!i.isGifted)
+                            BookSoldCurrent.Add(Book.GetBook(i.BookID));
+                    }
+                }    
+            }
+            return BookSoldCurrent;
+        }
+        private (List<Book>, int[] titleCounts) GetTopSellingBooksInCurrentMonth()
+        {
+           List<Book> a = GetBooksSoldInCurrentMonth();
+            int[] titleCounts=new int[a.Count];
+            
+            var groupedBooks = a
+                .GroupBy(b => b.Title)
+                .Select(group => new
+                {
+                    Title = group.First(),
+                    Countc = group.Count()
+                })
+                .OrderByDescending(group => group.Countc)
+                .Take(3)
+                .ToList();
+                
+            var TopTitles= groupedBooks.Select(group =>
+            {
+                int index = Array.IndexOf(titleCounts, 0);
+                if(index!=-1)
+                {
+                    titleCounts[index] = group.Countc;
+                }
+                return group.Title;
+            }).ToList();
+
+           return (TopTitles,titleCounts);
+        }
     }
+   
 }

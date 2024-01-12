@@ -38,7 +38,7 @@ namespace BookMK.Views.ViewForm
             if (s.Role != "admin")
             {
                 this.InsertBtn.Visibility = Visibility.Collapsed;
-                this.DeleteBtn.Visibility = Visibility.Collapsed;
+               
             }
             this.DataContext = new ViewBookViewModel(b);
         }
@@ -57,13 +57,6 @@ namespace BookMK.Views.ViewForm
             }
         }
 
-        private void DeleteBtn_Click(object sender, RoutedEventArgs e)
-        {
-            ViewBookViewModel vm = this.DataContext as ViewBookViewModel;
-            if (vm.DeleteBook != null)
-            {
-                vm.DeleteBook.Execute(this);
-            }
-        }
+       
     }
 }
