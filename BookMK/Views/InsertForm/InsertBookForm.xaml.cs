@@ -72,10 +72,20 @@ namespace BookMK.Views.InsertForm
             {
                 selectedItems.Add(selectedItem.ToString());
             }
-
+            bool f = false;
             foreach (var item in selectedItems)
             {
-                
+                foreach( var temp in destination.Items)
+                {
+                    if (item == temp.ToString())
+                    {
+                        MessageBox.Show(item.ToString() + " already existed");
+                        f = true;        
+                    }
+                }
+                if (f)
+                    continue;
+
                 destination.Items.Add(item);
             }
 
