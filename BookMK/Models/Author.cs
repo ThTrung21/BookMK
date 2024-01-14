@@ -95,12 +95,9 @@ namespace BookMK.Models
         public static bool IsExisted(int id)
         {
             DataProvider<Author> db = new DataProvider<Author>(Author.Collection);
-            FilterDefinition<Author> filter = Builders<Author>.Filter.Eq(x => x.ID, 1);
+            FilterDefinition<Author> filter = Builders<Author>.Filter.Eq(x => x.ID, id);
 
-            //List<Customer> resultls = db.ReadFiltered(filter);
-            //bool exists = resultls.Count > 0;
-
-            //return exists;
+            
             return db.collection.Find(filter).Any();
         }
        

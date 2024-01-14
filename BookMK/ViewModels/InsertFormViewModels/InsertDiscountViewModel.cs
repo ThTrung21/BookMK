@@ -62,6 +62,7 @@ namespace BookMK.ViewModels.InsertFormViewModels
 
         public InsertDiscountViewModel()
         {
+            IsChecked = false;
             InsertDiscount1 = new InsertDiscountCommand(this, 1);
             InsertDiscount2 = new InsertDiscountCommand(this, 2);
             InsertDiscount3 = new InsertDiscountCommand(this, 3);
