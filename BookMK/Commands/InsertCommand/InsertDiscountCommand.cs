@@ -27,6 +27,7 @@ namespace BookMK.Commands.InsertCommand
             {
                 int _ID = vm.ID;
                 DataProvider<Discount> db = new DataProvider<Discount>(Discount.Collection);
+                
                 switch (discounttype)
                 {
                     case 1:
@@ -36,7 +37,15 @@ namespace BookMK.Commands.InsertCommand
                             bookdiscount = 0;
                         }
                         else
+                        {
+                            if (vm.SelectedBaseBooks == null)
+                            {
+                                MessageBox.Show("Please select a book first", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                                return;
+                            }
                             bookdiscount = vm.SelectedBaseBooks.ID;
+                        }
+                            
                         Discount d = new Discount()
                         {
                             ID = _ID,
@@ -59,7 +68,13 @@ namespace BookMK.Commands.InsertCommand
                         }
 
                         break;
+
                     case 2:
+                        if(vm.Value==0)
+                        {
+                            MessageBox.Show("Please check the discount value", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                            return;
+                        }
                         Discount d1 = new Discount()
                         {
                             ID = _ID,
@@ -72,7 +87,13 @@ namespace BookMK.Commands.InsertCommand
                         };
                         await db.InsertOneAsync(d1);
                         break;
+
                     case 3:
+                        if (vm.SelectedBaseBooks == null||vm.SelectedFreeBook==null)
+                        {
+                            MessageBox.Show("Please check your inputs!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                            return;
+                        }
                         Discount d2 = new Discount()
                         {
                             ID = _ID,

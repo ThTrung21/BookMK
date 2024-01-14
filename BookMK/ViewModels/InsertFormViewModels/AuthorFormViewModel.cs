@@ -36,8 +36,8 @@ namespace BookMK.ViewModels.InsertFormViewModels
         }
         public AuthorFormViewModel()
         {
+            InsertAuthor = new InsertAuthorCommand(this);
 
-           
         }
 
         

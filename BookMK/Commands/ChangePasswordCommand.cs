@@ -23,7 +23,7 @@ namespace BookMK.Commands
         }
         public override async Task ExecuteAsync(object parameter)
         {
-            if (vm.NewPassword == null)
+            if (vm.NewPassword == ""||vm.NewPassword==null)
             {
                 MessageBox.Show("Your new password is invalid!!!");
                 return;

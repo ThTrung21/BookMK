@@ -23,6 +23,7 @@ namespace BookMK.Views.InsertForm
         public InsertStaffForm()
         {
             InitializeComponent();
+            this.DataContext= new InsertStaffViewModel();
         }
 
         private void PackIcon_MouseEnter(object sender, MouseEventArgs e)

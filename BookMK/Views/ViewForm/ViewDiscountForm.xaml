@@ -236,7 +236,7 @@
                         <RowDefinition Height="24"/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
-                    <TextBlock Text="Amount off($):"
+                    <TextBlock Text="Gifted Book:"
                                    Foreground="White"
                                    VerticalAlignment="Top"
                                    FontSize="20"

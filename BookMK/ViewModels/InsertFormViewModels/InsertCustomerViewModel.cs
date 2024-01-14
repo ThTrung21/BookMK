@@ -74,7 +74,10 @@ namespace BookMK.ViewModels.InsertFormViewModels
 
         public ICommand InsertCustomer { get; set; }
 
-        public InsertCustomerViewModel() { }
+        public InsertCustomerViewModel() 
+        {
+            InsertCustomer = new InsertCustomerCommand(this);
+        }
 
         //view detail form
         //public InsertStaffViewModel(Staff s)

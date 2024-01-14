@@ -125,6 +125,7 @@
                                     Click="radiobtn_Click"
                                     Content="Specific Book"
                                     FontSize="20"
+                                    Cursor="Hand"
                                     FontFamily="{StaticResource Inter}"
                                            
                                     Grid.Column="1">
@@ -140,7 +141,7 @@
                                     <RowDefinition Height="24"/>
                                     <RowDefinition/>
                                 </Grid.RowDefinitions>
-                                <TextBlock Text="Amount off (%):"
+                                <TextBlock Text="Percentage off (%):"
                                    Foreground="White"
                                    VerticalAlignment="Top"
                                    FontSize="20"

@@ -30,7 +30,7 @@ namespace BookMK.Views.InsertForm
         public InsertAuthorForm()
         {
             InitializeComponent();
-           // this.DataContext = new AuthorFormViewModel();
+            this.DataContext = new AuthorFormViewModel();
         }
 
         

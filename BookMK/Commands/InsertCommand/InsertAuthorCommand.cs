@@ -26,7 +26,7 @@ namespace BookMK.Commands.InsertCommand
                 String _Name = vm.Name;
                 String _Note = vm.Note;
 
-                if (_Name == null)
+                if (_Name == "")
                 {
                     MessageBox.Show("Please enter an Author's name first!");
                     return;

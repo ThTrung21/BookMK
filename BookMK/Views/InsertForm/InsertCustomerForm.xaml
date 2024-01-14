@@ -175,6 +175,7 @@
                     Click="InsertBtn_Click"
                     FontFamily="{StaticResource Inter}"
                     FontSize="18"
+                    Cursor="Hand"
                     Style="{StaticResource RoundedButtonStyle}" >
 
             </Button>

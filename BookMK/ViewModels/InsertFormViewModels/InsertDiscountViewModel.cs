@@ -60,7 +60,12 @@ namespace BookMK.ViewModels.InsertFormViewModels
             set { _eligible = value; OnPropertyChanged(nameof(EligibleBill)); }
         }
 
-
+        public InsertDiscountViewModel()
+        {
+            InsertDiscount1 = new InsertDiscountCommand(this, 1);
+            InsertDiscount2 = new InsertDiscountCommand(this, 2);
+            InsertDiscount3 = new InsertDiscountCommand(this, 3);
+        }
         public ICommand InsertDiscount1 { get; set; }
         public ICommand InsertDiscount2 { get; set; }
         public ICommand InsertDiscount3 { get; set; }

@@ -26,7 +26,11 @@ namespace BookMK.Commands.InsertCommand
             {
                 int _ID=vm.ID;
                 ObservableCollection<ImportItem> list = vm.ImportItemList;
-                
+                if (list.Count()<1)
+                {
+                    MessageBox.Show("There's no item in your import list!","Error",MessageBoxButton.OK,MessageBoxImage.Error);
+                    return;
+                }
                 //initialize the import
                 Import i = new Import()
                 {

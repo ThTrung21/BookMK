@@ -101,7 +101,7 @@ namespace BookMK.ViewModels.InsertFormViewModels
         public InsertBookViewModel() 
         {
             this.SaveImageDialog = new SaveImageDialogCommand(Filename, this);
-
+            InsertBook = new InsertBookCommand(this, Filename);
         }
 
         

@@ -93,9 +93,9 @@ namespace BookMK.ViewModels
                 string str = MailService.Generate6Digits();
                 Current6Digits = str;
                 Email = CurrentStaff.Email;
-               ;
+               
 
-                MailService.SendEmail(Email, "[NoReply] Verify your Email", str);
+               MailService.SendEmail(Email, "[NoReply] Verify your Email", str);
             });
         }
         public bool CheckCode()

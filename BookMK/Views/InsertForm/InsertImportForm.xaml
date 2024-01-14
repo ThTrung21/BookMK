@@ -329,7 +329,7 @@
 
             <!--TOtal price-->
             <StackPanel Grid.Row="4" HorizontalAlignment="Right" Orientation="Horizontal">
-                <TextBlock Text="Total:"
+                <TextBlock Text="Total ($):"
                            Foreground="White"
                            VerticalAlignment="Center"
                            FontSize="32"

@@ -36,7 +36,7 @@ namespace BookMK.Models
         {
             DataProvider<Discount> db = new DataProvider<Discount>(Discount.Collection);
             List<Discount> allcs = db.ReadAll().OrderBy(p => p.ID).ToList();
-            int expectedValue = 1;
+            int expectedValue = 0;
             foreach (var o in allcs)
             {
                 int num = o.ID;

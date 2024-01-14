@@ -67,6 +67,7 @@ namespace BookMK.Views.InsertForm
         private void MoveItems(ListBox source, ListBox destination)
         {
             List<string> selectedItems = new List<string>();
+
             foreach (var selectedItem in source.SelectedItems)
             {
                 selectedItems.Add(selectedItem.ToString());

@@ -588,7 +588,7 @@
                     </Grid>
                 </Border>
                 <StackPanel Grid.Row="3" HorizontalAlignment="Right" Orientation="Horizontal">
-                    <TextBlock Text="Total:"
+                    <TextBlock Text="Total ($):"
                            Foreground="White"
                            VerticalAlignment="Center"
                            FontSize="32"

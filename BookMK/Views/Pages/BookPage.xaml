@@ -137,6 +137,7 @@
                     <DataTemplate>
                         
                             <materialDesign:Card
+                                Cursor="Hand"
                                       PreviewMouseLeftButtonDown="Card_PreviewMouseLeftButtonDown"
                                       BorderBrush="White"
                                       Background="#36393e"

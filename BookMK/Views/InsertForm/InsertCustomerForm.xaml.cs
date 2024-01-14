@@ -23,6 +23,7 @@ namespace BookMK.Views.InsertForm
         public InsertCustomerForm()
         {
             InitializeComponent();
+            this.DataContext = new InsertCustomerViewModel();
         }
         private void PackIcon_MouseEnter(object sender, MouseEventArgs e)
         {
@@ -61,6 +62,7 @@ namespace BookMK.Views.InsertForm
         private void InsertBtn_Click(object sender, RoutedEventArgs e)
         {
             InsertCustomerViewModel vm = this.DataContext as InsertCustomerViewModel;
+            //if(vm.FullName==null|| vm.Phone==null||)
             if(vm.InsertCustomer != null)
             {
                 vm.InsertCustomer.Execute(this);

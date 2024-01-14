@@ -45,7 +45,9 @@ namespace BookMK.ViewModels
             }
         }
 
+        public List<DateTime> AllDatesInLast30Days { get; set; }
 
+        public int TotalBookMonth { get;set; }
 
         private List<DateTime> _allDatesInMonth;
         public List<DateTime> AllDatesInMonth
@@ -57,6 +59,7 @@ namespace BookMK.ViewModels
                 OnPropertyChanged(nameof(AllDatesInMonth));
             }
         }
+        public List<string> XAxisLabels { get; set; }
         public double TotalMonth { get; set; }
 
         public StatisticViewModel()
@@ -68,20 +71,49 @@ namespace BookMK.ViewModels
 
             //=====================================================================
             //current month revenue
+            //SeriesCollection = new SeriesCollection();
+            //var salesData = GetSalesDataForCurrentMonth();
+            //AllDatesInMonth = GetDaysInMonth(DateTime.Now.Year, DateTime.Now.Month);
+            //foreach ( Order o in salesData)
+            //{
+            //    TotalMonth += o.Total;
+            //}
+
+            //var dayRevenuePairs = AllDatesInMonth
+            //.Select(day => new
+            //{
+            //    Day = day.Day,
+            //    Revenue = salesData.Where(order => order.Time.Day == day.Day).Sum(order => order.Total)
+            //});
+            //var barSeries = new ColumnSeries
+            //{
+            //    Title = "Revenue: ",
+            //    Values = new ChartValues<ObservablePoint>(
+            //        dayRevenuePairs.Select(pair => new ObservablePoint(pair.Day, pair.Revenue))
+            //    )
+            //};
+
+            //// Add the series to the chart
+            //SeriesCollection.Add(barSeries);
             SeriesCollection = new SeriesCollection();
-            var salesData = GetSalesDataForCurrentMonth();
-            AllDatesInMonth = GetDaysInMonth(DateTime.Now.Year, DateTime.Now.Month);
-            foreach ( Order o in salesData)
+            
+
+            var salesData = GetSalesDataForLast30Days();
+           // AllDatesInMonth = GetDaysInMonth(DateTime.Now.Year, DateTime.Now.Month);
+            AllDatesInLast30Days = GetDaysInLast30Days();
+            XAxisLabels = AllDatesInLast30Days.Select(date => date.ToString("dd")).ToList();
+            foreach (Order o in salesData)
             {
                 TotalMonth += o.Total;
             }
 
-            var dayRevenuePairs = AllDatesInMonth
-            .Select(day => new
-            {
-                Day = day.Day,
-                Revenue = salesData.Where(order => order.Time.Day == day.Day).Sum(order => order.Total)
-            });
+            var dayRevenuePairs = AllDatesInLast30Days
+              .Select((day, index) => new
+              {
+                  Day = index ,
+                  Revenue = salesData.Where(order => order.Time.Date == day.Date).Sum(order => order.Total)
+              });
+
             var barSeries = new ColumnSeries
             {
                 Title = "Revenue: ",
@@ -96,12 +128,13 @@ namespace BookMK.ViewModels
 
             //========================================================================
             //Top sellers current month
-           
-            
+            #region Pie
+
 
             int BookSold = GetBooksSoldInCurrentMonth().Count();
-           
-            
+            TotalBookMonth= GetBooksSoldInCurrentMonth().Count();
+
+
             var (topBooks, titleCounts)=GetTopSellingBooksInCurrentMonth();
             if (BookSold == 0 ||topBooks.Count<3)
             {
@@ -117,30 +150,8 @@ namespace BookMK.ViewModels
             }
             int others = 100 - percentages[0] - percentages[1] - percentages[2];
 
-            //var slices = new ObservableCollection<PieSlice>
-            //{
-            //    new PieSlice{}
+            
 
-
-            //    new PieSlice{Title=topBooks[0].Title, PieceValue=percentages[0]},
-            //    new PieSlice{Title=topBooks[1].Title, Percentage=percentages[1]},
-            //    new PieSlice{Title=topBooks[2].Title, Percentage=percentages[2]},
-            //    new PieSlice{Title="Others", Percentage=others}
-            //};
-
-
-            //var pieSeries = new PieSeries
-            //{
-            //    Title = "Top Sellers this month",
-            //    Values = new ChartValues<int> { 64, 17, 14, 5 },
-            //    //(slices.Select(slice=>slice.Percentage)),
-            //    DataLabels = true,
-            //    LabelPoint = point =>
-            //    //$"{point.Y}%({slices[(int)point.Participation].Title})"
-            //    $"{point.Y}%",
-            //    PushOut=10
-
-            //};
             Func<ChartPoint, string> labelpoint = ChartPoint =>
             string.Format(" {1:P}", ChartPoint.Y, ChartPoint.Participation);
             SeriesPie = new SeriesCollection
@@ -181,10 +192,39 @@ namespace BookMK.ViewModels
 
             };
 
-            
 
 
+            #endregion
         }
+
+        private List<Order> GetSalesDataForLast30Days()
+        {
+            DataProvider<Order> db = new DataProvider<Order>(Order.Collection);
+
+            // Calculate the start date as today minus 30 days
+            DateTime startDate = DateTime.Now.Date.AddDays(-30);
+
+            // Filter orders within the last 30 days
+            FilterDefinition<Order> filter = Builders<Order>.Filter.Gte(x => x.Time, startDate);
+
+            List<Order> ordersInLast30Days = db.ReadFiltered(filter);
+
+            return ordersInLast30Days;
+        }
+        private List<DateTime> GetDaysInLast30Days()
+        {
+            int daysInMonth = 30; // Assuming you want the last 30 days
+            DateTime today = DateTime.Now.Date;
+
+            return Enumerable.Range(0, daysInMonth)
+                .Select(day => today.AddDays(-day))
+                .Reverse() // Reverse the order to display from right to left
+                .ToList();
+        }
+
+
+
+        //old function for current month
         private List<DateTime> GetDaysInMonth(int year, int month)
         {
             int daysInMonth = DateTime.DaysInMonth(year, month);
@@ -214,10 +254,13 @@ namespace BookMK.ViewModels
           
         }
 
+
+
+
         //get top books
         private List<Book> GetBooksSoldInCurrentMonth()
         {
-            List<Order> currentSales = GetSalesDataForCurrentMonth();
+            List<Order> currentSales = GetSalesDataForLast30Days();
             List<Book> BookSoldCurrent = new List<Book>();
             foreach (Order o in currentSales)
             {

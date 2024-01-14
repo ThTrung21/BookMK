@@ -144,6 +144,7 @@
                     Margin="8 0 0 0 " 
                     HorizontalAlignment="Center" Width="200" Height="40" Padding="0" 
                     Content="Done"
+                    Cursor="Hand"
                     Click="InsertBtn_Click"
                     FontFamily="{StaticResource Inter}"
                     FontSize="18"

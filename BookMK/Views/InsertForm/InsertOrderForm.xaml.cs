@@ -94,7 +94,7 @@ namespace BookMK.Views.InsertForm
         private void Proceedbtn_Click(object sender, RoutedEventArgs e)
         {
             InsertOrderViewModel vm= this.DataContext as InsertOrderViewModel;
-            if(vm.OrderItemList==null)
+            if(vm.OrderItemList.Count()==0)
             {
                 MessageBox.Show("Error! There's nothing in your order", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
