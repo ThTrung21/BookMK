@@ -198,8 +198,8 @@
                      HorizontalAlignment="Stretch"
                      VerticalAlignment="Top"
                      Width="904"
-                     
-                     ScrollViewer.HorizontalScrollBarVisibility="Disabled" ItemsSource="{Binding Orders}">
+                     ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                     ScrollViewer.HorizontalScrollBarVisibility="Hidden" ItemsSource="{Binding Orders}">
 
                     <ListView.ItemTemplate>
                         <DataTemplate>

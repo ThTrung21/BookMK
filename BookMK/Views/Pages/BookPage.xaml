@@ -126,6 +126,7 @@
 
             <ListView ItemsSource="{Binding Books}"
                       HorizontalContentAlignment="Center"
+                      
                       ScrollViewer.VerticalScrollBarVisibility="Hidden">
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
