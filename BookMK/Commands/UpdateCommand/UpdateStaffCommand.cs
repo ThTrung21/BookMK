@@ -1,29 +1,28 @@
-﻿using BookMK.ViewModels;
-using BookMK.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using BookMK.Models;
 using BookMK.ViewModels.ViewForm;
 using MongoDB.Driver;
+using Serilog;
+using System;
+using System.Threading.Tasks;
+using System.Windows;
 
 namespace BookMK.Commands.UpdateCommand
 {
     public class UpdateStaffCommand : AsyncCommandBase
     {
-        ViewStaffViewModel vm;
-        public UpdateStaffCommand(ViewStaffViewModel vm) { this.vm = vm; }
+        private readonly ViewStaffViewModel vm;
+
+        public UpdateStaffCommand(ViewStaffViewModel vm)
+        {
+            this.vm = vm;
+        }
+
         public override async Task ExecuteAsync(object parameter)
         {
             Staff updatedStaff = vm.CurrentStaff;
 
             try
             {
-                // Check if both Name and Note are empty
-
-
                 await Task.Run(() =>
                 {
                     FilterDefinition<Staff> filter = Builders<Staff>.Filter.Eq(x => x.ID, updatedStaff.ID);
@@ -31,7 +30,6 @@ namespace BookMK.Commands.UpdateCommand
                         .Set(x => x.FullName, updatedStaff.FullName)
                         .Set(x => x.Username, updatedStaff.Phone)
                         .Set(x => x.Phone, updatedStaff.Phone);
-                        
                     //more attributes
 
                     DataProvider<Staff> db = new DataProvider<Staff>(Staff.Collection);
@@ -43,11 +41,17 @@ namespace BookMK.Commands.UpdateCommand
                         Window f = parameter as Window;
                         f?.Close();
                     });
+
+                    // Log success
+                    Log.Information("Staff updated successfully: ID - {StaffID}, FullName - {FullName}, Username - {Username}, Phone - {Phone}", updatedStaff.ID, updatedStaff.FullName, updatedStaff.Username, updatedStaff.Phone);
                 });
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                // Log error
+                Log.Error(ex, "Error occurred while updating staff: ID - {StaffID}, FullName - {FullName}, Username - {Username}, Phone - {Phone}", updatedStaff.ID, updatedStaff.FullName, updatedStaff.Username, updatedStaff.Phone);
             }
         }
     }

@@ -1,20 +1,20 @@
 ﻿using BookMK.Models;
 using BookMK.ViewModels.InsertFormViewModels;
 using MongoDB.Driver;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
 namespace BookMK.Commands.InsertCommand
 {
-    public class InsertImportCommand: AsyncCommandBase
+    public class InsertImportCommand : AsyncCommandBase
     {
         private readonly InsertImportViewModel vm;
+
         public InsertImportCommand(InsertImportViewModel vm)
         {
             this.vm = vm;
@@ -24,32 +24,31 @@ namespace BookMK.Commands.InsertCommand
         {
             try
             {
-                int _ID=vm.ID;
+                int _ID = vm.ID;
                 ObservableCollection<ImportItem> list = vm.ImportItemList;
-                if (list.Count()<1)
+                if (list.Count() < 1)
                 {
-                    MessageBox.Show("There's no item in your import list!","Error",MessageBoxButton.OK,MessageBoxImage.Error);
+                    MessageBox.Show("There's no item in your import list!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
-                //initialize the import
+
+                // Initialize the import
                 Import i = new Import()
                 {
                     ID = _ID,
                     Items = vm.ImportItemList,
                     Time = DateTime.Now,
                     TotalPrice = vm.TotalPrice
-
                 };
 
-                //update books info
-               
-                    foreach (var item in vm.ImportItemList)
+                // Update books info
+                foreach (var item in vm.ImportItemList)
                 {
                     string currentbook = item.ImportBook.ToString();
                     int currentid = item.BookID;
                     int amount = item.Amount;
                     Book target = Book.GetBook(currentid);
-                    
+
                     if (target.Stock + amount > 200)
                     {
                         MessageBox.Show($"{target.Title} still has too much in stock. Cannot add to import.", "Stock Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
@@ -63,23 +62,23 @@ namespace BookMK.Commands.InsertCommand
                     importbookdb.Update(filter, update);
                 }
 
-
-
-
                 DataProvider<Import> db = new DataProvider<Import>(Import.Collection);
                 await db.InsertOneAsync(i);
 
                 MessageBox.Show("A new import has been recorded!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                 Window f = parameter as Window;
                 f?.Close();
+
+                // Log success
+                Log.Information("A new import has been recorded: ImportID - {ImportID}, Time - {ImportTime}", _ID, DateTime.Now);
             }
             catch (Exception ex)
             {
-
                 MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                // Log error
+                Log.Error(ex, "Error occurred while inserting a new import.");
             }
         }
     }
-
-    
 }

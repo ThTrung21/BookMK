@@ -1,22 +1,22 @@
 ﻿using BookMK.Models;
 using BookMK.ViewModels.InsertFormViewModels;
+using Serilog;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 
 namespace BookMK.Commands.InsertCommand
 {
-    public class InsertCustomerCommand: AsyncCommandBase
+    public class InsertCustomerCommand : AsyncCommandBase
     {
         private readonly InsertCustomerViewModel vm;
+
         public InsertCustomerCommand(InsertCustomerViewModel vm)
         {
             this.vm = vm;
         }
+
         static bool IsValidEmail(string email)
         {
             // Regular expression for a basic email format check
@@ -31,22 +31,20 @@ namespace BookMK.Commands.InsertCommand
             try
             {
                 Int64 _ID = vm.ID;
-                
                 String _Phone = vm.Phone;
                 String _FullName = vm.FullName;
                 String _Email = vm.Email;
                 String _Address = vm.Address;
-              
-               
 
-                if ((_FullName == null) || (_Email == null) || (_Phone == null) || (_Address == null))
+                if (string.IsNullOrWhiteSpace(_FullName) || string.IsNullOrWhiteSpace(_Email) || string.IsNullOrWhiteSpace(_Phone) || string.IsNullOrWhiteSpace(_Address))
                 {
-                    MessageBox.Show("Please fill in every fields!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    MessageBox.Show("Please fill in every field!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return;
                 }
+
                 if (Customer.IsExisted(_FullName, _Phone) || Customer.IsExisted(_Phone))
                 {
-                    MessageBox.Show("This Staff already exists, please check NAME and PHONE NUMBERS!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    MessageBox.Show("This customer already exists, please check NAME and PHONE NUMBERS!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return;
                 }
 
@@ -58,13 +56,11 @@ namespace BookMK.Commands.InsertCommand
 
                 Customer c = new Customer()
                 {
-                    ID = (int)_ID,       
+                    ID = (int)_ID,
                     Phone = _Phone,
                     FullName = _FullName,
                     Email = _Email,
                     Address = _Address,
-                  
-                   
                 };
 
                 DataProvider<Customer> db = new DataProvider<Customer>(Customer.Collection);
@@ -74,11 +70,16 @@ namespace BookMK.Commands.InsertCommand
 
                 Window f = parameter as Window;
                 f?.Close();
+
+                // Log success
+                Log.Information("New customer added: {CustomerName}, Email: {CustomerEmail}, Phone: {CustomerPhone}", _FullName, _Email, _Phone);
             }
             catch (Exception ex)
             {
-
                 MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                // Log error
+                Log.Error(ex, "Error occurred while inserting a new customer.");
             }
         }
     }

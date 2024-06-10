@@ -1,33 +1,31 @@
 ﻿using BookMK.Models;
 using BookMK.ViewModels.InsertFormViewModels;
 using MongoDB.Driver;
+using Serilog;
 using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
 namespace BookMK.Commands.InsertCommand
 {
-    public class InsertDiscountCommand: AsyncCommandBase
+    public class InsertDiscountCommand : AsyncCommandBase
     {
         private readonly InsertDiscountViewModel vm;
         private int discounttype;
+
         public InsertDiscountCommand(InsertDiscountViewModel vm, int discounttype)
         {
             this.vm = vm;
             this.discounttype = discounttype;
         }
+
         public override async Task ExecuteAsync(object parameter)
         {
             try
             {
                 int _ID = vm.ID;
                 DataProvider<Discount> db = new DataProvider<Discount>(Discount.Collection);
-                
+
                 switch (discounttype)
                 {
                     case 1:
@@ -45,21 +43,19 @@ namespace BookMK.Commands.InsertCommand
                             }
                             bookdiscount = vm.SelectedBaseBooks.ID;
                         }
-                            
+
                         Discount d = new Discount()
                         {
                             ID = _ID,
                             Type = "Percentage",
                             BookID = bookdiscount,
                             BookID_free = -1,
-                            EligibleBill=0,
+                            EligibleBill = 0,
                             Value = vm.Value,
                             Time = DateTime.Now,
-
-
                         };
 
-                        if(Discount.IsExistedPercentageAll()==false || vm.IsChecked==false)
+                        if (!Discount.IsExistedPercentageAll() || !vm.IsChecked)
                             await db.InsertOneAsync(d);
                         else
                         {
@@ -70,7 +66,7 @@ namespace BookMK.Commands.InsertCommand
                         break;
 
                     case 2:
-                        if(vm.Value==0)
+                        if (vm.Value == 0)
                         {
                             MessageBox.Show("Please check the discount value", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
                             return;
@@ -81,7 +77,7 @@ namespace BookMK.Commands.InsertCommand
                             Type = "Amount",
                             BookID = 0,
                             BookID_free = -1,
-                            EligibleBill =vm.EligibleBill,
+                            EligibleBill = vm.EligibleBill,
                             Value = vm.Value,
                             Time = DateTime.Now,
                         };
@@ -89,7 +85,7 @@ namespace BookMK.Commands.InsertCommand
                         break;
 
                     case 3:
-                        if (vm.SelectedBaseBooks == null||vm.SelectedFreeBook==null)
+                        if (vm.SelectedBaseBooks == null || vm.SelectedFreeBook == null)
                         {
                             MessageBox.Show("Please check your inputs!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
                             return;
@@ -105,29 +101,23 @@ namespace BookMK.Commands.InsertCommand
                             Time = DateTime.Now,
                         };
                         await db.InsertOneAsync(d2);
-
                         break;
 
                 }
-                //initialize the import
-               
-
-               
-
-
-
-
-               
-                
 
                 MessageBox.Show("A new discount has been created!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                 Window f = parameter as Window;
                 f?.Close();
+
+                // Log success
+                Log.Information("A new discount has been created: DiscountID - {DiscountID}, Type - {DiscountType}", _ID, discounttype);
             }
             catch (Exception ex)
             {
-
                 MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                // Log error
+                Log.Error(ex, "Error occurred while inserting a new discount.");
             }
         }
     }

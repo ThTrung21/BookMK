@@ -1,14 +1,13 @@
 ﻿using BookMK.Models;
 using BookMK.ViewModels.InsertFormViewModels;
 using MongoDB.Driver;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using static MongoDB.Driver.WriteConcern;
 
 namespace BookMK.Commands.InsertCommand
 {
@@ -16,12 +15,13 @@ namespace BookMK.Commands.InsertCommand
     {
         private readonly InsertOrderViewModel vm;
         private readonly Staff Cashier;
-        public InsertOrderCommand(InsertOrderViewModel vm,Staff c)
+
+        public InsertOrderCommand(InsertOrderViewModel vm, Staff c)
         {
             this.vm = vm;
             this.Cashier = c;
-
         }
+
         public Discount GetDiscount()
         {
             DataProvider<Discount> db = new DataProvider<Discount>(Discount.Collection);
@@ -36,39 +36,34 @@ namespace BookMK.Commands.InsertCommand
         {
             try
             {
-                int _ID=vm.ID;
-                
+                int _ID = vm.ID;
                 ObservableCollection<OrderItem> list = vm.OrderItemList;
-                if(vm.SelectedCustomer==null)
+
+                if (vm.SelectedCustomer == null)
                 {
                     MessageBox.Show("Please choose a buyer first", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                   
                     return;
                 }
+
                 Order o = new Order()
                 {
                     ID = Order.CreateID(),
                     Items = list,
-                    //customer info
+                    // Customer info
                     CustomerID = vm.SelectedCustomer.ID,
-                    CustomerName=vm.SelectedCustomer.FullName,
-                    CustomerPhone=vm.SelectedCustomer.Phone,
-
-                    //cashier info
-                    StaffID=Cashier.ID,
-                    StaffName=Cashier.FullName,
-                    
-
+                    CustomerName = vm.SelectedCustomer.FullName,
+                    CustomerPhone = vm.SelectedCustomer.Phone,
+                    // Cashier info
+                    StaffID = Cashier.ID,
+                    StaffName = Cashier.FullName,
                     Time = DateTime.Now,
                     Total = vm.FinalPrice
                 };
-                
 
                 DataProvider<Order> db = new DataProvider<Order>(Order.Collection);
                 await db.InsertOneAsync(o);
 
-
-                //update books stock
+                // Update books stock
                 foreach (var item in vm.OrderItemList)
                 {
                     FilterDefinition<Book> filter = Builders<Book>.Filter.Eq(x => x.ID, item.BookID);
@@ -77,7 +72,7 @@ namespace BookMK.Commands.InsertCommand
                     dbb.Update(filter, update);
                 }
 
-                //update customer points and loyal discount status (if any)
+                // Update customer points and loyal discount status (if any)
                 {
                     if (vm.SelectedCustomer.ID != 0)
                     {
@@ -86,7 +81,6 @@ namespace BookMK.Commands.InsertCommand
                         vm.SelectedCustomer.PurchasePoint += pointsEarned;
                         int milestoneCount = vm.SelectedCustomer.PurchasePoint / ldiscount.PointMileStone;
                         vm.SelectedCustomer.IsLoyalDiscountReady = milestoneCount > 0;
-
 
                         FilterDefinition<Customer> filter = Builders<Customer>.Filter.Eq(x => x.ID, vm.SelectedCustomer.ID);
                         UpdateDefinition<Customer> update = Builders<Customer>.Update
@@ -106,16 +100,19 @@ namespace BookMK.Commands.InsertCommand
                     }
                 }
 
-
                 MessageBox.Show("A new purchase has been recorded!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                 Window f = parameter as Window;
                 f?.Close();
 
+                // Log success
+                Log.Information("A new purchase has been recorded: OrderID - {OrderID}, Time - {OrderTime}", o.ID, DateTime.Now);
             }
             catch (Exception ex)
             {
-
                 MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                // Log error
+                Log.Error(ex, "Error occurred while inserting a new order.");
             }
         }
     }

@@ -1,49 +1,43 @@
 ﻿using BookMK.ViewModels;
-using System;
 using Microsoft.Win32;
-using System.Collections.Generic;
+using Serilog;
+using System;
 using System.IO;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-
 
 namespace BookMK.Commands
 {
     public class SaveImageDialogCommand : AsyncCommandBase
     {
-         readonly StringBuilder filename;
-         readonly ViewModelBase vm;
+        private readonly StringBuilder _filename;
+        private readonly ViewModelBase _vm;
+        private static readonly ILogger _logger = Log.ForContext(typeof(SaveImageDialogCommand));
+
         public SaveImageDialogCommand(StringBuilder filename, ViewModelBase vm)
         {
-
-            this.filename = filename;
-            this.vm = vm;
+            _filename = filename;
+            _vm = vm;
+            _logger.Information("SaveImageDialogCommand instantiated.");
         }
 
-        public async override Task ExecuteAsync(object parameter)
+        public override async Task ExecuteAsync(object parameter)
         {
-
             string filePath = null;
             try
             {
                 await Task.Run(() =>
                 {
-
-                    // Create a SaveFileDialog instance
                     OpenFileDialog saveFileDialog = new OpenFileDialog();
                     saveFileDialog.Filter = "Image Files (*.jpg, *.jpeg, *.png, *.gif, *.bmp)|*.jpg;*.jpeg;*.png;*.gif;*.bmp";
 
-                    // Show the Save File dialog
                     bool? result = saveFileDialog.ShowDialog();
 
-                    // Check if the user selected a file
                     if (result == true)
                     {
                         filePath = saveFileDialog.FileName;
 
-                        // Check if the selected file is valid
                         if (!File.Exists(filePath))
                         {
                             MessageBox.Show("File invalid!!!", "Invalid File", MessageBoxButton.OK, MessageBoxImage.Warning);
@@ -58,19 +52,18 @@ namespace BookMK.Commands
                     {
                         Application.Current.Dispatcher.Invoke(() =>
                         {
-                            filename.Clear();
-                            filename.Append(filePath);
-                            vm.OnPropertyChanged("Filename");
+                            _filename.Clear();
+                            _filename.Append(filePath);
+                            _vm.OnPropertyChanged("Filename");
                         });
                     }
                 });
-
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                _logger.Error(ex, "An error occurred while selecting a file.");
             }
-
         }
     }
 }

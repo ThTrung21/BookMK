@@ -2,21 +2,16 @@
 using BookMK.ViewModels.InsertFormViewModels;
 using BookMK.ViewModels.ViewForm;
 using MongoDB.Driver;
+using Serilog;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
 namespace BookMK.Commands.UpdateCommand
 {
-    
-
-
     public class UpdateAuthorCommand : AsyncCommandBase
     {
-        ViewAuthorViewModel vm;
+        private ViewAuthorViewModel vm;
 
         public UpdateAuthorCommand(ViewAuthorViewModel vm)
         {
@@ -52,13 +47,18 @@ namespace BookMK.Commands.UpdateCommand
                         Window f = parameter as Window;
                         f?.Close();
                     });
+
+                    // Log success
+                    Log.Information("Author updated successfully: ID - {AuthorID}, Name - {Name}, Note - {Note}", updatedAuthor.ID, updatedAuthor.Name, updatedAuthor.Note);
                 });
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                // Log error
+                Log.Error(ex, "Error occurred while updating author: ID - {AuthorID}, Name - {Name}, Note - {Note}", updatedAuthor.ID, updatedAuthor.Name, updatedAuthor.Note);
             }
         }
     }
-
 }

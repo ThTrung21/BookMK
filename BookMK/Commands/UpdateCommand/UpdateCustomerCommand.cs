@@ -1,18 +1,16 @@
 ﻿using BookMK.Models;
 using BookMK.ViewModels.ViewForm;
 using MongoDB.Driver;
+using Serilog;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
 namespace BookMK.Commands.UpdateCommand
 {
-    public class UpdateCustomerCommand: AsyncCommandBase
+    public class UpdateCustomerCommand : AsyncCommandBase
     {
-        ViewCustomerViewModel vm;
+        private ViewCustomerViewModel vm;
 
         public UpdateCustomerCommand(ViewCustomerViewModel vm)
         {
@@ -25,18 +23,14 @@ namespace BookMK.Commands.UpdateCommand
 
             try
             {
-                // Check if both Name and Note are empty
-                
-
                 await Task.Run(() =>
                 {
                     FilterDefinition<Customer> filter = Builders<Customer>.Filter.Eq(x => x.ID, updatedCustomer.ID);
                     UpdateDefinition<Customer> update = Builders<Customer>.Update
                         .Set(x => x.FullName, updatedCustomer.FullName)
-                        
                         .Set(x => x.Address, updatedCustomer.Address)
                         .Set(x => x.Phone, updatedCustomer.Phone);
-                        //more attributes
+                    // Add more attributes to update if needed
 
                     DataProvider<Customer> db = new DataProvider<Customer>(Customer.Collection);
                     db.Update(filter, update);
@@ -47,13 +41,18 @@ namespace BookMK.Commands.UpdateCommand
                         Window f = parameter as Window;
                         f?.Close();
                     });
+
+                    // Log success
+                    Log.Information("Customer updated successfully: ID - {CustomerID}, FullName - {FullName}, Address - {Address}, Phone - {Phone}", updatedCustomer.ID, updatedCustomer.FullName, updatedCustomer.Address, updatedCustomer.Phone);
                 });
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                // Log error
+                Log.Error(ex, "Error occurred while updating customer: ID - {CustomerID}, FullName - {FullName}, Address - {Address}, Phone - {Phone}", updatedCustomer.ID, updatedCustomer.FullName, updatedCustomer.Address, updatedCustomer.Phone);
             }
         }
-
     }
 }
