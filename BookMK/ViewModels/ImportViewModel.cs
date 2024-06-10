@@ -1,6 +1,7 @@
 ﻿
 using BookMK.Models;
 using MongoDB.Driver;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -14,6 +15,7 @@ namespace BookMK.ViewModels
 {
     public class ImportViewModel : ViewModelBase
     {
+        private static readonly ILogger _logger = Log.ForContext(typeof(ImportViewModel));
         private ObservableCollection<Import> _imports;
         public ObservableCollection<Import> Imports
         {
@@ -100,6 +102,7 @@ namespace BookMK.ViewModels
         {
             ImportViewModel viewModel = new ImportViewModel();
             await viewModel.InitializeAsync();
+            _logger.Information("ImportViewModel initialized");
             return viewModel;
         }
         private async Task InitializeAsync()
@@ -108,6 +111,7 @@ namespace BookMK.ViewModels
             List<Import> AllImports = await db.ReadAllAsync();
             this._imports = new ObservableCollection<Import>(AllImports);
             
+
         }
         public void UpdateImportList(List<Import> i)
         {
@@ -116,6 +120,7 @@ namespace BookMK.ViewModels
             {
                 Imports.Add(c);
             }
+            _logger.Information("Showing updated import list");
         }
 
 
@@ -132,6 +137,7 @@ namespace BookMK.ViewModels
                 if(StartDate>EndDate)
                 {
                     MessageBox.Show("End date cannot be before Start date!!!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
                     return;
                 }
                 if(SelectedStartDate==null || SelectedEndDate==null)
@@ -159,6 +165,7 @@ namespace BookMK.ViewModels
                         
                             Imports.Add(s);
                     }
+
                 });
             });
         }

@@ -5,6 +5,7 @@ using BookMK.Models;
 using BookMK.Service;
 using BookMK.ViewModels.InsertFormViewModels;
 using MongoDB.Driver;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +19,7 @@ namespace BookMK.ViewModels
 {
     public class SettingViewModel: ViewModelBase
     {
+        private static readonly ILogger _logger = Log.ForContext(typeof(SettingViewModel));
         private Staff _currentStaff;
         public Staff CurrentStaff
         {
@@ -88,6 +90,7 @@ namespace BookMK.ViewModels
 
         public async void ConfirmMail()
         {
+            _logger.Information("ConfirmMail initialized");
             await Task.Run(() =>
             {
                 string str = MailService.Generate6Digits();
@@ -96,19 +99,22 @@ namespace BookMK.ViewModels
                
 
                MailService.SendEmail(Email, "[NoReply] Verify your Email", str);
+                _logger.Information("ConfirmMail ended");
             });
         }
         public bool CheckCode()
         {
+            _logger.Information("CheckCode initialized");
             if (!String.IsNullOrEmpty(Current6Digits) && Code== Current6Digits)
             {
                 UpdateStaff = new UpdateAccountCommand(this);
                 UpdateStaff.Execute(this);
+                _logger.Information("CheckCode ended");
                 return true;
             }
             else
             {
-                MessageBox.Show("Your code is incorrect!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("Your code is incorrect!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning); _logger.Information("CheckCode ended");
                 return false;
             }
         }
@@ -124,7 +130,7 @@ namespace BookMK.ViewModels
            Discount loyal=GetDiscount();
             this.DiscountAmount = loyal.Value;
             this.PointMilestone = loyal.PointMileStone;
-
+            _logger.Information("SettingViewModel initialized");
 
             this.CurrentStaff = s;
             

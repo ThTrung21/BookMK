@@ -1,6 +1,7 @@
 ﻿using BookMK.Commands;
 using BookMK.Models;
 using BookMK.Service;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,7 @@ namespace BookMK.ViewModels
 {
     public class ResetPasswordViewModel: ViewModelBase
     {
+        private static readonly ILogger _logger = Log.ForContext(typeof(ResetPasswordViewModel));
         private string _email;
         public string Email
         {
@@ -40,6 +42,7 @@ namespace BookMK.ViewModels
         {
             await Task.Run(() =>
             {
+                _logger.Information("Attempting to SendRecoveryEmail");
                 string str = MailService.Generate6Digits();
                 Current6Digits = str;                
                 if (Staff.IsStaffEmailExist(Email)!=null) 
@@ -48,10 +51,13 @@ namespace BookMK.ViewModels
                     MessageBox.Show("We've sent you a new password. Check your email.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                     ResetPassword = new ResetPasswordCommand(this,str);
                     ResetPassword.Execute(this);
+                    _logger.Information("SendRecoveryEmail ended");
                 }
                 else
                 {
+
                     MessageBox.Show("We cant find any account with the entered email!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    _logger.Information("SendRecoveryEmail ended");
                     return;
                 }
             });
@@ -59,7 +65,7 @@ namespace BookMK.ViewModels
         ICommand ResetPassword{ get; set; }
         public ResetPasswordViewModel()
         {
-
+            _logger.Information("OrderViewModel initialized");
         }
     }
 }

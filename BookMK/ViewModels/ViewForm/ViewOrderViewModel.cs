@@ -1,4 +1,5 @@
 ﻿using BookMK.Models;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -10,6 +11,7 @@ namespace BookMK.ViewModels.ViewForm
 {
     public class ViewOrderViewModel: ViewModelBase
     {
+        private static readonly ILogger _logger = Log.ForContext(typeof(ViewCustomerViewModel));
         private Order _currentorder = new Order();
         public Order CurrentOrder
         {
@@ -24,6 +26,7 @@ namespace BookMK.ViewModels.ViewForm
         }
         public ViewOrderViewModel(Order i)
         {
+            _logger.Information("ViewAuthorViewModel constructor with Order {a} parameter called.", i.ID);
             CurrentOrder = i;
 
         }

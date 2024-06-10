@@ -1,5 +1,6 @@
 ﻿using BookMK.Commands.UpdateCommand;
 using BookMK.Models;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,7 @@ namespace BookMK.ViewModels.ViewForm
 {
     public class ViewStaffViewModel: ViewModelBase
     {
+        private static readonly ILogger _logger = Log.ForContext(typeof(ViewStaffViewModel));
         private Staff _currentstaff= new Staff();
         public Staff CurrentStaff
         {
@@ -58,9 +60,10 @@ namespace BookMK.ViewModels.ViewForm
         }
         public ICommand UpdateStaff { get; set; }
 
-        public ViewStaffViewModel() { }
+        public ViewStaffViewModel() { _logger.Information("ViewStaffViewModel constructor called."); }
         public ViewStaffViewModel(Staff s) 
         {
+            _logger.Information("ViewAuthorViewModel constructor with Customer {a} parameter called.", s.ID);
             this.CurrentStaff = s;
             UpdateStaff = new UpdateStaffCommand(this);
         }

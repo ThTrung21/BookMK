@@ -1,5 +1,6 @@
 ﻿using BookMK.Commands.InsertCommand;
 using BookMK.Models;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace BookMK.ViewModels.InsertFormViewModels
 {
     public class InsertStaffViewModel: ViewModelBase
     {
-        
+        private static readonly ILogger _logger = Log.ForContext(typeof(InsertStaffViewModel));
         private Int64 _id;
         public Int64 ID
         {
@@ -75,12 +76,15 @@ namespace BookMK.ViewModels.InsertFormViewModels
 
         public static async Task<InsertStaffViewModel> Initialize()
         {
+            _logger.Information("InsertStaffViewModel initialization started.");
             InsertStaffViewModel viewModel = new InsertStaffViewModel();
-            await viewModel.IntializeAsync();
+            await viewModel.IntializeAsync(); _logger.Information("InsertStaffViewModel initialization completed.");
             return viewModel;
         }
         private async Task IntializeAsync()
         {
+            _logger.Information("Starting asynchronous initialization of InsertStaffViewModel.");
+            try { 
             await Task.Run(async () =>
             {
                 // Simulate an asynchronous operation
@@ -88,8 +92,13 @@ namespace BookMK.ViewModels.InsertFormViewModels
 
                 ID = Staff.CreateID();
                 InsertStaff = new InsertStaffCommand(this);
+                _logger.Information("Asynchronous initialization of InsertStaffViewModel completed.");
             });
-
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex, "An error occurred during the asynchronous initialization of InsertStaffViewModel.");
+            }
         }
     }
 }

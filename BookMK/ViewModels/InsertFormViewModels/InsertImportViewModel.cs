@@ -2,6 +2,7 @@
 using BookMK.Commands.InsertCommand;
 using BookMK.Models;
 using BookMK.Views.InsertForm;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -17,7 +18,7 @@ namespace BookMK.ViewModels.InsertFormViewModels
 {
     public class InsertImportViewModel : ViewModelBase
     {
-
+        private static readonly ILogger _logger = Log.ForContext(typeof(InsertImportViewModel));
         //for the textblock fields
         private Book _selectedBook;
         public Book SelectedBook
@@ -85,6 +86,7 @@ namespace BookMK.ViewModels.InsertFormViewModels
         public ICommand AddItemCommand => new RelayCommand(AddItem);
         private void AddItem()
         {
+            _logger.Information("AddItem method called.");
             if (SelectedBook == null || AmountInput == 0 || UnitPriceInput == 0)
             {
                 MessageBox.Show("Error! Please check your inputs", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
@@ -117,21 +119,22 @@ namespace BookMK.ViewModels.InsertFormViewModels
             this.AmountInput = 0;
             this.UnitPriceInput = 0;
             this.SelectedBook = null;
-
+            _logger.Information("Item added successfully.");
         }
 
         public ICommand RemoveItemCommand => new RelayCommand<ImportItem>(RemoveItem);
         private void RemoveItem(ImportItem item)
         {
-            
+            _logger.Information("RemoveItem method called.");
             this.TotalPrice -= item.ItemPrice;
             ImportItemList.Remove(item);
-
+            _logger.Information("Item removed successfully.");
         }
 
 
         public void UpdateListItem(ObservableCollection<ImportItem> results)
         {
+            _logger.Information("UpdateListItem method called.");
             this.ImportItemList.Clear();
             foreach (ImportItem s in results)
             {
@@ -157,22 +160,30 @@ namespace BookMK.ViewModels.InsertFormViewModels
         }
         public static async Task<InsertImportViewModel> Initialize()
         {
+            _logger.Information("InsertImportViewModel initialized");
             InsertImportViewModel viewModel = new InsertImportViewModel();
-            await viewModel.IntializeAsync();
+            await viewModel.IntializeAsync(); _logger.Information("InsertImportViewModel initialized");
             return viewModel;
         }
         private async Task IntializeAsync()
         {
-            await Task.Run(async () =>
+            _logger.Information("Starting asynchronous initialization of InsertImportViewModel.");
+            try
+            {
+                await Task.Run(async () =>
             {
                 // Simulate an asynchronous operation
                 await Task.Delay(1000);
                 ID = Import.CreateID();
                 this.ImportItemList = new ObservableCollection<ImportItem>();
                 InsertImport = new InsertImportCommand(this);
-               
+                _logger.Information("Asynchronous initialization of InsertImportViewModel completed.");
             });
-
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex, "An error occurred during the asynchronous initialization of InsertImportViewModel.");
+            }
         }
     }
 }

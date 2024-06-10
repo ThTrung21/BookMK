@@ -1,5 +1,6 @@
 ﻿using BookMK.Commands.InsertCommand;
 using BookMK.Models;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace BookMK.ViewModels.InsertFormViewModels
 {
     public class InsertCustomerViewModel: ViewModelBase
     {
-
+        private static readonly ILogger _logger = Log.ForContext(typeof(InsertCustomerViewModel));
         private Int64 _id;
         public Int64 ID
         {
@@ -76,6 +77,7 @@ namespace BookMK.ViewModels.InsertFormViewModels
 
         public InsertCustomerViewModel() 
         {
+            _logger.Information("InsertCustomerViewModel constructor called.");
             InsertCustomer = new InsertCustomerCommand(this);
         }
 
@@ -92,18 +94,28 @@ namespace BookMK.ViewModels.InsertFormViewModels
         {
             InsertCustomerViewModel viewModel = new InsertCustomerViewModel();
             await viewModel.IntializeAsync();
+            _logger.Information("InsertCustomerViewModel initialization completed.");
             return viewModel;
         }
         private async Task IntializeAsync()
         {
-            await Task.Run(async () =>
+            _logger.Information("Starting asynchronous initialization of InsertCustomerViewModel.");
+            try
+            {
+                await Task.Run(async () =>
             {
                 // Simulate an asynchronous operation
                 await Task.Delay(1000);
 
                 ID = Customer.CreateID();
                 InsertCustomer = new InsertCustomerCommand(this);
+                _logger.Information("Asynchronous initialization of InsertCustomerViewModel completed.");
             });
+            }
+                catch (Exception ex)
+            {
+                _logger.Error(ex, "An error occurred during the asynchronous initialization of InsertCustomerViewModel.");
+            }
 
         }
     }

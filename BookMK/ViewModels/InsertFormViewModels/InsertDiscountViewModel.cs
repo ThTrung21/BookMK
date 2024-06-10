@@ -8,11 +8,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Serilog;
 
 namespace BookMK.ViewModels.InsertFormViewModels
 {
     public class InsertDiscountViewModel: ViewModelBase
     {
+        private static readonly ILogger _logger = Log.ForContext(typeof(InsertDiscountViewModel));
         public List<Book> booklist;
         private Int32 _id;
         public Int32 ID
@@ -62,6 +64,7 @@ namespace BookMK.ViewModels.InsertFormViewModels
 
         public InsertDiscountViewModel()
         {
+            _logger.Information("InsertDiscountViewModel constructor called.");
             IsChecked = false;
             InsertDiscount1 = new InsertDiscountCommand(this, 1);
             InsertDiscount2 = new InsertDiscountCommand(this, 2);
@@ -72,29 +75,33 @@ namespace BookMK.ViewModels.InsertFormViewModels
         public ICommand InsertDiscount3 { get; set; }
         public static async Task<InsertDiscountViewModel> Initialize()
         {
+            _logger.Information("InsertDiscountViewModel initialization started.");
             InsertDiscountViewModel viewModel = new InsertDiscountViewModel();
             await viewModel.IntializeAsync();
+            _logger.Information("InsertDiscountViewModel initialization completed.");
             return viewModel;
         }
         private async Task IntializeAsync()
         {
-            await Task.Run(async () =>
+            _logger.Information("Starting asynchronous initialization of InsertDiscountViewModel.");
+            try
             {
-                // Simulate an asynchronous operation
-                await Task.Delay(1000);
-
-
-
-
-                IsChecked = false;
-                ID = Discount.CreateID();
-     
-                InsertDiscount1 = new InsertDiscountCommand(this,1);
-                InsertDiscount2 = new InsertDiscountCommand(this,2);
-                InsertDiscount3 = new InsertDiscountCommand(this,3);
-                
-            });
-
+                await Task.Run(async () =>
+                {
+                    // Simulate an asynchronous operation
+                    await Task.Delay(1000);
+                    IsChecked = false;
+                    ID = Discount.CreateID();
+                    InsertDiscount1 = new InsertDiscountCommand(this, 1);
+                    InsertDiscount2 = new InsertDiscountCommand(this, 2);
+                    InsertDiscount3 = new InsertDiscountCommand(this, 3);
+                    _logger.Information("Asynchronous initialization of InsertDiscountViewModel completed.");
+                });
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex, "An error occurred during the asynchronous initialization of InsertDiscountViewModel.");
+            }
         }
     }
 }

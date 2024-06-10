@@ -10,12 +10,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using Serilog;
 
 namespace BookMK.ViewModels
 {
     public class AuthorViewModel : ViewModelBase
     {
-        public AuthorViewModel() { }
+        private static readonly ILogger _logger = Log.ForContext(typeof(AuthorViewModel));
+        public AuthorViewModel() {  }
 
 
         private ObservableCollection<Author> _authors;
@@ -71,6 +73,7 @@ namespace BookMK.ViewModels
             {
                 Authors.Add(c);
             }
+            _logger.Information("Showing updated author list");
         }
 
         //async
@@ -78,6 +81,7 @@ namespace BookMK.ViewModels
         {
             AuthorViewModel viewModel = new AuthorViewModel();
             await viewModel.InitializeAsync();
+            _logger.Information("AuthorViewModel initialized");
             return viewModel;
         }
 
@@ -86,7 +90,7 @@ namespace BookMK.ViewModels
             DataProvider<Author> db = new DataProvider<Author>(Author.Collection);
             List<Author> AllAuthors = await db.ReadAllAsync();
             this.Authors = new ObservableCollection<Author>(AllAuthors);
-
+            
         }
 
         //search

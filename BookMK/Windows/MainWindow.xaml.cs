@@ -18,6 +18,8 @@ using BookMK.Models;
 using BookMK.Commands;
 using BookMK.Commands.DummyData;
 using System.Security.Cryptography.X509Certificates;
+using Microsoft.ApplicationInsights.Extensibility;
+using Serilog;
 
 namespace BookMK
 {
@@ -29,7 +31,11 @@ namespace BookMK
         public MainWindow()
         {
             InitializeComponent();
+
             
+
+
+
 
             MongoClient client = new MongoClient("mongodb://localhost:27017");
             IMongoDatabase database = client.GetDatabase("BookMK");

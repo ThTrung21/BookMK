@@ -1,6 +1,7 @@
 ﻿using BookMK.Models;
 using MongoDB.Bson;
 using MongoDB.Driver;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -13,6 +14,7 @@ namespace BookMK.ViewModels
 {
     public class CustomerViewModel: ViewModelBase
     {
+        private static readonly ILogger _logger = Log.ForContext(typeof(CustomerViewModel));
         private ObservableCollection<Customer> _customers;
         public ObservableCollection<Customer> Customers
         {
@@ -118,11 +120,13 @@ namespace BookMK.ViewModels
             {
                 Customers.Add(c);
             }
+            _logger.Information("Displayed updated customer list");
         }
         public static async Task<CustomerViewModel> Initialize()
         {
             CustomerViewModel viewModel = new CustomerViewModel();
             await viewModel.InitializeAsync();
+            _logger.Information("CustomerViewModel initialized");
             return viewModel;
         }
         private async Task InitializeAsync()
@@ -130,7 +134,7 @@ namespace BookMK.ViewModels
             DataProvider<Customer> db = new DataProvider<Customer>(Customer.Collection);
             List<Customer> AllCustomers = await db.ReadAllAsync();
             this._customers = new ObservableCollection<Customer>(AllCustomers);
-            
+           
         }
         // Search--------------------------
         private async void Search()
