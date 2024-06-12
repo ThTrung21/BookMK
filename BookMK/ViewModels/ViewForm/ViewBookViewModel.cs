@@ -4,17 +4,20 @@ using BookMK.Commands.DeleteCommand;
 using BookMK.Commands.UpdateCommand;
 using BookMK.Models;
 using BookMK.Service;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using ILogger = Serilog.ILogger;
 
 namespace BookMK.ViewModels.ViewForm
 {
     public class ViewBookViewModel: ViewModelBase
     {
+        private static readonly ILogger _logger = Log.ForContext(typeof(ViewBookViewModel));
         private Book _currentBook = new Book();
         public Book CurrentBook
         {
@@ -73,9 +76,10 @@ namespace BookMK.ViewModels.ViewForm
         public ICommand SaveImageDialog { get; set; }
         public ICommand DeleteBook { get; set; }
 
-        public ViewBookViewModel() { }
+        public ViewBookViewModel() { _logger.Information("ViewBookViewModel constructor called."); }
         public ViewBookViewModel(Book b) 
         {
+            _logger.Information("ViewBookViewModel constructor with Book {a} parameter called.",b.ID);
             this.CurrentBook = b;
             this.Filename.Clear();
             this.Filename.Append(ImageStorage.GetImage(ImageStorage.BookImageLocation, b.Cover));

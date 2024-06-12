@@ -1,5 +1,6 @@
 ﻿using BookMK.Commands.DeleteCommand;
 using BookMK.Models;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,7 @@ namespace BookMK.ViewModels.ViewForm
 {
     public class ViewDiscountViewModel: ViewModelBase
     {
+        private static readonly ILogger _logger = Log.ForContext(typeof(ViewDiscountViewModel));
         private Discount _currentdiscount = new Discount();
         public Discount CurrentDiscount 
         {
@@ -66,10 +68,11 @@ namespace BookMK.ViewModels.ViewForm
 
         public ViewDiscountViewModel()
         {
-
+            _logger.Information("ViewDiscountViewModel constructor called.");
         }
         public ViewDiscountViewModel(Discount d)
         {
+            _logger.Information("ViewDiscountViewModel constructor with discount {a} parameter called.", d.ID);
             this.CurrentDiscount = d;
 
             if (CurrentDiscount.BookID == 0)

@@ -2,6 +2,7 @@
 using BookMK.Commands.InsertCommand;
 using BookMK.Models;
 using MongoDB.Driver;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -16,6 +17,7 @@ namespace BookMK.ViewModels.InsertFormViewModels
 {
     public class InsertOrderViewModel: ViewModelBase
     {
+        private static readonly ILogger _logger = Log.ForContext(typeof(InsertOrderViewModel));
         private Book _selectedBook;
         public Book SelectedBook
         {
@@ -104,6 +106,7 @@ namespace BookMK.ViewModels.InsertFormViewModels
         public ICommand AddItemCommand => new RelayCommand(AddItem);
         private void AddItem()
         {
+            _logger.Information("AddItem method called.");
             if (SelectedBook==null|| AmountInput == 0)
             {
                 MessageBox.Show("Error! Please check your inputs", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
@@ -210,14 +213,15 @@ namespace BookMK.ViewModels.InsertFormViewModels
 
 
             this.FinalPrice = TotalPrice;
+            _logger.Information("Item added successfully.");
         }
 
         public ICommand RemoveItemCommand => new RelayCommand<OrderItem>(RemoveItem);
         private void RemoveItem(OrderItem item)
         {
+            _logger.Information("RemoveItem method called.");
 
-            
-           
+
             int index = OrderItemList.IndexOf(item);
 
             // Check if the removed item is not the last one
@@ -242,6 +246,7 @@ namespace BookMK.ViewModels.InsertFormViewModels
             // Remove the original item
             this.TotalPrice -= item.ItemPrice;
             OrderItemList.Remove(item);
+            _logger.Information("Item removed successfully.");
         }
         //--------------------------------------------------------------------------------------------------------------
 
@@ -276,7 +281,7 @@ namespace BookMK.ViewModels.InsertFormViewModels
 
         public void UpdateTotal()
         {
-
+            _logger.Information("UpdateTotal method called.");
             if (_selecteddiscount != null)
             {
                 if (SelectedDiscount.EligibleBill < TotalPrice)
@@ -293,12 +298,13 @@ namespace BookMK.ViewModels.InsertFormViewModels
                 }
 
             }
-           
+            _logger.Information("UpdateTotal successfully.");
         }
        
 
         public void UpdateLoyal()
         {
+            _logger.Information("UpdateLoyal method called.");
             DataProvider<Discount> dbdiscount = new DataProvider<Discount>(Discount.Collection);
             FilterDefinition<Discount> filter = Builders<Discount>.Filter.Eq(x => x.ID, 0);
             List<Discount>b=dbdiscount.ReadFiltered(filter);
@@ -320,8 +326,8 @@ namespace BookMK.ViewModels.InsertFormViewModels
                 FinalPrice = TotalPrice;
                 loyaldiscountflag=false;
             }
-            
-            
+
+            _logger.Information("UpdateLoyal successfully.");
         }
 
         
@@ -330,6 +336,7 @@ namespace BookMK.ViewModels.InsertFormViewModels
 
         public void UpdateListItem(ObservableCollection<OrderItem> results)
         {
+            _logger.Information("UpdateListItem method called.");
             this.OrderItemList.Clear();
             foreach (OrderItem s in results)
             {
@@ -345,6 +352,7 @@ namespace BookMK.ViewModels.InsertFormViewModels
         }
         public InsertOrderViewModel(Staff s)
         {
+            _logger.Information("InsertOrderViewModel initialized");
             this.Cashier = s;
             
             

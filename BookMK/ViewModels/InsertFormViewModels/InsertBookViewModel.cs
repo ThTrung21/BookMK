@@ -2,6 +2,7 @@
 using BookMK.Commands.InsertCommand;
 using BookMK.Models;
 using MongoDB.Driver;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -14,8 +15,8 @@ namespace BookMK.ViewModels.InsertFormViewModels
 {
     public class InsertBookViewModel:ViewModelBase
     {
-       
-       public List<Author> authorList;
+        private static readonly ILogger _logger = Log.ForContext(typeof(InsertBookViewModel));
+        public List<Author> authorList;
 
         private Int32 _id;
         public Int32 ID
@@ -100,6 +101,7 @@ namespace BookMK.ViewModels.InsertFormViewModels
 
         public InsertBookViewModel() 
         {
+            _logger.Information("InsertBookViewModel constructor called.");
             this.SaveImageDialog = new SaveImageDialogCommand(Filename, this);
             InsertBook = new InsertBookCommand(this, Filename);
         }
@@ -109,11 +111,13 @@ namespace BookMK.ViewModels.InsertFormViewModels
         public static async Task<InsertBookViewModel> Initialize()
         {
             InsertBookViewModel viewModel = new InsertBookViewModel();
-            await viewModel.IntializeAsync();
+            await viewModel.IntializeAsync(); _logger.Information("InsertBookViewModel initialization completed.");
             return viewModel;
         }
         private async Task IntializeAsync()
         {
+            _logger.Information("Starting asynchronous initialization of InsertBookViewModel.");
+            try { 
             await Task.Run(async () =>
             {
                 // Simulate an asynchronous operation
@@ -127,8 +131,13 @@ namespace BookMK.ViewModels.InsertFormViewModels
                 //SaveImageDialog = new SaveImageDialogCommand(Filename, this);
                 InsertBook = new InsertBookCommand(this,Filename);
                 this.SaveImageDialog = new SaveImageDialogCommand(Filename, this);
+                _logger.Information("Asynchronous initialization of InsertBookViewModel completed.");
             });
-
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex, "An error occurred during the asynchronous initialization of InsertBookViewModel.");
+            }
         }
 
     }

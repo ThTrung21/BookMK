@@ -1,4 +1,5 @@
 ﻿using BookMK.Models;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -11,6 +12,7 @@ namespace BookMK.ViewModels.ViewForm
 {
     public class ViewImportViewModel: ViewModelBase
     {
+        private static readonly ILogger _logger = Log.ForContext(typeof(ViewImportViewModel));
         private Import _currentimport = new Import();
         public Import CurrentImport
         {
@@ -38,10 +40,11 @@ namespace BookMK.ViewModels.ViewForm
             get { return _date; }
             set { _date = value; OnPropertyChanged(nameof(Date)); }
         }
-         ViewImportViewModel() { }
+         ViewImportViewModel() { _logger.Information("ViewImportViewModel constructor called."); }
         public ViewImportViewModel(Import i) 
         {
-            CurrentImport= i;
+            _logger.Information("ViewImportViewModel constructor with Import {a} parameter called.", i.ID);
+            CurrentImport = i;
             
         }
     }

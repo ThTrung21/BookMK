@@ -1,6 +1,7 @@
 ﻿using BookMK.Models;
 using MongoDB.Bson;
 using MongoDB.Driver;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -14,6 +15,7 @@ namespace BookMK.ViewModels
 {
     public class OrderViewModel:ViewModelBase
     {
+        private static readonly ILogger _logger = Log.ForContext(typeof(OrderViewModel));
         private ObservableCollection<Order> _orders;
         public ObservableCollection<Order> Orders
         {
@@ -105,7 +107,7 @@ namespace BookMK.ViewModels
         public static async Task<OrderViewModel> Initialize()
         {
             OrderViewModel viewModel = new OrderViewModel();
-            await viewModel.InitializeAsync();
+            await viewModel.InitializeAsync(); _logger.Information("OrderViewModel initialized");
             return viewModel;
         }
         private async Task InitializeAsync()

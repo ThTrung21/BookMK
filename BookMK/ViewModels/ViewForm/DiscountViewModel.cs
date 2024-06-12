@@ -1,6 +1,7 @@
 ﻿using BookMK.Models;
 using MongoDB.Bson;
 using MongoDB.Driver;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -14,6 +15,8 @@ namespace BookMK.ViewModels.ViewForm
 {
     public class DiscountViewModel: ViewModelBase
     {
+        private static readonly ILogger _logger = Log.ForContext(typeof(DiscountViewModel));
+
         private ObservableCollection<Discount> _discounts;
         public ObservableCollection<Discount> Discounts
         {
@@ -84,22 +87,34 @@ namespace BookMK.ViewModels.ViewForm
 
         public static async Task<DiscountViewModel> Initialize()
         {
+            _logger.Information("Initializing DiscountViewModel.");
             DiscountViewModel viewModel = new DiscountViewModel();
             await viewModel.InitializeAsync();
             return viewModel;
         }
         private async Task InitializeAsync()
         {
-            DataProvider<Discount> db = new DataProvider<Discount>(Discount.Collection);
+            _logger.Information("Starting asynchronous initialization of DiscountViewModel.");
+
+            try
+            {
+                DataProvider<Discount> db = new DataProvider<Discount>(Discount.Collection);
             List<Discount> a = await db.ReadAllAsync();
             this._discounts = new ObservableCollection<Discount>(a);
-            
+                _logger.Information("Asynchronous initialization of DiscountViewModel completed.");
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex, "An error occurred during the asynchronous initialization of DiscountViewModel.");
+            }
 
         }
 
         private async void Search()
         {
             await Task.Run(async () =>
+            {
+            try
             {
                 DataProvider<Discount> db = new DataProvider<Discount>(Discount.Collection);
                
@@ -140,6 +155,11 @@ namespace BookMK.ViewModels.ViewForm
                         Discounts.Add(c);
                     }
                 });
+                }
+                catch (Exception ex)
+                {
+                    _logger.Error(ex, "An error occurred during the search.");
+                }
             });
         }
     }

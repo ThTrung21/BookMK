@@ -1,5 +1,6 @@
 ﻿using BookMK.Models;
 using MongoDB.Driver;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -14,6 +15,7 @@ namespace BookMK.ViewModels
 {
     public class StaffViewModel: ViewModelBase
     {
+        private static readonly ILogger _logger = Log.ForContext(typeof(StaffViewModel));
         private ObservableCollection<Staff> _staffs;
         public ObservableCollection<Staff> Staffs
         {
@@ -93,7 +95,7 @@ namespace BookMK.ViewModels
         public static async Task<StaffViewModel> Initialize()
         {
             StaffViewModel viewmodel = new StaffViewModel();
-            await viewmodel.InitializeAsync();
+            await viewmodel.InitializeAsync(); _logger.Information("StaffViewModel initialized");
             return viewmodel;
         }
         private async Task InitializeAsync()
@@ -113,6 +115,7 @@ namespace BookMK.ViewModels
             {
                 Staffs.Add(s);
             }
+            _logger.Information("Showing updated import list");
         }
 
 

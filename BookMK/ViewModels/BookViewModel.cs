@@ -2,6 +2,7 @@
 using BookMK.Models;
 using MongoDB.Bson;
 using MongoDB.Driver;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -14,6 +15,7 @@ namespace BookMK.ViewModels
 {
     public class BookViewModel :ViewModelBase
     {
+        private static readonly ILogger _logger = Log.ForContext(typeof(BookViewModel));
         private ObservableCollection<Book> _books;
         public ObservableCollection<Book> Books
         {
@@ -108,19 +110,24 @@ namespace BookMK.ViewModels
             foreach (Book b in books)
             {
                 Books.Add(b);
+                
             }
+            _logger.Information("Displayed updated book list");
         }
         public static async Task<BookViewModel> Initialize()
         {
             BookViewModel viewModel = new BookViewModel();
             await viewModel.InitializeAsync();
+            _logger.Information("BookViewModel initialized");
             return viewModel;
         }
         private async Task InitializeAsync()
         {
+            
             DataProvider<Book> db = new DataProvider<Book>(Book.Collection);
             List<Book> AllBooks = await db.ReadAllAsync();
             this._books = new ObservableCollection<Book>(AllBooks);
+            
 
         }
 
@@ -138,12 +145,14 @@ namespace BookMK.ViewModels
                     FilterDefinition<Book> filter = Builders<Book>.Filter.Where(
                     b => (b.Title.ToLower().Trim().Contains(searchInput) || b.AuthorName.ToLower().Trim().Contains(searchInput)));
                     results = db.ReadFiltered(filter);
+                    
                 }
                 else
                 {
                     FilterDefinition<Book> nameAndGenreFilter = Builders<Book>.Filter.Where(
                     b => b.Title.ToLower().Trim().Contains(searchInput) && b.Genre.Contains(ComboBoxItems[_selectedIndex]));
                     results = db.ReadFiltered(nameAndGenreFilter);
+                   
                 }
 
 
