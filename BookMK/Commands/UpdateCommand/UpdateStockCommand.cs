@@ -28,8 +28,7 @@ namespace BookMK.Commands.UpdateCommand
 
                 FilterDefinition<Book> filter = Builders<Book>.Filter.Eq(x => x.ID, currentBook.ID);
                 UpdateDefinition<Book> update = Builders<Book>.Update
-                    .Set(x => x.Stock, currentBook.Stock); // Ensure you're setting Stock, not SellPrice
-
+                    .Set(x => x.Stock, currentBook.Stock); 
                 DataProvider<Book> db = new DataProvider<Book>(Book.Collection);
                 db.Update(filter, update);
 

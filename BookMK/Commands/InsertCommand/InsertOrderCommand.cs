@@ -1,6 +1,8 @@
 ﻿using BookMK.Models;
+using BookMK.Service;
 using BookMK.ViewModels.InsertFormViewModels;
 using MongoDB.Driver;
+using Polly;
 using Serilog;
 using System;
 using System.Collections.Generic;
@@ -15,7 +17,7 @@ namespace BookMK.Commands.InsertCommand
     {
         private readonly InsertOrderViewModel vm;
         private readonly Staff Cashier;
-
+        bool operationSucceeded=false;
         public InsertOrderCommand(InsertOrderViewModel vm, Staff c)
         {
             this.vm = vm;
@@ -34,34 +36,47 @@ namespace BookMK.Commands.InsertCommand
 
         public override async Task ExecuteAsync(object parameter)
         {
+            int _ID = vm.ID;
+            ObservableCollection<OrderItem> list = vm.OrderItemList;
+
+            if (vm.SelectedCustomer == null)
+            {
+                MessageBox.Show("Please choose a buyer first", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            Order o = new Order()
+            {
+                ID = Order.CreateID(),
+                Items = list,
+                // Customer info
+                CustomerID = vm.SelectedCustomer.ID,
+                CustomerName = vm.SelectedCustomer.FullName,
+                CustomerPhone = vm.SelectedCustomer.Phone,
+                // Cashier info
+                StaffID = Cashier.ID,
+                StaffName = Cashier.FullName,
+                Time = DateTime.Now,
+                Total = vm.FinalPrice
+            };
             try
             {
-                int _ID = vm.ID;
-                ObservableCollection<OrderItem> list = vm.OrderItemList;
+                // Add to cache before attempting to insert
+                SimpleCache.AddOrUpdate($"order_{_ID}", o);
+                // Define retry policy with exponential backoff
+                var retryPolicy = Policy
+                    .Handle<Exception>()
+                    .WaitAndRetryAsync(3, attempt => TimeSpan.FromSeconds(Math.Pow(2, attempt)),
+                        (exception, timeSpan, retryCount, context) =>
+                        {
+                            Log.Warning("Retry {RetryCount} of inserting author failed. Waiting {TimeSpan} before next retry. Exception: {Exception}", retryCount, timeSpan, exception);
+                        });
 
-                if (vm.SelectedCustomer == null)
+                await retryPolicy.ExecuteAsync(async () =>
                 {
-                    MessageBox.Show("Please choose a buyer first", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return;
-                }
-
-                Order o = new Order()
-                {
-                    ID = Order.CreateID(),
-                    Items = list,
-                    // Customer info
-                    CustomerID = vm.SelectedCustomer.ID,
-                    CustomerName = vm.SelectedCustomer.FullName,
-                    CustomerPhone = vm.SelectedCustomer.Phone,
-                    // Cashier info
-                    StaffID = Cashier.ID,
-                    StaffName = Cashier.FullName,
-                    Time = DateTime.Now,
-                    Total = vm.FinalPrice
-                };
-
-                DataProvider<Order> db = new DataProvider<Order>(Order.Collection);
-                await db.InsertOneAsync(o);
+                    DataProvider<Order> db = new DataProvider<Order>(Order.Collection);
+                    await db.InsertOneAsync(o); operationSucceeded = true;
+                });
 
                 // Update books stock
                 foreach (var item in vm.OrderItemList)
@@ -99,20 +114,31 @@ namespace BookMK.Commands.InsertCommand
                         dbc.Update(filter, update);
                     }
                 }
-
-                MessageBox.Show("A new purchase has been recorded!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                if (operationSucceeded)
+                {
+                    MessageBox.Show("A new purchase has been recorded!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                 Window f = parameter as Window;
                 f?.Close();
 
                 // Log success
                 Log.Information("A new purchase has been recorded: OrderID - {OrderID}, Time - {OrderTime}", o.ID, DateTime.Now);
+                }
+                else
+                    {
+                        // Notify user after all retries failed
+                        MessageBox.Show("Failed to create the order after multiple attempts. Please try again later.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
             }
             catch (Exception ex)
             {
+                var cachedAuthor = SimpleCache.Get<Order>($"order_{_ID}");
+
                 MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
 
                 // Log error
                 Log.Error(ex, "Error occurred while inserting a new order.");
+
+                
             }
         }
     }

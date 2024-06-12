@@ -3,6 +3,7 @@ using BookMK.Service;
 using BookMK.ViewModels.InsertFormViewModels;
 using BookMK.ViewModels.ViewForm;
 using MongoDB.Driver;
+using Polly;
 using Serilog;
 using System;
 using System.IO;
@@ -16,7 +17,7 @@ namespace BookMK.Commands.UpdateCommand
     {
         private readonly ViewBookViewModel vm;
         private readonly StringBuilder filename;
-        private DataProvider<Author> authorDataProvider;
+        private bool operationSucceeded = false;
 
         public UpdateBookCommand(ViewBookViewModel vm, StringBuilder filename)
         {
@@ -36,7 +37,19 @@ namespace BookMK.Commands.UpdateCommand
 
             try
             {
-                await Task.Run(() =>
+                // Add to cache before attempting to update
+                SimpleCache.AddOrUpdate($"book_{_CurrentBook.ID}", _CurrentBook);
+
+                // Define retry policy with exponential backoff
+                var retryPolicy = Policy
+                    .Handle<Exception>()
+                    .WaitAndRetryAsync(3, attempt => TimeSpan.FromSeconds(Math.Pow(2, attempt)),
+                        (exception, timeSpan, retryCount, context) =>
+                        {
+                            Log.Warning("Retry {RetryCount} of updating book failed. Waiting {TimeSpan} before next retry. Exception: {Exception}", retryCount, timeSpan, exception);
+                        });
+
+                await retryPolicy.ExecuteAsync(async () =>
                 {
                     FilterDefinition<Book> filter = Builders<Book>.Filter.Eq(x => x.ID, _CurrentBook.ID);
                     UpdateDefinition<Book> update = Builders<Book>.Update
@@ -45,8 +58,12 @@ namespace BookMK.Commands.UpdateCommand
                     // More attributes to update can be added here
 
                     DataProvider<Book> db = new DataProvider<Book>(Book.Collection);
-                    db.Update(filter, update);
+                    await db.UpdateAsync(filter, update);
+                    operationSucceeded = true;
+                });
 
+                if (operationSucceeded)
+                {
                     Application.Current.Dispatcher.Invoke(() =>
                     {
                         MessageBox.Show("Book updated successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -54,16 +71,33 @@ namespace BookMK.Commands.UpdateCommand
                         f?.Close();
                     });
 
+                    // Remove from cache after successful update
+                    SimpleCache.Remove($"book_{_CurrentBook.ID}");
+
                     // Log success
                     Log.Information("Book updated successfully: ID - {BookID}, Title - {Title}, New Sell Price - {SellPrice}", _CurrentBook.ID, _CurrentBook.Title, _CurrentBook.SellPrice);
-                });
+                }
+                else
+                {
+                    // Notify user after all retries failed
+                    Application.Current.Dispatcher.Invoke(() =>
+                    {
+                        MessageBox.Show("Failed to update the book after multiple attempts. Please try again later.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    });
+                }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                // Retrieve from cache for further action if needed
+                var cachedBook = SimpleCache.Get<Book>($"book_{_CurrentBook.ID}");
+
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                });
 
                 // Log error
-                Log.Error(ex, "Error occurred while updating book: ID - {BookID}, Title - {Title}", _CurrentBook.ID, _CurrentBook.Title);
+                Log.Error(ex, "Error occurred while updating book. Cached book: {@Book}", cachedBook);
             }
         }
     }
